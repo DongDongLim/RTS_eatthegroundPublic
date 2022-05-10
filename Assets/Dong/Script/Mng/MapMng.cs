@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreateMap : MonoBehaviour
+public class MapMng : SingletonMini<MapMng>
 {
     [SerializeField]
     GameObject Town;
@@ -25,12 +25,16 @@ public class CreateMap : MonoBehaviour
 
     int poolingCount = 2331;
 
-
     int direction;
 
-
     bool isDis = false;
-    private void Awake()
+
+    [SerializeField]
+    List<GameObject> vertexList = new List<GameObject>();
+
+    public GameObject curSelectTown;
+
+    protected override void OnAwake()
     {
         pooling.OnRePooing += PooingObj;
 
@@ -46,6 +50,28 @@ public class CreateMap : MonoBehaviour
     private void Update()
     {
 
+    }
+
+    // https://minok-portfolio.tistory.com/17
+    public void AddVertex()
+    {
+        vertexList.Add(curSelectTown);
+        if(vertexList.Count == 3)
+        {
+            Mesh mesh = new Mesh();
+            Vector3[] vertices = new Vector3[]
+            {
+                vertexList[0].transform.position,
+                vertexList[1].transform.position,
+                vertexList[2].transform.position
+            };
+            int[] indexes = new int[] { 0, 1, 2 };
+            mesh.vertices = vertices;
+            mesh.triangles = indexes;
+
+            MeshFilter meshFilter = vertexList[0].transform.GetChild(3).GetComponent<MeshFilter>();
+            meshFilter.mesh = mesh;
+        }
     }
 
     public void MapSetting()
@@ -74,6 +100,8 @@ public class CreateMap : MonoBehaviour
             GameObject obj = CreateObj(creationPoint[index]);
             obj.transform.GetChild(0).gameObject.SetActive(true);
             obj.GetComponent<Town>().SetIndex(0);
+            curSelectTown = obj;
+            AddVertex();
             creationPoint.RemoveAt(index);
             obj.SetActive(true);
             index = Random.Range(0, creationPoint.Count);
@@ -85,7 +113,7 @@ public class CreateMap : MonoBehaviour
             GameMng.instance.SetUser(obj, obj1);
         }
         GameObject obj2;
-        for (int i = 0; i < range/2 - (GameMng.instance.Day * 30); ++i)
+        for (int i = 0; i < range/2 - (GameMng.instance.Day * 15) - 10; ++i)
         {
             index = Random.Range(0, creationPoint.Count);
             obj2 = CreateObj(creationPoint[index]);
@@ -146,4 +174,5 @@ public class CreateMap : MonoBehaviour
         for (int i = 0; i < cnt; ++i)
             RemoveObj(popList[0]);
     }
+
 }

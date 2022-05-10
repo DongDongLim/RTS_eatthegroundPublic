@@ -24,6 +24,7 @@ public class Town : MonoBehaviour
             GameObject ui = UIMng.instance.GetInfoUI(index);
             ui.transform.position = Camera.main.WorldToScreenPoint(transform.position);
             ui.SetActive(true);
+            MapMng.instance.curSelectTown = gameObject;
         }
     }
 }
