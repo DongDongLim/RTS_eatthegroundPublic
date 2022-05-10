@@ -7,13 +7,15 @@ public class Town : MonoBehaviour
     [SerializeField]
     int index;
 
-    private void Awake()
+    public void SetIndex(int num)
     {
-        index = transform.parent.GetSiblingIndex();
+        index = num;
     }
 
     private void OnMouseUpAsButton()
     {
-        
+        GameObject ui = UIMng.instance.GetInfoUI(index);
+        ui.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+        ui.SetActive(true);
     }
 }

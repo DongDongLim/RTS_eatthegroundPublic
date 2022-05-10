@@ -73,17 +73,22 @@ public class CreateMap : MonoBehaviour
         {
             GameObject obj = CreateObj(creationPoint[index]);
             obj.transform.GetChild(0).gameObject.SetActive(true);
+            obj.GetComponent<Town>().SetIndex(0);
             creationPoint.RemoveAt(index);
             index = Random.Range(0, creationPoint.Count);
             GameObject obj1 = CreateObj(creationPoint[index]);
             obj1.transform.GetChild(1).gameObject.SetActive(true);
+            obj1.GetComponent<Town>().SetIndex(1);
             creationPoint.RemoveAt(index);
             GameMng.instance.SetUser(obj, obj1);
         }
+        GameObject obj2;
         for (int i = 0; i < range/2 - (GameMng.instance.Day * 10); ++i)
         {
             index = Random.Range(0, creationPoint.Count);
-            CreateObj(creationPoint[index]).transform.GetChild(2).gameObject.SetActive(true);
+            obj2 = CreateObj(creationPoint[index]);
+            obj2.transform.GetChild(2).gameObject.SetActive(true);
+            obj2.GetComponent<Town>().SetIndex(2);
             creationPoint.RemoveAt(index);
         }
         creationPoint.Clear();

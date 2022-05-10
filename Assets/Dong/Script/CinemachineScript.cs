@@ -16,11 +16,11 @@ public class CinemachineScript : MonoBehaviour
     {
         switch (cam.Priority)
         {
-            case 10:
+            case 8:
                 cam.Priority = 11;
                 break;
             case 11:
-                cam.Priority = 10;
+                cam.Priority = 8;
                 break;
             default:
                 break;

@@ -39,7 +39,7 @@ public class CameraMng : SingletonMini<CameraMng>
     void FixCamSwitch()
     {
         moveCam.OnSetPriority(9);
-        fixCam.OnSetPriority(11);
+        fixCam.OnSetPriority(10);
         isCameraPos = false;
     }
 
@@ -48,7 +48,7 @@ public class CameraMng : SingletonMini<CameraMng>
         if(!isCameraPos)
         SetCameraPoistion();
 
-        moveCam.OnSetPriority(11);
+        moveCam.OnSetPriority(10);
         fixCam.OnSetPriority(9);
     }
 }

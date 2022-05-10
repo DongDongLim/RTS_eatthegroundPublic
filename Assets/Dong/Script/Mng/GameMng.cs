@@ -8,7 +8,7 @@ public class GameMng : Singleton<GameMng>
     int _Day = 0;
     public int Day { private set { _Day = value; } get { return _Day; } }
 
-    int _DayRealTime = 1;
+    int _DayRealTime = 10;
     public int DayRealTime { get { return _DayRealTime; } }
 
     bool _isGamePlaying;
@@ -58,6 +58,11 @@ public class GameMng : Singleton<GameMng>
     public void SetPlayerName(string name)
     {
         player.name = name;
+    }
+
+    public Transform GetPlayerTransform()
+    {
+        return player.transform;
     }
 
     public void SetUser(GameObject obj , GameObject obj1)

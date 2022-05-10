@@ -37,15 +37,31 @@ public class UIMng : Singleton<UIMng>
     public void OnStartBtnDisable()
     {
         if (uiList["이름설정"].GetComponent<Text>().text == "")
+        {
             GameMng.instance.SetPlayerName("NoName");
+            uiList["플레이어이름"].GetComponentInChildren<Text>().text = "NoName";
+        }
         else
+        {
             GameMng.instance.SetPlayerName(uiList["이름설정"].GetComponent<Text>().text);
-        uiList["게임시작"].SetActive(false);   
+            uiList["플레이어이름"].GetComponentInChildren<Text>().text = uiList["이름설정"].GetComponent<Text>().text;
+        }
+        uiList["플레이어이름"].transform.position = GameMng.instance.GetPlayerTransform().position + new Vector3(1, 3, -1);
+        uiList["플레이어이름"].SetActive(true);
+        uiList["게임시작"].SetActive(false);
     }
 
     public GameObject GetInfoUI(int index)
     {
+        for (int i = 0; i < uiList["마을정보"].transform.childCount; ++i)
+            uiList["마을정보"].transform.GetChild(i).gameObject.SetActive(false);
+        uiList["마을정보"].SetActive(true);
         return infoUI[index];
+    }
+
+    public void OnBtnDisable()
+    {
+        EventSystem.current.currentSelectedGameObject.SetActive(false);
     }
 
 }
