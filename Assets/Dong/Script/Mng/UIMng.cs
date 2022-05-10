@@ -12,7 +12,7 @@ public class StringObj : SerializableDictionary<string, GameObject> { }
 public class UIMng : Singleton<UIMng>
 {
     [SerializeField]
-    StringObj uiList;
+    public StringObj uiList;
 
     [SerializeField]
     GameObject[] infoUI;
@@ -49,6 +49,7 @@ public class UIMng : Singleton<UIMng>
         uiList["플레이어이름"].transform.position = GameMng.instance.GetPlayerTransform().position + new Vector3(1, 3, -1);
         uiList["플레이어이름"].SetActive(true);
         uiList["게임시작"].SetActive(false);
+        uiList["미니맵"].SetActive(true);
     }
 
     public GameObject GetInfoUI(int index)

@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 1851588974869045141}
   - component: {fileID: 1851588974869045138}
   - component: {fileID: 1851588974869045139}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 6b9f8422d1044fa4f8ba4b5e5f18cf56, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -364,7 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b3d396bdbd335249a76b10b297c4663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
+  index: 3
 --- !u!65 &7416596401812634296
 BoxCollider:
   m_ObjectHideFlags: 0

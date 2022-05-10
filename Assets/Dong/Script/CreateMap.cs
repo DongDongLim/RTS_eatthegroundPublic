@@ -75,21 +75,24 @@ public class CreateMap : MonoBehaviour
             obj.transform.GetChild(0).gameObject.SetActive(true);
             obj.GetComponent<Town>().SetIndex(0);
             creationPoint.RemoveAt(index);
+            obj.SetActive(true);
             index = Random.Range(0, creationPoint.Count);
             GameObject obj1 = CreateObj(creationPoint[index]);
             obj1.transform.GetChild(1).gameObject.SetActive(true);
             obj1.GetComponent<Town>().SetIndex(1);
             creationPoint.RemoveAt(index);
+            obj1.SetActive(true);
             GameMng.instance.SetUser(obj, obj1);
         }
         GameObject obj2;
-        for (int i = 0; i < range/2 - (GameMng.instance.Day * 10); ++i)
+        for (int i = 0; i < range/2 - (GameMng.instance.Day * 30); ++i)
         {
             index = Random.Range(0, creationPoint.Count);
             obj2 = CreateObj(creationPoint[index]);
             obj2.transform.GetChild(2).gameObject.SetActive(true);
             obj2.GetComponent<Town>().SetIndex(2);
             creationPoint.RemoveAt(index);
+            obj2.SetActive(true);
         }
         creationPoint.Clear();
         rangeExcept = range + 2;
@@ -128,7 +131,6 @@ public class CreateMap : MonoBehaviour
                 return null;
         }
         popList.Add(obj);
-        obj.SetActive(true);
         return obj;
     }
 

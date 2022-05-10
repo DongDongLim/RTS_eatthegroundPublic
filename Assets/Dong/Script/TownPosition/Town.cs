@@ -7,6 +7,11 @@ public class Town : MonoBehaviour
     [SerializeField]
     int index;
 
+    private void OnEnable()
+    {
+        transform.GetChild(3).GetComponent<MeshRenderer>().material.color = transform.GetChild(index).GetComponent<MeshRenderer>().material.color;
+    }
+
     public void SetIndex(int num)
     {
         index = num;
@@ -14,8 +19,11 @@ public class Town : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        GameObject ui = UIMng.instance.GetInfoUI(index);
-        ui.transform.position = Camera.main.WorldToScreenPoint(transform.position);
-        ui.SetActive(true);
+        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        {
+            GameObject ui = UIMng.instance.GetInfoUI(index);
+            ui.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+            ui.SetActive(true);
+        }
     }
 }
