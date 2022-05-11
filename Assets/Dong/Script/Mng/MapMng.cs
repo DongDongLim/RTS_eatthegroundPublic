@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MapMng : SingletonMini<MapMng>
 {
@@ -34,6 +35,9 @@ public class MapMng : SingletonMini<MapMng>
 
     public GameObject curSelectTown;
 
+
+    Mesh mesh = new Mesh();
+
     protected override void OnAwake()
     {
         pooling.OnRePooing += PooingObj;
@@ -52,26 +56,83 @@ public class MapMng : SingletonMini<MapMng>
 
     }
 
+    // 플러드 필알고리즘
     // https://minok-portfolio.tistory.com/17
     public void AddVertex()
     {
         vertexList.Add(curSelectTown);
         if(vertexList.Count == 3)
         {
-            Mesh mesh = new Mesh();
+            vertexList[0].GetComponent<Town>().AddLinkedTown(vertexList[1]);
+            vertexList[0].GetComponent<Town>().AddLinkedTown(vertexList[2]);
+            vertexList[1].GetComponent<Town>().AddLinkedTown(vertexList[2]);
             Vector3[] vertices = new Vector3[]
             {
-                vertexList[0].transform.position,
-                vertexList[1].transform.position,
-                vertexList[2].transform.position
+                new Vector3(-0.5f, 0, 0.5f),
+                vertexList[1].transform.position - vertexList[0].transform.position,
+                vertexList[2].transform.position - vertexList[0].transform.position
             };
-            int[] indexes = new int[] { 0, 1, 2 };
+            int[] indexes;
+            indexes = SetVertexIndex(vertices);
+            mesh.Clear();
             mesh.vertices = vertices;
             mesh.triangles = indexes;
 
             MeshFilter meshFilter = vertexList[0].transform.GetChild(3).GetComponent<MeshFilter>();
+            meshFilter.mesh.Clear();
             meshFilter.mesh = mesh;
+            vertexList[0].transform.GetChild(3).transform.localScale = Vector3.one;
+            //vertexList.RemoveRange(1, vertexList.Count-1);
         }
+        else if(vertexList.Count > 3)
+        {
+            //https://hijuworld.tistory.com/56
+            var vertexQuery = from vertex in vertexList
+                              where vertex != vertexList[vertexList.Count - 1]
+                              orderby Vector3.SqrMagnitude(
+                                  vertexList[vertexList.Count - 1].transform.position
+                                  - vertex.transform.position)
+                              select vertex;
+            int i = 0;
+            foreach(var vertex in vertexQuery)
+            {
+                ++i;
+                vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(vertex);
+                if (i == 2)
+                    break;
+            }
+            Vector3[] vertices = new Vector3[]
+            {
+                vertexList[vertexList.Count - 1].transform.position - vertexList[0].transform.position,
+                vertexList[vertexList.Count - 1].GetComponent<Town>().LinkedTown[0].transform.position - vertexList[0].transform.position,
+                vertexList[vertexList.Count - 1].GetComponent<Town>().LinkedTown[1].transform.position - vertexList[0].transform.position
+            };
+            int[] indexes;
+            List<int> miniIndex = new List<int>();
+
+            mesh.Clear();
+            mesh.vertices = vertices;
+            mesh.triangles = indexes;
+        }
+    }
+
+    int[] SetVertexIndex(Vector3[] vertices)
+    {
+        int[] indexes;
+        if ((Mathf.Atan2((vertices[2] - vertices[0]).x, (vertices[2] - vertices[0]).z) * Mathf.Rad2Deg)
+               - (Mathf.Atan2((vertices[1] - vertices[0]).x, (vertices[1] - vertices[0]).z) * Mathf.Rad2Deg) > 180 ||
+               ((Mathf.Atan2((vertices[2] - vertices[0]).x, (vertices[2] - vertices[0]).z) * Mathf.Rad2Deg)
+               - (Mathf.Atan2((vertices[1] - vertices[0]).x, (vertices[1] - vertices[0]).z) * Mathf.Rad2Deg) < 0 &&
+               (Mathf.Atan2((vertices[2] - vertices[0]).x, (vertices[2] - vertices[0]).z) * Mathf.Rad2Deg)
+               - (Mathf.Atan2((vertices[1] - vertices[0]).x, (vertices[1] - vertices[0]).z) * Mathf.Rad2Deg) > -180))
+        {
+            indexes = new int[] { 0, 2, 1 };
+        }
+        else
+        {
+            indexes = new int[] { 0, 1, 2 };
+        }
+        return indexes;
     }
 
     public void MapSetting()
@@ -113,7 +174,7 @@ public class MapMng : SingletonMini<MapMng>
             GameMng.instance.SetUser(obj, obj1);
         }
         GameObject obj2;
-        for (int i = 0; i < range/2 - (GameMng.instance.Day * 15) - 10; ++i)
+        for (int i = 0; i < range/2 - (GameMng.instance.Day * 8) - 10; ++i)
         {
             index = Random.Range(0, creationPoint.Count);
             obj2 = CreateObj(creationPoint[index]);

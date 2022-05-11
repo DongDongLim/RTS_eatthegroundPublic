@@ -65,6 +65,11 @@ public class GameMng : Singleton<GameMng>
         return player.transform;
     }
 
+    public Mesh GetPlayerMesh()
+    {
+        return player.transform.GetChild(3).GetComponent<MeshFilter>().mesh;
+    }
+
     public void SetUser(GameObject obj , GameObject obj1)
     {
         player = obj;
