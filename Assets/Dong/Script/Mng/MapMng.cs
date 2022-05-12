@@ -6,6 +6,9 @@ using System.Linq;
 public class MapMng : SingletonMini<MapMng>
 {
     [SerializeField]
+    GameObject Tree;
+
+    [SerializeField]
     GameObject Town;
 
     [SerializeField]
@@ -33,9 +36,18 @@ public class MapMng : SingletonMini<MapMng>
     [SerializeField]
     List<GameObject> vertexList = new List<GameObject>();
 
+    [SerializeField]
+    List<GameObject> vertexEnermyList = new List<GameObject>();
+
     public GameObject curSelectTown;
 
-    Mesh mesh;
+    Mesh meshPlayer;
+
+
+    Mesh meshEnermy;
+
+    //임시
+    bool isPlayer = true; 
 
     protected override void OnAwake()
     {
@@ -43,7 +55,8 @@ public class MapMng : SingletonMini<MapMng>
 
         pooling.OnRePooing?.Invoke();
         GameMng.instance.DayAction += MapSetting;
-        mesh = new Mesh();
+        meshPlayer = new Mesh();
+        meshEnermy = new Mesh();
     }
 
     private void Start()
@@ -56,21 +69,65 @@ public class MapMng : SingletonMini<MapMng>
 
     }
 
+    public void PlayingPlayer()
+    {
+        isPlayer = true;
+    }
+
+    public void PlayingEnermy()
+    {
+        isPlayer= false;
+    }
+
+
+    public void Occupyabase(GameObject target)
+    {
+        if(isPlayer)
+        {
+            AddVertex(vertexList, meshPlayer, target);
+        }
+        else
+        {
+            AddVertex(vertexEnermyList, meshEnermy, target);
+        }
+    }
+
+    public Vector3 PlayerStartPoint()
+    {
+        return NearestPoint(vertexList, curSelectTown).transform.position;
+    }
+
+    public GameObject NearestPoint(List<GameObject> list, GameObject target)
+    {
+        //https://hijuworld.tistory.com/56
+        var vertexQuery = from vertex in list
+                          where vertex != target
+                          orderby Vector3.SqrMagnitude(
+                              target.transform.position
+                              - vertex.transform.position)
+                          select vertex;
+        foreach (var vertex in vertexQuery)
+        {
+            return vertex;
+        }
+        return null;
+    }
+
     // 플러드 필알고리즘
     // https://minok-portfolio.tistory.com/17
-    public void AddVertex()
+    public void AddVertex(List<GameObject> vlist, Mesh mesh, GameObject target)
     {
-        vertexList.Add(curSelectTown);
-        if(vertexList.Count == 3)
+        vlist.Add(target);
+        if(vlist.Count == 3)
         {
-            vertexList[0].GetComponent<Town>().AddLinkedTown(vertexList[1]);
-            vertexList[0].GetComponent<Town>().AddLinkedTown(vertexList[2]);
-            vertexList[1].GetComponent<Town>().AddLinkedTown(vertexList[2]);
+            vlist[0].GetComponent<Town>().AddLinkedTown(vlist[1]);
+            vlist[0].GetComponent<Town>().AddLinkedTown(vlist[2]);
+            vlist[1].GetComponent<Town>().AddLinkedTown(vlist[2]);
             Vector3[] vertices = new Vector3[]
             {
-                new Vector3(-0.5f, 0, 0.5f),
-                vertexList[1].transform.position - vertexList[0].transform.position,
-                vertexList[2].transform.position - vertexList[0].transform.position
+                Vector3.zero,
+                vlist[1].transform.position - vlist[0].transform.position,
+                vlist[2].transform.position - vlist[0].transform.position
             };
             int[] indexes;
             indexes = SetVertexIndex(vertices, 0, 1, 2);
@@ -78,32 +135,25 @@ public class MapMng : SingletonMini<MapMng>
             mesh.vertices = vertices;
             mesh.triangles = indexes;
 
-            MeshFilter meshFilter = vertexList[0].transform.GetChild(3).GetComponent<MeshFilter>();
+            MeshFilter meshFilter = vlist[0].transform.GetChild(3).GetComponent<MeshFilter>();
             meshFilter.mesh.Clear();
             meshFilter.mesh = mesh;
-            vertexList[0].transform.GetChild(3).transform.localScale = Vector3.one;
-            //vertexList.RemoveRange(1, vertexList.Count-1);
+            vlist[0].transform.GetChild(3).transform.localScale = Vector3.one;
+            //vertexList.RemoveRange(1, vlist.Count-1);
         }
-        else if(vertexList.Count > 3)
+        else if(vlist.Count > 3)
         {
-            //https://hijuworld.tistory.com/56
-            var vertexQuery = from vertex in vertexList
-                              where vertex != vertexList[vertexList.Count - 1]
-                              orderby Vector3.SqrMagnitude(
-                                  vertexList[vertexList.Count - 1].transform.position
-                                  - vertex.transform.position)
-                              select vertex;
-
             GameObject[] curVertex = new GameObject[3];
 
-            foreach (var vertex in vertexQuery)
-            {
-                curVertex[0] = vertex;
-                break;
-            }
+            curVertex[0] = NearestPoint(vlist, vlist[vlist.Count - 1]);
+
             var vertexQuery1 = from vertex in curVertex[0].GetComponent<Town>().LinkedTown
-                               orderby Vector3.SqrMagnitude(vertexList[vertexList.Count - 1].transform.position
-                               - vertex.transform.position)
+                               orderby Mathf.Abs((Mathf.Atan2((vlist[vlist.Count - 1].transform.position - curVertex[0].transform.position).x
+                               , (vlist[vlist.Count - 1].transform.position - curVertex[0].transform.position).z) * Mathf.Rad2Deg)
+                  - (Mathf.Atan2((vertex.transform.position - curVertex[0].transform.position).x
+                  , (vertex.transform.position - curVertex[0].transform.position).z) * Mathf.Rad2Deg))
+                               /*orderby Vector3.SqrMagnitude(vlist[vlist.Count - 1].transform.position
+                               - vertex.transform.position)*/
                                select vertex;
             foreach (var vertex in vertexQuery1)
             {
@@ -117,29 +167,36 @@ public class MapMng : SingletonMini<MapMng>
                 curVertex[2] = vertex;
                 break;
             }
-            if(sementIntersects(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, vertexList[vertexList.Count - 1].transform.position))
+            if(sementIntersects(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, vlist[vlist.Count - 1].transform.position))
             {
-                Debug.Log(1);
-                vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
             }
-            else if(sementIntersects(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, vertexList[vertexList.Count - 1].transform.position))
+            else if(sementIntersects(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, vlist[vlist.Count - 1].transform.position))
             {
-                Debug.Log(2);
-                vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
-                vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
             }
-            else if (sementIntersects(curVertex[2].transform.position, curVertex[0].transform.position, curVertex[1].transform.position, vertexList[vertexList.Count - 1].transform.position))
+            else if (sementIntersects(curVertex[2].transform.position, curVertex[0].transform.position, curVertex[1].transform.position, vlist[vlist.Count - 1].transform.position))
             {
-                Debug.Log(3);
-                vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
             }
             else
             {
-                Debug.Log(4);
-                vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                if (Vector3.Cross(curVertex[0].transform.position - vlist[vlist.Count - 1].transform.position
+                    , curVertex[1].transform.position - vlist[vlist.Count - 1].transform.position).sqrMagnitude >
+                    Vector3.Cross(curVertex[0].transform.position - vlist[vlist.Count - 1].transform.position
+                    , curVertex[2].transform.position - vlist[vlist.Count - 1].transform.position).sqrMagnitude)
+                {
+                    vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                    vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                }
+                else
+                {
+                    vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                    vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                }
             }
             /*
             int i = 0;
@@ -148,7 +205,7 @@ public class MapMng : SingletonMini<MapMng>
             {
                 if(i == 0)
                 {
-                    vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(vertex);
+                    vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(vertex);
                     curvetex = vertex;
                     ++i;
                 }
@@ -156,7 +213,7 @@ public class MapMng : SingletonMini<MapMng>
                 {
                     if (curvetex.GetComponent<Town>().LinkedTown.FindIndex(x => x == vertex) != -1)
                     {
-                        vertexList[vertexList.Count - 1].GetComponent<Town>().AddLinkedTown(vertex);
+                        vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(vertex);
                         break;
                     }
                 }
@@ -166,15 +223,15 @@ public class MapMng : SingletonMini<MapMng>
 
             Vector3[] vertices = new Vector3[]
             {
-                vertexList[vertexList.Count - 1].transform.position - vertexList[0].transform.position,
-                vertexList[vertexList.Count - 1].GetComponent<Town>().LinkedTown[0].transform.position - vertexList[0].transform.position,
-                vertexList[vertexList.Count - 1].GetComponent<Town>().LinkedTown[1].transform.position - vertexList[0].transform.position
+                vlist[vlist.Count - 1].transform.position - vlist[0].transform.position,
+                vlist[vlist.Count - 1].GetComponent<Town>().LinkedTown[0].transform.position - vlist[0].transform.position,
+                vlist[vlist.Count - 1].GetComponent<Town>().LinkedTown[1].transform.position - vlist[0].transform.position
             };
             List<int> miniIndex = new List<int>();
             miniIndex.AddRange(mesh.triangles);
             miniIndex.AddRange(SetVertexIndex(vertices, mesh.vertices.Length,
-                vertexList.FindIndex(vertexIndext => vertexIndext == vertexList[vertexList.Count - 1].GetComponent<Town>().LinkedTown[0]),
-                vertexList.FindIndex(vertexIndext => vertexIndext == vertexList[vertexList.Count - 1].GetComponent<Town>().LinkedTown[1])));
+                vlist.FindIndex(vertexIndext => vertexIndext == vlist[vlist.Count - 1].GetComponent<Town>().LinkedTown[0]),
+                vlist.FindIndex(vertexIndext => vertexIndext == vlist[vlist.Count - 1].GetComponent<Town>().LinkedTown[1])));
             List<Vector3> miniVertices = new List<Vector3>();
             miniVertices.AddRange(mesh.vertices);
             miniVertices.Add(vertices[0]);
@@ -187,10 +244,12 @@ public class MapMng : SingletonMini<MapMng>
 
 
     // 세개짜리만 가능
-    bool isThreeAngle(Vector3[] vertices)
+    bool isThreeAngleRight(Vector3[] vertices)
     {
-        if ((Mathf.Atan2((vertices[2] - vertices[0]).x, (vertices[2] - vertices[0]).z) * Mathf.Rad2Deg)
-                  - (Mathf.Atan2((vertices[1] - vertices[0]).x, (vertices[1] - vertices[0]).z) * Mathf.Rad2Deg) > 180 ||
+        if (((Mathf.Atan2((vertices[2] - vertices[0]).x, (vertices[2] - vertices[0]).z) * Mathf.Rad2Deg)
+                  - (Mathf.Atan2((vertices[1] - vertices[0]).x, (vertices[1] - vertices[0]).z) * Mathf.Rad2Deg) > 180 &&
+                 (Mathf.Atan2((vertices[2] - vertices[0]).x, (vertices[2] - vertices[0]).z) * Mathf.Rad2Deg)
+                  - (Mathf.Atan2((vertices[1] - vertices[0]).x, (vertices[1] - vertices[0]).z) * Mathf.Rad2Deg) < 360) ||
                   ((Mathf.Atan2((vertices[2] - vertices[0]).x, (vertices[2] - vertices[0]).z) * Mathf.Rad2Deg)
                   - (Mathf.Atan2((vertices[1] - vertices[0]).x, (vertices[1] - vertices[0]).z) * Mathf.Rad2Deg) < 0 &&
                   (Mathf.Atan2((vertices[2] - vertices[0]).x, (vertices[2] - vertices[0]).z) * Mathf.Rad2Deg)
@@ -212,14 +271,14 @@ public class MapMng : SingletonMini<MapMng>
         Vector3[] ccw3 = new Vector3[] { c, d, a };
         Vector3[] ccw4 = new Vector3[] { c, d, b };
 
-        return isThreeAngle(ccw1) && isThreeAngle(ccw3) && !isThreeAngle(ccw2) && !isThreeAngle(ccw4);
+        return ((isThreeAngleRight(ccw1) == isThreeAngleRight(ccw3)) && (isThreeAngleRight(ccw2) == isThreeAngleRight(ccw4))) && (isThreeAngleRight(ccw1) != isThreeAngleRight(ccw2));
     }
 
 
     int[] SetVertexIndex(Vector3[] vertices, int index0, int index1, int index2)
     {
         int[] indexes;
-        if (!isThreeAngle(vertices))
+        if (!isThreeAngleRight(vertices))
         {
             indexes = new int[] { index0, index2, index1 };
         }
@@ -257,13 +316,15 @@ public class MapMng : SingletonMini<MapMng>
             obj.transform.GetChild(0).gameObject.SetActive(true);
             obj.GetComponent<Town>().SetIndex(0);
             curSelectTown = obj;
-            AddVertex();
+            AddVertex(vertexList, meshPlayer, curSelectTown);
             creationPoint.RemoveAt(index);
             obj.SetActive(true);
             index = Random.Range(0, creationPoint.Count);
             GameObject obj1 = CreateObj(creationPoint[index]);
             obj1.transform.GetChild(1).gameObject.SetActive(true);
             obj1.GetComponent<Town>().SetIndex(1);
+            curSelectTown = obj1;
+            AddVertex(vertexEnermyList, meshEnermy, curSelectTown);
             creationPoint.RemoveAt(index);
             obj1.SetActive(true);
             GameMng.instance.SetUser(obj, obj1);
@@ -278,6 +339,32 @@ public class MapMng : SingletonMini<MapMng>
             creationPoint.RemoveAt(index);
             obj2.SetActive(true);
         }
+        for(int i = 0; i < creationPoint.Count; ++i)
+        {
+            index = Random.Range(0, 100);
+            if(index >= 80)
+            {
+                index = Random.Range(0, 4);
+                switch (index)
+                {
+                    case 0:
+                        Instantiate(Tree, Map.transform, false).transform.position = creationPoint[i];
+                        break;
+                    case 1:
+                        Instantiate(Tree, Map.transform, false).transform.position = new Vector3(creationPoint[i].x, 0, -creationPoint[i].z);
+                        break;
+                    case 2:
+                        Instantiate(Tree, Map.transform, false).transform.position = -creationPoint[i];
+                        break;
+                    case 3:
+                        Instantiate(Tree, Map.transform, false).transform.position = new Vector3(-creationPoint[i].x, 0, creationPoint[i].z);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            
+        }
         creationPoint.Clear();
         rangeExcept = range + 2;
         range += 20;
@@ -291,6 +378,7 @@ public class MapMng : SingletonMini<MapMng>
             pooling.Push(Instantiate(Town, Map.transform, false));
         }
     }
+        
 
     public GameObject CreateObj(Vector3 pos)
     {
