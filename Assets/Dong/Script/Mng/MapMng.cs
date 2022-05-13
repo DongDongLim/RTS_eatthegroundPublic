@@ -46,8 +46,6 @@ public class MapMng : SingletonMini<MapMng>
 
     Mesh meshEnermy;
 
-    //임시
-    bool isPlayer = true; 
 
     protected override void OnAwake()
     {
@@ -69,27 +67,14 @@ public class MapMng : SingletonMini<MapMng>
 
     }
 
-    public void PlayingPlayer()
-    {
-        isPlayer = true;
-    }
-
-    public void PlayingEnermy()
-    {
-        isPlayer= false;
-    }
-
-
     public void Occupyabase(GameObject target)
     {
-        if(isPlayer)
-        {
-            AddVertex(vertexList, meshPlayer, target);
-        }
-        else
-        {
-            AddVertex(vertexEnermyList, meshEnermy, target);
-        }
+        AddVertex(AwnerType.Player, target);
+    }
+
+    public void EnermyQccupyabase()
+    {
+        AddVertex(AwnerType.Enermy, curSelectTown);
     }
 
     public Vector3 PlayerStartPoint()
@@ -113,15 +98,136 @@ public class MapMng : SingletonMini<MapMng>
         return null;
     }
 
+    public void RemoveVertexList(AwnerType type, GameObject target)
+    {
+        switch (type)
+        {
+            case AwnerType.Player:
+                vertexList.Remove(target);
+                break;
+            case AwnerType.Enermy:
+                vertexEnermyList.Remove(target);
+                break;
+            default:
+                return;
+        }
+    }
+
+    public void RemoveVertex(AwnerType type, GameObject target)
+    {
+        List<GameObject> vlist;
+        Mesh mesh;
+        switch (type)
+        {
+            case AwnerType.Player:
+                vlist = vertexList;
+                mesh = meshPlayer;
+                break;
+            case AwnerType.Enermy:
+                vlist = vertexEnermyList;
+                mesh = meshEnermy;
+                break;
+            default:
+                return;
+        }
+        
+        Town targetTown = target.GetComponent<Town>();
+        targetTown.RemoveAllLinkedTown();
+        Vector3[] vertices = mesh.vertices;
+        int[] indexs = mesh.triangles;
+        List<Vector3> newVertices = new List<Vector3>();
+        List<int> newIndex = new List<int>();
+        int? index = null;
+        for (int i = 0; i < vertices.Length; ++i)
+        {
+            if (targetTown.verticePos == vertices[i])
+            {
+                index = i;
+            }
+            else
+            {
+                newVertices.Add(vertices[i]);
+
+            }
+        }
+
+        for(int i = 0; i < indexs.Length; i += 3)
+        {
+            if(indexs[i] != index && indexs[i + 1] != index && indexs[i + 2] != index)
+            {
+                if (indexs[i] > index)
+                    newIndex.Add(indexs[i] - 1);
+                else
+                    newIndex.Add(indexs[i]);
+                if (indexs[i + 1] > index)
+                    newIndex.Add(indexs[i + 1] - 1);
+                else
+                    newIndex.Add(indexs[i + 1]);
+                if (indexs[i + 2] > index)
+                    newIndex.Add(indexs[i + 2] - 1);
+                else
+                    newIndex.Add(indexs[i + 2]);
+            }
+        }
+
+        mesh.Clear();
+        mesh.vertices = newVertices.ToArray();
+        mesh.triangles = newIndex.ToArray();
+        if(vlist.Count == 0)
+        {
+            switch (type)
+            {
+                case AwnerType.Player:
+                    AddVertex(AwnerType.Player, GameMng.instance.GetPlayer());
+                    break;
+                case AwnerType.Enermy:
+                    AddVertex(AwnerType.Enermy, GameMng.instance.GetEnermy());
+                    break;
+                default:
+                    return;
+            }
+        }
+
+    }
+
     // 플러드 필알고리즘
     // https://www.crocus.co.kr/1288
     // https://ko.wikipedia.org/wiki/%EB%B3%B4%EB%A1%9C%EB%85%B8%EC%9D%B4_%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8
 
     // https://minok-portfolio.tistory.com/17
-    public void AddVertex(List<GameObject> vlist, Mesh mesh, GameObject target)
+    public void AddVertex(AwnerType type, GameObject target)
     {
+        List<GameObject> vlist;
+        Mesh mesh;
+        switch(type)
+        {
+            case AwnerType.Player:
+                vlist = vertexList;
+                mesh = meshPlayer;
+                break;
+            case AwnerType.Enermy:
+                vlist = vertexEnermyList;
+                mesh = meshEnermy;
+                break;
+            default:
+                return;
+        }
+
         vlist.Add(target);
-        if(vlist.Count == 3)
+
+        switch(target.GetComponent<Town>().type)
+        {
+            case AwnerType.Player:
+                RemoveVertex(AwnerType.Player, target);
+                break;
+            case AwnerType.Enermy:
+                RemoveVertex(AwnerType.Enermy, target);
+                break;
+            default:
+                break;
+        }
+        target.GetComponent<Town>().type = type;
+        if (vlist.Count == 3)
         {
             vlist[0].GetComponent<Town>().AddLinkedTown(vlist[1]);
             vlist[0].GetComponent<Town>().AddLinkedTown(vlist[2]);
@@ -149,16 +255,17 @@ public class MapMng : SingletonMini<MapMng>
         }
         else if(vlist.Count > 3)
         {
+
             GameObject[] curVertex = new GameObject[3];
 
-            curVertex[0] = NearestPoint(vlist, vlist[vlist.Count - 1]);
+            curVertex[0] = NearestPoint(vlist, target);
 
             var vertexQuery1 = from vertex in curVertex[0].GetComponent<Town>().LinkedTown
-                               orderby Mathf.Abs((Mathf.Atan2((vlist[vlist.Count - 1].transform.position - curVertex[0].transform.position).x
-                               , (vlist[vlist.Count - 1].transform.position - curVertex[0].transform.position).z) * Mathf.Rad2Deg)
+                               orderby Mathf.Abs((Mathf.Atan2((target.transform.position - curVertex[0].transform.position).x
+                               , (target.transform.position - curVertex[0].transform.position).z) * Mathf.Rad2Deg)
                   - (Mathf.Atan2((vertex.transform.position - curVertex[0].transform.position).x
                   , (vertex.transform.position - curVertex[0].transform.position).z) * Mathf.Rad2Deg))
-                               /*orderby Vector3.SqrMagnitude(vlist[vlist.Count - 1].transform.position
+                               /*orderby Vector3.SqrMagnitude(target.transform.position
                                - vertex.transform.position)*/
                                select vertex;
             foreach (var vertex in vertexQuery1)
@@ -173,89 +280,88 @@ public class MapMng : SingletonMini<MapMng>
                 curVertex[2] = vertex;
                 break;
             }
-            if(sementIntersects(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, vlist[vlist.Count - 1].transform.position))
+            if(sementIntersects(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, target.transform.position))
             {
-                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                target.GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                target.GetComponent<Town>().AddLinkedTown(curVertex[1]);
             }
-            else if(sementIntersects(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, vlist[vlist.Count - 1].transform.position))
+            else if(sementIntersects(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, target.transform.position))
             {
-                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
-                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                target.GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                target.GetComponent<Town>().AddLinkedTown(curVertex[2]);
             }
-            else if (sementIntersects(curVertex[2].transform.position, curVertex[0].transform.position, curVertex[1].transform.position, vlist[vlist.Count - 1].transform.position))
+            else if (sementIntersects(curVertex[2].transform.position, curVertex[0].transform.position, curVertex[1].transform.position, target.transform.position))
             {
-                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                target.GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                target.GetComponent<Town>().AddLinkedTown(curVertex[2]);
             }
             else
             {
-                Debug.Log(4);
-                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                target.GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                target.GetComponent<Town>().AddLinkedTown(curVertex[1]);
                 //    방법 2
-                //    if (sementIntersects1(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, vlist[vlist.Count - 1].transform.position))
+                //    if (sementIntersects1(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, target.transform.position))
                 //    {
-                //        if (Vector3.Cross(curVertex[2].transform.position - vlist[vlist.Count - 1].transform.position
-                //            , curVertex[1].transform.position - vlist[vlist.Count - 1].transform.position).sqrMagnitude >
-                //            Vector3.Cross(curVertex[2].transform.position - vlist[vlist.Count - 1].transform.position
-                //            , curVertex[0].transform.position - vlist[vlist.Count - 1].transform.position).sqrMagnitude)
+                //        if (Vector3.Cross(curVertex[2].transform.position - target.transform.position
+                //            , curVertex[1].transform.position - target.transform.position).sqrMagnitude >
+                //            Vector3.Cross(curVertex[2].transform.position - target.transform.position
+                //            , curVertex[0].transform.position - target.transform.position).sqrMagnitude)
                 //        {
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[1]);
                 //        }
                 //        else
                 //        {
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[2]);
                 //        }
                 //    }
-                //    else if (sementIntersects1(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, vlist[vlist.Count - 1].transform.position))
+                //    else if (sementIntersects1(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, target.transform.position))
                 //    {
-                //        if (Vector3.Cross(curVertex[0].transform.position - vlist[vlist.Count - 1].transform.position
-                //           , curVertex[1].transform.position - vlist[vlist.Count - 1].transform.position).sqrMagnitude >
-                //           Vector3.Cross(curVertex[0].transform.position - vlist[vlist.Count - 1].transform.position
-                //           , curVertex[2].transform.position - vlist[vlist.Count - 1].transform.position).sqrMagnitude)
+                //        if (Vector3.Cross(curVertex[0].transform.position - target.transform.position
+                //           , curVertex[1].transform.position - target.transform.position).sqrMagnitude >
+                //           Vector3.Cross(curVertex[0].transform.position - target.transform.position
+                //           , curVertex[2].transform.position - target.transform.position).sqrMagnitude)
                 //        {
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[1]);
                 //        }
                 //        else
                 //        {
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[2]);
                 //        }
                 //    }
-                //    else if (sementIntersects(curVertex[2].transform.position, curVertex[0].transform.position, curVertex[1].transform.position, vlist[vlist.Count - 1].transform.position))
+                //    else if (sementIntersects(curVertex[2].transform.position, curVertex[0].transform.position, curVertex[1].transform.position, target.transform.position))
                 //    {
-                //        if (Vector3.Cross(curVertex[1].transform.position - vlist[vlist.Count - 1].transform.position
-                //           , curVertex[0].transform.position - vlist[vlist.Count - 1].transform.position).sqrMagnitude >
-                //           Vector3.Cross(curVertex[1].transform.position - vlist[vlist.Count - 1].transform.position
-                //           , curVertex[2].transform.position - vlist[vlist.Count - 1].transform.position).sqrMagnitude)
+                //        if (Vector3.Cross(curVertex[1].transform.position - target.transform.position
+                //           , curVertex[0].transform.position - target.transform.position).sqrMagnitude >
+                //           Vector3.Cross(curVertex[1].transform.position - target.transform.position
+                //           , curVertex[2].transform.position - target.transform.position).sqrMagnitude)
                 //        {
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[1]);
                 //        }
                 //        else
                 //        {
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
-                //            vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                //            target.GetComponent<Town>().AddLinkedTown(curVertex[2]);
                 //        }
                 //    }
 
                 // 방법 1
-                //if (Vector3.Cross(curVertex[0].transform.position - vlist[vlist.Count - 1].transform.position
-                //    , curVertex[1].transform.position - vlist[vlist.Count - 1].transform.position).sqrMagnitude >
-                //    Vector3.Cross(curVertex[0].transform.position - vlist[vlist.Count - 1].transform.position
-                //    , curVertex[2].transform.position - vlist[vlist.Count - 1].transform.position).sqrMagnitude)
+                //if (Vector3.Cross(curVertex[0].transform.position - target.transform.position
+                //    , curVertex[1].transform.position - target.transform.position).sqrMagnitude >
+                //    Vector3.Cross(curVertex[0].transform.position - target.transform.position
+                //    , curVertex[2].transform.position - target.transform.position).sqrMagnitude)
                 //{
-                //    vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                //    vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[1]);
+                //    target.GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                //    target.GetComponent<Town>().AddLinkedTown(curVertex[1]);
                 //}
                 //else
                 //{
-                //    vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[0]);
-                //    vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(curVertex[2]);
+                //    target.GetComponent<Town>().AddLinkedTown(curVertex[0]);
+                //    target.GetComponent<Town>().AddLinkedTown(curVertex[2]);
                 //}
             }
             /*
@@ -265,7 +371,7 @@ public class MapMng : SingletonMini<MapMng>
             {
                 if(i == 0)
                 {
-                    vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(vertex);
+                    target.GetComponent<Town>().AddLinkedTown(vertex);
                     curvetex = vertex;
                     ++i;
                 }
@@ -273,7 +379,7 @@ public class MapMng : SingletonMini<MapMng>
                 {
                     if (curvetex.GetComponent<Town>().LinkedTown.FindIndex(x => x == vertex) != -1)
                     {
-                        vlist[vlist.Count - 1].GetComponent<Town>().AddLinkedTown(vertex);
+                        target.GetComponent<Town>().AddLinkedTown(vertex);
                         break;
                     }
                 }
@@ -283,23 +389,25 @@ public class MapMng : SingletonMini<MapMng>
 
             Vector3[] vertices = new Vector3[]
             {
-                vlist[vlist.Count - 1].transform.position - vlist[0].transform.position,
-                vlist[vlist.Count - 1].GetComponent<Town>().LinkedTown[0].transform.position - vlist[0].transform.position,
-                vlist[vlist.Count - 1].GetComponent<Town>().LinkedTown[1].transform.position - vlist[0].transform.position
+                target.transform.position - vlist[0].transform.position,
+                target.GetComponent<Town>().LinkedTown[0].transform.position - vlist[0].transform.position,
+                target.GetComponent<Town>().LinkedTown[1].transform.position - vlist[0].transform.position
             };
             List<int> miniIndex = new List<int>();
             miniIndex.AddRange(mesh.triangles);
             miniIndex.AddRange(SetVertexIndex(vertices, mesh.vertices.Length,
-                vlist.FindIndex(vertexIndext => vertexIndext == vlist[vlist.Count - 1].GetComponent<Town>().LinkedTown[0]),
-                vlist.FindIndex(vertexIndext => vertexIndext == vlist[vlist.Count - 1].GetComponent<Town>().LinkedTown[1])));
+                vlist.FindIndex(vertexIndext => vertexIndext == target.GetComponent<Town>().LinkedTown[0]),
+                vlist.FindIndex(vertexIndext => vertexIndext == target.GetComponent<Town>().LinkedTown[1])));
             List<Vector3> miniVertices = new List<Vector3>();
             miniVertices.AddRange(mesh.vertices);
             miniVertices.Add(vertices[0]);
-            vlist[vlist.Count - 1].GetComponent<Town>().verticePos = vertices[0];
+            target.GetComponent<Town>().verticePos = vertices[0];
             mesh.Clear();
             mesh.vertices = miniVertices.ToArray();
             mesh.triangles = miniIndex.ToArray();
         }
+        Destroy(vlist[0].transform.GetChild(3).GetComponent<MeshCollider>());
+        vlist[0].transform.GetChild(3).gameObject.AddComponent<MeshCollider>();
     }
 
 
@@ -387,7 +495,7 @@ public class MapMng : SingletonMini<MapMng>
             obj.transform.GetChild(0).gameObject.SetActive(true);
             obj.GetComponent<Town>().SetIndex(0);
             curSelectTown = obj;
-            AddVertex(vertexList, meshPlayer, curSelectTown);
+            AddVertex(AwnerType.Player, curSelectTown);
             creationPoint.RemoveAt(index);
             obj.SetActive(true);
             index = Random.Range(0, creationPoint.Count);
@@ -395,7 +503,7 @@ public class MapMng : SingletonMini<MapMng>
             obj1.transform.GetChild(1).gameObject.SetActive(true);
             obj1.GetComponent<Town>().SetIndex(1);
             curSelectTown = obj1;
-            AddVertex(vertexEnermyList, meshEnermy, curSelectTown);
+            AddVertex(AwnerType.Enermy, curSelectTown);
             creationPoint.RemoveAt(index);
             obj1.SetActive(true);
             GameMng.instance.SetUser(obj, obj1);

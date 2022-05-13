@@ -1,7 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum AwnerType
+{
+    Neutrality,
+    Player,
+    Enermy
+}
 public class Town : MonoBehaviour
 {
     [SerializeField]
@@ -10,6 +15,8 @@ public class Town : MonoBehaviour
     public List<GameObject> LinkedTown = new List<GameObject> ();
 
     public Vector3 verticePos;
+
+    public AwnerType type = AwnerType.Neutrality;
 
     LineRenderer line;
 
@@ -29,22 +36,68 @@ public class Town : MonoBehaviour
 
     }
 
+    public void SetlinePos()
+    {
+        line.positionCount = LinkedTown.Count * 2;
+        for (int i = 0; i < LinkedTown.Count * 2; ++i)
+        {
+            line.SetPosition(i, (i) % 2 == 0 ? transform.position + Vector3.up : LinkedTown[i / 2].transform.position + Vector3.up);
+        }
+    }
+
     public void AddLinkedTown(GameObject obj)
     {
         if (null == obj.GetComponent<Town>())
             return;
         LinkedTown.Add(obj);
-        line.positionCount = LinkedTown.Count * 2;
-        for (int i = 0; i < LinkedTown.Count * 2; ++i)
-        {
-            line.SetPosition(i, (i)%2 == 0 ? transform.position + Vector3.up : LinkedTown[i / 2].transform.position + Vector3.up);
-        }
-        foreach(GameObject obj2 in obj.GetComponent<Town>().LinkedTown)
+        SetlinePos();
+        foreach (GameObject obj2 in obj.GetComponent<Town>().LinkedTown)
         {
             if (obj2 == gameObject)
                 return;
         }
         obj.GetComponent<Town>().AddLinkedTown(gameObject);
+    }
+
+    public void RemoveAllLinkedTown()
+    {
+        for(int i = 0; i < LinkedTown.Count;)
+        { 
+            RemoveLinkedTown(LinkedTown[i]);
+        }
+    }
+
+    public void RemoveLinkedTown(GameObject obj)
+    {
+        if (LinkedTown.Find(x => x == obj) != null)
+        {
+            LinkedTown.Remove(obj);
+            obj.GetComponent<Town>().RemoveLinkedTown(gameObject);
+
+            switch(LinkedTown.Count)
+            {
+                case 0:
+                    MapMng.instance.RemoveVertexList(type, gameObject);
+                    type = AwnerType.Neutrality;
+                    break;
+                case 1:
+                    LinkedTown[0].GetComponent<Town>().RemoveLinkedTown(gameObject);
+                    MapMng.instance.RemoveVertexList(type, gameObject);
+                    type = AwnerType.Neutrality;
+                    
+                    break;
+                case 2:
+                    if(LinkedTown[0].GetComponent<Town>().LinkedTown.Find(x => x== LinkedTown[1]) == null)
+                    {
+                        LinkedTown[0].GetComponent<Town>().RemoveLinkedTown(gameObject);
+                        MapMng.instance.RemoveVertexList(type, gameObject);
+                        type = AwnerType.Neutrality;
+                    }
+                    break;
+            }
+
+        }
+        SetlinePos();
     }
 
     public void SetIndex(int num)

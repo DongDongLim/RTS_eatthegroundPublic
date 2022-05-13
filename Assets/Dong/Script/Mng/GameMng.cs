@@ -50,6 +50,16 @@ public class GameMng : Singleton<GameMng>
         StartCoroutine("SetDay");
     }
 
+    public GameObject GetPlayer()
+    {
+        return player;
+    }
+
+    public GameObject GetEnermy()
+    {
+        return enermy;
+    }
+
     IEnumerator SetDay()
     {
         while (isGamePlaying)
@@ -92,11 +102,9 @@ public class GameMng : Singleton<GameMng>
     {
         if (null != targetTown)
         {
-            Debug.Log("아직 공격할 수 없습니다");
             return;
         }
 
-        Debug.Log("타겟 정함");
         playerObj.transform.position = MapMng.instance.PlayerStartPoint();
         playerObj.SetActive(true);
         targetTown = MapMng.instance.curSelectTown;
@@ -111,8 +119,6 @@ public class GameMng : Singleton<GameMng>
             yield return null;
         }
 
-        //yield return new WaitForSeconds(0.1f);
-        Debug.Log("이동중");
         while (playerNavMesh.velocity != Vector3.zero)
         {
             UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = "Dis : " + string.Format("{0:0.0}",
@@ -120,7 +126,6 @@ public class GameMng : Singleton<GameMng>
             yield return new WaitForSeconds(0.1f);
         }
 
-        Debug.Log("도착");
         MapMng.instance.Occupyabase(targetTown);
         playerObj.SetActive(false);
         targetTown = null;
