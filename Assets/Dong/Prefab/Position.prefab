@@ -169,7 +169,6 @@ GameObject:
   - component: {fileID: 1851588974869045141}
   - component: {fileID: 1851588974869045138}
   - component: {fileID: 1851588974869045139}
-  - component: {fileID: 5479108597641285616}
   m_Layer: 10
   m_Name: Plane
   m_TagString: Untagged
@@ -238,22 +237,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!208 &5479108597641285616
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851588974869045142}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 5, y: 0.00001, z: 5}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &1851588975221295093
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,6 +328,7 @@ GameObject:
   - component: {fileID: 1435115940913984502}
   - component: {fileID: 7416596401812634296}
   - component: {fileID: 5773433937636287550}
+  - component: {fileID: 7376835693006011232}
   m_Layer: 0
   m_Name: Position
   m_TagString: Untagged
@@ -493,3 +477,19 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 1
+--- !u!208 &7376835693006011232
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851588975716043199}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1, y: 1, z: 1}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 1, y: 1, z: -1}
+  m_TimeToStationary: 0.5

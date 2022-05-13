@@ -8,6 +8,9 @@ public class CameraMng : SingletonMini<CameraMng>
     CinemachineScript moveCam;
 
     [SerializeField]
+    GameObject moveCamGameObject;
+
+    [SerializeField]
     CinemachineScript fixCam;
 
     [SerializeField]
@@ -18,7 +21,6 @@ public class CameraMng : SingletonMini<CameraMng>
 
     bool isCameraPos = false;
 
-    float MoveTime = 0;
 
     protected override void OnAwake()
     {
@@ -36,7 +38,8 @@ public class CameraMng : SingletonMini<CameraMng>
         if (Input.GetButton("Vertical") || Input.GetButton("Horizontal"))
         {
             MoveCamSwitch();
-            moveCam.transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * cameraSpd * Time.deltaTime, Space.World);
+            moveCamGameObject.transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * cameraSpd * Time.deltaTime, Space.World);
+            //moveCam.transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * cameraSpd * Time.deltaTime, Space.World);
         }
         if (Input.GetButtonDown("Jump"))
             FixCamSwitch();
@@ -44,32 +47,19 @@ public class CameraMng : SingletonMini<CameraMng>
 
     public void SetCameraPoistion()
     {
-        moveCam.transform.position = fixCam.transform.position;
+        moveCamGameObject.transform.position = GameMng.instance.GetPlayerTransform().position;
         isCameraPos = true;
     }
 
     public void CameraMoveToMinimap()
     {
-        if ((Input.mousePosition - UIMng.instance.uiList["미니맵"].transform.position).sqrMagnitude > 230 * 230)
-            return;
-
-        MoveTime = 0;
-
-        StartCoroutine(CameraMove(minimapCamera.ViewportToWorldPoint(minimapCamera.ScreenToViewportPoint(Input.mousePosition)
-            - minimapCamera.ScreenToViewportPoint(UIMng.instance.uiList["미니맵"].transform.position - new Vector3(230, 230, 0)))));
+        MoveCamSwitch();
+        Vector3 movePos = minimapCamera.ScreenToWorldPoint(Input.mousePosition);
+        moveCamGameObject.transform.position = new Vector3(movePos.x, 0, movePos.z);
+        Debug.Log(movePos);
+        UIMng.instance.ActiveMiniMap();
     }
 
-    IEnumerator CameraMove(Vector3 end)
-    {
-        Vector3 start = moveCam.transform.position;
-        while (MoveTime <= 1)
-        {
-            MoveCamSwitch();
-            moveCam.transform.position = Vector3.Lerp(start, new Vector3(end.x, moveCam.transform.position.y, end.z), MoveTime);
-            MoveTime += Time.deltaTime / 1;
-            yield return null;
-        }
-    }
 
     void FixCamSwitch()
     {

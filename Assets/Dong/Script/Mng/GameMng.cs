@@ -106,12 +106,18 @@ public class GameMng : Singleton<GameMng>
 
     IEnumerator PlayerMove()
     {
-        yield return new WaitForSeconds(0.1f);
+        while(playerNavMesh.velocity == Vector3.zero)
+        {
+            yield return null;
+        }
+
+        //yield return new WaitForSeconds(0.1f);
         Debug.Log("이동중");
         while (playerNavMesh.velocity != Vector3.zero)
         {
-            UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = "Dis : " + playerNavMesh.remainingDistance;
-            yield return null;
+            UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = "Dis : " + string.Format("{0:0.0}",
+                RemainingDistance(playerNavMesh.path.corners));
+            yield return new WaitForSeconds(0.1f);
         }
 
         Debug.Log("도착");
@@ -121,4 +127,13 @@ public class GameMng : Singleton<GameMng>
         UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = "Dis : 0";
     }
 
+    // 네비메쉬에이전트의 remainingDistance은 마지막 직선경로만 계산하기 때문에 그 전 노드들을 받아와서 직선경로가 2개이상이라면 그 길이를 따로 계산해줌
+    public float RemainingDistance(Vector3[] points)
+    {
+        if (points.Length < 2) return 0;
+        float distance = 0;
+        for (int i = 0; i < points.Length - 1; i++)
+            distance += Vector3.Distance(points[i], points[i + 1]);
+        return distance;
+    }
 }

@@ -65,4 +65,17 @@ public class UIMng : Singleton<UIMng>
         EventSystem.current.currentSelectedGameObject.SetActive(false);
     }
 
+    public void ActiveMiniMap()
+    {
+        if (!uiList["미니맵"].transform.GetChild(0).gameObject.activeSelf)
+        {
+            uiList["미니맵"].transform.GetChild(0).gameObject.SetActive(true);
+        }
+        else
+        {
+            uiList["미니맵"].transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
+
+
 }

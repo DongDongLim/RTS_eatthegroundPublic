@@ -9,6 +9,8 @@ public class Town : MonoBehaviour
 
     public List<GameObject> LinkedTown = new List<GameObject> ();
 
+    public Vector3 verticePos;
+
     LineRenderer line;
 
     private void OnEnable()
