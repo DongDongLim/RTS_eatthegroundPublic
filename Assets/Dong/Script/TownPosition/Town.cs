@@ -20,6 +20,8 @@ public class Town : MonoBehaviour
 
     LineRenderer line;
 
+    RaycastHit hit;
+
     private void OnEnable()
     {
         transform.GetChild(3).GetComponent<MeshRenderer>().material.color = transform.GetChild(index).GetComponent<MeshRenderer>().material.color;
@@ -33,7 +35,12 @@ public class Town : MonoBehaviour
 
     private void Update()
     {
-
+        if (LinkedTown.Count == 0)
+        {
+            Physics.Raycast(transform.position + Vector3.up, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Area"));
+            if (null != hit.collider)
+                MapMng.instance.RemoveObj(gameObject);
+        }
     }
 
     public void SetlinePos()
@@ -115,4 +122,5 @@ public class Town : MonoBehaviour
             MapMng.instance.curSelectTown = gameObject;
         }
     }
+
 }

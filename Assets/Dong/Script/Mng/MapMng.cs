@@ -15,6 +15,12 @@ public class MapMng : SingletonMini<MapMng>
     GameObject Map;
 
     [SerializeField]
+    GameObject playerArea;
+
+    [SerializeField]
+    GameObject EnermyArea;
+
+    [SerializeField]
     int range;
 
     [SerializeField]
@@ -198,16 +204,19 @@ public class MapMng : SingletonMini<MapMng>
     public void AddVertex(AwnerType type, GameObject target)
     {
         List<GameObject> vlist;
+        GameObject meshAwner;
         Mesh mesh;
         switch(type)
         {
             case AwnerType.Player:
                 vlist = vertexList;
                 mesh = meshPlayer;
+                meshAwner = playerArea;
                 break;
             case AwnerType.Enermy:
                 vlist = vertexEnermyList;
                 mesh = meshEnermy;
+                meshAwner = EnermyArea;
                 break;
             default:
                 return;
@@ -234,9 +243,12 @@ public class MapMng : SingletonMini<MapMng>
             vlist[1].GetComponent<Town>().AddLinkedTown(vlist[2]);
             Vector3[] vertices = new Vector3[]
             {
-                Vector3.zero,
-                vlist[1].transform.position - vlist[0].transform.position,
-                vlist[2].transform.position - vlist[0].transform.position
+                vlist[0].transform.position,
+                vlist[1].transform.position,
+                vlist[2].transform.position
+                //Vector3.zero,
+                //vlist[1].transform.position - vlist[0].transform.position,
+                //vlist[2].transform.position - vlist[0].transform.position
             };
             vlist[0].GetComponent<Town>().verticePos = vertices[0];
             vlist[1].GetComponent<Town>().verticePos = vertices[1];
@@ -247,10 +259,10 @@ public class MapMng : SingletonMini<MapMng>
             mesh.vertices = vertices;
             mesh.triangles = indexes;
 
-            MeshFilter meshFilter = vlist[0].transform.GetChild(3).GetComponent<MeshFilter>();
+            MeshFilter meshFilter = meshAwner.GetComponent<MeshFilter>();
             meshFilter.mesh.Clear();
             meshFilter.mesh = mesh;
-            vlist[0].transform.GetChild(3).transform.localScale = Vector3.one;
+            //vlist[0].transform.GetChild(3).transform.localScale = Vector3.one;
             //vertexList.RemoveRange(1, vlist.Count-1);
         }
         else if(vlist.Count > 3)
@@ -388,10 +400,13 @@ public class MapMng : SingletonMini<MapMng>
 
 
             Vector3[] vertices = new Vector3[]
-            {
-                target.transform.position - vlist[0].transform.position,
-                target.GetComponent<Town>().LinkedTown[0].transform.position - vlist[0].transform.position,
-                target.GetComponent<Town>().LinkedTown[1].transform.position - vlist[0].transform.position
+            { 
+                target.transform.position,
+                target.GetComponent<Town>().LinkedTown[0].transform.position,
+                target.GetComponent<Town>().LinkedTown[1].transform.position
+                //target.transform.position - vlist[0].transform.position,
+                //target.GetComponent<Town>().LinkedTown[0].transform.position - vlist[0].transform.position,
+                //target.GetComponent<Town>().LinkedTown[1].transform.position - vlist[0].transform.position
             };
             List<int> miniIndex = new List<int>();
             miniIndex.AddRange(mesh.triangles);
@@ -406,8 +421,8 @@ public class MapMng : SingletonMini<MapMng>
             mesh.vertices = miniVertices.ToArray();
             mesh.triangles = miniIndex.ToArray();
         }
-        Destroy(vlist[0].transform.GetChild(3).GetComponent<MeshCollider>());
-        vlist[0].transform.GetChild(3).gameObject.AddComponent<MeshCollider>();
+        Destroy(meshAwner.GetComponent<MeshCollider>());
+        meshAwner.AddComponent<MeshCollider>();
     }
 
 
