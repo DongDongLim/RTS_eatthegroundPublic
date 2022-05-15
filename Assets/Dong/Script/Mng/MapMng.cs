@@ -52,6 +52,7 @@ public class MapMng : SingletonMini<MapMng>
 
     Mesh meshEnermy;
 
+    RaycastHit hit;
 
     protected override void OnAwake()
     {
@@ -138,7 +139,6 @@ public class MapMng : SingletonMini<MapMng>
         }
         
         Town targetTown = target.GetComponent<Town>();
-        targetTown.RemoveAllLinkedTown();
         Vector3[] vertices = mesh.vertices;
         int[] indexs = mesh.triangles;
         List<Vector3> newVertices = new List<Vector3>();
@@ -156,8 +156,10 @@ public class MapMng : SingletonMini<MapMng>
 
             }
         }
-
-        for(int i = 0; i < indexs.Length; i += 3)
+        if (index == null)
+            return;
+        targetTown.RemoveAllLinkedTown();
+        for (int i = 0; i < indexs.Length; i += 3)
         {
             if(indexs[i] != index && indexs[i + 1] != index && indexs[i + 2] != index)
             {
@@ -196,6 +198,11 @@ public class MapMng : SingletonMini<MapMng>
 
     }
 
+    public void NotOccupyabase()
+    {
+        Debug.Log("점령 실패");
+    }
+
     // 플러드 필알고리즘
     // https://www.crocus.co.kr/1288
     // https://ko.wikipedia.org/wiki/%EB%B3%B4%EB%A1%9C%EB%85%B8%EC%9D%B4_%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8
@@ -206,7 +213,7 @@ public class MapMng : SingletonMini<MapMng>
         List<GameObject> vlist;
         GameObject meshAwner;
         Mesh mesh;
-        switch(type)
+        switch (type)
         {
             case AwnerType.Player:
                 vlist = vertexList;
@@ -222,30 +229,283 @@ public class MapMng : SingletonMini<MapMng>
                 return;
         }
 
+        float dis;
+        Vector3 vecDis;
+        
+        foreach (Vector3 vec in mesh.vertices)
+        {
+            dis = Vector3.Distance(vec, target.GetComponent<Town>().pos.position);
+            vecDis = vec - target.GetComponent<Town>().pos.position;
+            Physics.Raycast(target.GetComponent<Town>().pos.position + (Vector3.up * 0.1f), vecDis.normalized, out hit, dis, LayerMask.GetMask("Hit"));
+           
+            switch(type)
+            {
+                case AwnerType.Player:
+                    if (hit.collider?.gameObject.tag == "Enermy")
+                    {
+                        NotOccupyabase();
+                        return;
+                    }
+                    break;
+                case AwnerType.Enermy:
+                    if (hit.collider?.gameObject.tag == "Player")
+                    {
+                        NotOccupyabase();
+                        return;
+                    }
+                    break;
+            }
+        }
+
+
+        //foreach (Vector3 vec in mesh.vertices)
+        //{
+        //    dis = Vector3.Distance(vec, target.GetComponent<Town>().pos.position);
+        //    vecDis = target.GetComponent<Town>().pos.position - vec;
+        //    if (Physics.BoxCast(target.GetComponent<Town>().pos.position + Vector3.up - (vecDis / 2)
+        //         , new Vector3(0.1f, 0.1f, dis)
+        //         , Vector3.down
+        //         , out hit
+        //         , Quaternion.Euler(new Vector3(0, Mathf.Atan2(vecDis.z, vecDis.x) * Mathf.Rad2Deg, 0))
+        //         , Mathf.Infinity
+        //         , LayerMask.GetMask("Area")))
+        //    {
+        //        switch (type)
+        //        {
+        //            case AwnerType.Player:
+        //                if (hit.collider?.tag == "Enermy")
+        //                {
+        //                    NotOccupyabase();
+        //                    return;
+        //                }
+        //                break;
+        //            case AwnerType.Enermy:
+        //                if (hit.collider?.tag == "Player")
+        //                {
+        //                    NotOccupyabase();
+        //                    return;
+        //                }
+        //                break;
+        //            default:
+        //                return;
+        //        }
+        //    }
+        //}
+        //if (vlist.Count == 1)
+        //{
+        //    float dis = Vector3.Distance(vlist[0].GetComponent<Town>().pos.position, target.GetComponent<Town>().pos.position);
+        //    Vector3 vecDis = vlist[0].GetComponent<Town>().pos.position - target.GetComponent<Town>().pos.position;
+        //    if (Physics.BoxCast(target.GetComponent<Town>().pos.position + Vector3.up + (vecDis / 2)
+        //        , new Vector3(0.1f, 0.1f, dis)
+        //        , Vector3.down
+        //        , out hit
+        //        , Quaternion.Euler(new Vector3(0, Mathf.Atan2(vecDis.y, vecDis.x), 0))
+        //        , Mathf.Infinity
+        //        , LayerMask.GetMask("Area")))
+        //    {
+        //        switch (type)
+        //        {
+        //            case AwnerType.Player:
+        //                if (hit.collider?.tag == "Enermy")
+        //                {
+        //                    NotOccupyabase();
+        //                    return;
+        //                }
+        //                break;
+        //            case AwnerType.Enermy:
+        //                if (hit.collider?.tag == "Player")
+        //                {
+        //                    NotOccupyabase();
+        //                    return;
+        //                }
+        //                break;
+        //            default:
+        //                return;
+        //        }
+        //    }
+        //}
+        //else if (vlist.Count == 2)
+        //{
+        //    float dis = Vector3.Distance(vlist[0].GetComponent<Town>().pos.position, target.GetComponent<Town>().pos.position);
+        //    Vector3 vecDis = vlist[0].GetComponent<Town>().pos.position - target.GetComponent<Town>().pos.position;
+        //    if (Physics.BoxCast(target.GetComponent<Town>().pos.position + Vector3.up + (vecDis / 2)
+        //           , new Vector3(0.1f, 0.1f, Vector3.Distance(vlist[0].GetComponent<Town>().pos.position, target.GetComponent<Town>().pos.position))
+        //           , Vector3.down
+        //           , out hit
+        //           , Quaternion.Euler(new Vector3(0, Mathf.Atan2((target.GetComponent<Town>().pos.position - vlist[0].GetComponent<Town>().pos.position).y, (target.GetComponent<Town>().pos.position - vlist[0].GetComponent<Town>().pos.position).x), 0))
+        //           , Mathf.Infinity
+        //           , LayerMask.GetMask("Area")))
+        //    {
+        //        switch (type)
+        //        {
+        //            case AwnerType.Player:
+        //                if (hit.collider?.tag == "Enermy")
+        //                {
+        //                    NotOccupyabase();
+        //                    return;
+        //                }
+        //                break;
+        //            case AwnerType.Enermy:
+        //                if (hit.collider?.tag == "Player")
+        //                {
+        //                    NotOccupyabase();
+        //                    return;
+        //                }
+        //                break;
+        //            default:
+        //                return;
+        //        }
+        //    }
+        //    dis = Vector3.Distance(vlist[1].GetComponent<Town>().pos.position, target.GetComponent<Town>().pos.position);
+        //    vecDis = vlist[1].GetComponent<Town>().pos.position - target.GetComponent<Town>().pos.position;
+        //    if (Physics.BoxCast(target.GetComponent<Town>().pos.position + Vector3.up + (vecDis / 2)
+        //           , new Vector3(0.1f, 0.1f, dis)
+        //           , Vector3.down
+        //           , out hit
+        //           , Quaternion.Euler(new Vector3(0, Mathf.Atan2(vecDis.y, vecDis.x), 0))
+        //           , Mathf.Infinity
+        //           , LayerMask.GetMask("Area")))
+        //    {
+        //        switch (type)
+        //        {
+        //            case AwnerType.Player:
+        //                if (hit.collider?.tag == "Enermy")
+        //                {
+        //                    NotOccupyabase();
+        //                    return;
+        //                }
+        //                break;
+        //            case AwnerType.Enermy:
+        //                if (hit.collider?.tag == "Player")
+        //                {
+        //                    NotOccupyabase();
+        //                    return;
+        //                }
+        //                break;
+        //            default:
+        //                return;
+        //        }
+        //    }
+        //}
+        //else if (vlist.Count >= 3)
+        //{
+        //    GameObject obj = NearestPoint(vlist, target);
+        //    float dis = Vector3.Distance(obj.GetComponent<Town>().pos.position, target.GetComponent<Town>().pos.position);
+        //    Vector3 vecDis = obj.GetComponent<Town>().pos.position - target.GetComponent<Town>().pos.position;
+        //    if (Physics.BoxCast(target.GetComponent<Town>().pos.position + Vector3.up + (vecDis / 2)
+        //           , new Vector3(0.1f, 0.1f, dis)
+        //           , Vector3.down
+        //           , out hit
+        //           , Quaternion.Euler(new Vector3(0, Mathf.Atan2(vecDis.y, vecDis.x), 0))
+        //           , Mathf.Infinity
+        //           , LayerMask.GetMask("Area")))
+        //    {
+        //        switch (type)
+        //        {
+        //            case AwnerType.Player:
+        //                if(hit.collider?.tag == "Enermy")
+        //                {
+        //                    NotOccupyabase();
+        //                    return;
+        //                }
+        //                break;
+        //            case AwnerType.Enermy:
+        //                if (hit.collider?.tag == "Player")
+        //                {
+        //                    NotOccupyabase();
+        //                    return;
+        //                }
+        //                break;
+        //            default:
+        //                return;
+        //        }
+        //    }
+        //    foreach (GameObject obj1 in obj.GetComponent<Town>().LinkedTown)
+        //    {
+        //        dis = Vector3.Distance(obj1.GetComponent<Town>().pos.position, target.GetComponent<Town>().pos.position);
+        //        vecDis = obj1.GetComponent<Town>().pos.position - target.GetComponent<Town>().pos.position;
+        //        if (Physics.BoxCast(target.GetComponent<Town>().pos.position + Vector3.up + (vecDis / 2)
+        //             , new Vector3(0.1f, 0.1f, dis)
+        //             , Vector3.down
+        //             , out hit
+        //             , Quaternion.Euler(new Vector3(0, Mathf.Atan2(vecDis.y, vecDis.x), 0))
+        //             , Mathf.Infinity
+        //             , LayerMask.GetMask("Area")))
+        //        {
+        //            switch (type)
+        //            {
+        //                case AwnerType.Player:
+        //                    if (hit.collider?.tag == "Enermy")
+        //                    {
+        //                        NotOccupyabase();
+        //                        return;
+        //                    }
+        //                    break;
+        //                case AwnerType.Enermy:
+        //                    if (hit.collider?.tag == "Player")
+        //                    {
+        //                        NotOccupyabase();
+        //                        return;
+        //                    }
+        //                    break;
+        //                default:
+        //                    return;
+        //            }
+        //        }
+        //    }
+        //}
         vlist.Add(target);
 
-        switch(target.GetComponent<Town>().type)
+        if (target.GetComponent<Town>().isOccupation)
+        {
+            switch (type)
+            {
+                case AwnerType.Player:
+                    RemoveVertex(AwnerType.Enermy, target);
+                    break;
+                case AwnerType.Enermy:
+                    RemoveVertex(AwnerType.Player, target);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //switch(target.GetComponent<Town>().type)
+        //{
+        //    case AwnerType.Player:
+        //        RemoveVertex(AwnerType.Player, target);
+        //        break;
+        //    case AwnerType.Enermy:
+        //        RemoveVertex(AwnerType.Enermy, target);
+        //        break;
+        //    default:
+        //        break;
+        //}
+        //target.GetComponent<Town>().SetIndex((int)type);
+        target.GetComponent<Town>().isOccupation = true;
+        switch (type)
         {
             case AwnerType.Player:
-                RemoveVertex(AwnerType.Player, target);
+                target.tag = "Player";
                 break;
             case AwnerType.Enermy:
-                RemoveVertex(AwnerType.Enermy, target);
+                target.tag = "Enermy";
                 break;
             default:
                 break;
         }
-        target.GetComponent<Town>().type = type;
         if (vlist.Count == 3)
         {
+
             vlist[0].GetComponent<Town>().AddLinkedTown(vlist[1]);
             vlist[0].GetComponent<Town>().AddLinkedTown(vlist[2]);
             vlist[1].GetComponent<Town>().AddLinkedTown(vlist[2]);
             Vector3[] vertices = new Vector3[]
             {
-                vlist[0].transform.position,
-                vlist[1].transform.position,
-                vlist[2].transform.position
+                vlist[0].GetComponent<Town>().pos.position,
+                vlist[1].GetComponent<Town>().pos.position,
+                vlist[2].GetComponent<Town>().pos.position
                 //Vector3.zero,
                 //vlist[1].transform.position - vlist[0].transform.position,
                 //vlist[2].transform.position - vlist[0].transform.position
@@ -265,7 +525,7 @@ public class MapMng : SingletonMini<MapMng>
             //vlist[0].transform.GetChild(3).transform.localScale = Vector3.one;
             //vertexList.RemoveRange(1, vlist.Count-1);
         }
-        else if(vlist.Count > 3)
+        else if (vlist.Count > 3)
         {
 
             GameObject[] curVertex = new GameObject[3];
@@ -292,12 +552,12 @@ public class MapMng : SingletonMini<MapMng>
                 curVertex[2] = vertex;
                 break;
             }
-            if(sementIntersects(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, target.transform.position))
+            if (sementIntersects(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, target.transform.position))
             {
                 target.GetComponent<Town>().AddLinkedTown(curVertex[0]);
                 target.GetComponent<Town>().AddLinkedTown(curVertex[1]);
             }
-            else if(sementIntersects(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, target.transform.position))
+            else if (sementIntersects(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, target.transform.position))
             {
                 target.GetComponent<Town>().AddLinkedTown(curVertex[1]);
                 target.GetComponent<Town>().AddLinkedTown(curVertex[2]);
@@ -400,10 +660,10 @@ public class MapMng : SingletonMini<MapMng>
 
 
             Vector3[] vertices = new Vector3[]
-            { 
-                target.transform.position,
-                target.GetComponent<Town>().LinkedTown[0].transform.position,
-                target.GetComponent<Town>().LinkedTown[1].transform.position
+            {
+                target.GetComponent<Town>().pos.position,
+                target.GetComponent<Town>().LinkedTown[0].GetComponent<Town>().pos.position,
+                target.GetComponent<Town>().LinkedTown[1].GetComponent<Town>().pos.position
                 //target.transform.position - vlist[0].transform.position,
                 //target.GetComponent<Town>().LinkedTown[0].transform.position - vlist[0].transform.position,
                 //target.GetComponent<Town>().LinkedTown[1].transform.position - vlist[0].transform.position
@@ -448,15 +708,15 @@ public class MapMng : SingletonMini<MapMng>
     }
 
     // https://bowbowbow.tistory.com/17
-    bool sementIntersects1(Vector3 a, Vector3 b, Vector3 c, Vector3 d)
-    {
-        Vector3[] ccw1 = new Vector3[] { a, b, d };
-        Vector3[] ccw2 = new Vector3[] { a, b, c };
-        Vector3[] ccw3 = new Vector3[] { c, d, a };
-        Vector3[] ccw4 = new Vector3[] { c, d, b };
+    //bool sementIntersects1(Vector3 a, Vector3 b, Vector3 c, Vector3 d)
+    //{
+    //    Vector3[] ccw1 = new Vector3[] { a, b, d };
+    //    Vector3[] ccw2 = new Vector3[] { a, b, c };
+    //    Vector3[] ccw3 = new Vector3[] { c, d, a };
+    //    Vector3[] ccw4 = new Vector3[] { c, d, b };
 
-        return isThreeAngleRight(ccw3) != isThreeAngleRight(ccw4);
-    }
+    //    return isThreeAngleRight(ccw3) != isThreeAngleRight(ccw4);
+    //}
 
     bool sementIntersects(Vector3 a, Vector3 b, Vector3 c, Vector3 d)
     {
@@ -504,39 +764,81 @@ public class MapMng : SingletonMini<MapMng>
             }
         }
         int index = Random.Range(0, creationPoint.Count);
+        int direction = Random.Range(0, 4);
         if (!GameMng.instance.isGamePlaying)
         {
-            GameObject obj = CreateObj(creationPoint[index]);
+            // 플레이어
+            GameObject obj;
+            obj = CreateObj(creationPoint[index] + (Vector3.right * 4), direction);
             obj.transform.GetChild(0).gameObject.SetActive(true);
             obj.GetComponent<Town>().SetIndex(0);
-            curSelectTown = obj;
-            AddVertex(AwnerType.Player, curSelectTown);
-            creationPoint.RemoveAt(index);
+            AddVertex(AwnerType.Player, obj);
             obj.SetActive(true);
+
+            obj = CreateObj(creationPoint[index] + (Vector3.back * 4), direction);
+            obj.transform.GetChild(0).gameObject.SetActive(true);
+            obj.GetComponent<Town>().SetIndex(0);
+            AddVertex(AwnerType.Player, obj);
+            obj.SetActive(true);
+
+            obj = CreateObj(creationPoint[index], direction);
+            obj.transform.GetChild(0).gameObject.SetActive(true);
+            obj.GetComponent<Town>().SetIndex(0);
+            //curSelectTown = obj;
+            AddVertex(AwnerType.Player, obj);
+            obj.SetActive(true);
+
+            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.back * 4))) != null)
+                creationPoint.Remove(creationPoint[index] + (Vector3.down * 4));
+            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.right * 4))) != null)
+                creationPoint.Remove(creationPoint[index] + (Vector3.right * 4));
+            creationPoint.RemoveAt(index);
+
+            // 적
+
             index = Random.Range(0, creationPoint.Count);
-            GameObject obj1 = CreateObj(creationPoint[index]);
+            GameObject obj1;
+
+            obj1 = CreateObj(creationPoint[index] + (Vector3.right * 4), 3 - direction);
             obj1.transform.GetChild(1).gameObject.SetActive(true);
             obj1.GetComponent<Town>().SetIndex(1);
-            curSelectTown = obj1;
-            AddVertex(AwnerType.Enermy, curSelectTown);
-            creationPoint.RemoveAt(index);
+            AddVertex(AwnerType.Enermy, obj1);
             obj1.SetActive(true);
+
+            obj1 = CreateObj(creationPoint[index] + (Vector3.back * 4), 3 - direction);
+            obj1.transform.GetChild(1).gameObject.SetActive(true);
+            obj1.GetComponent<Town>().SetIndex(1);
+            AddVertex(AwnerType.Enermy, obj1);
+            obj1.SetActive(true);
+
+            obj1 = CreateObj(creationPoint[index], 3 - direction);
+            obj1.transform.GetChild(1).gameObject.SetActive(true);
+            obj1.GetComponent<Town>().SetIndex(1);
+            //curSelectTown = obj1;
+            AddVertex(AwnerType.Enermy, obj1);
+            obj1.SetActive(true);
+            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.back * 4))) != null)
+                creationPoint.Remove(creationPoint[index] + (Vector3.down * 4));
+            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.right * 4))) != null)
+                creationPoint.Remove(creationPoint[index] + (Vector3.right * 4));
+            creationPoint.RemoveAt(index);
             GameMng.instance.SetUser(obj, obj1);
         }
         GameObject obj2;
         for (int i = 0; i < range/2 - (GameMng.instance.Day * 8) - 10; ++i)
         {
             index = Random.Range(0, creationPoint.Count);
-            obj2 = CreateObj(creationPoint[index]);
+            direction = Random.Range(0, 4);
+            obj2 = CreateObj(creationPoint[index], direction);
             obj2.transform.GetChild(2).gameObject.SetActive(true);
             obj2.GetComponent<Town>().SetIndex(2);
             creationPoint.RemoveAt(index);
             obj2.SetActive(true);
         }
-        for(int i = 0; i < creationPoint.Count; ++i)
+        for (int i = 0; i < creationPoint.Count; ++i)
         {
             index = Random.Range(0, 100);
-            if(index >= 80)
+            if(index >= 90)
             {
                 index = Random.Range(0, 4);
                 switch (index)
@@ -574,10 +876,8 @@ public class MapMng : SingletonMini<MapMng>
     }
         
 
-    public GameObject CreateObj(Vector3 pos)
+    public GameObject CreateObj(Vector3 pos, int direction)
     {
-        direction = Random.Range(0, 4);
-
         GameObject obj;
         switch (direction)
         {
@@ -585,13 +885,13 @@ public class MapMng : SingletonMini<MapMng>
                 obj = pooling.Pop(pos);
                 break;
             case 1:
-                obj = pooling.Pop(-pos);
-                break;
-            case 2:
                 obj = pooling.Pop(new Vector3(pos.x, 0, -pos.z));
                 break;
-            case 3:
+            case 2:
                 obj = pooling.Pop(new Vector3(-pos.x, 0, pos.z));
+                break;
+            case 3:
+                obj = pooling.Pop(-pos);
                 break;
             default:
                 return null;

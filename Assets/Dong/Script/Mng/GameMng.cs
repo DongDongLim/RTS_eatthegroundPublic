@@ -105,6 +105,9 @@ public class GameMng : Singleton<GameMng>
             return;
         }
 
+        if (MapMng.instance.curSelectTown.GetComponent<Town>().type != AwnerType.Neutrality)
+            return;
+
         playerObj.transform.position = MapMng.instance.PlayerStartPoint();
         playerObj.SetActive(true);
         targetTown = MapMng.instance.curSelectTown;
