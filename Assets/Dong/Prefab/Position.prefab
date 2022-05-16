@@ -211,11 +211,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b3d396bdbd335249a76b10b297c4663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 3
-  pos: {fileID: 1851588974869045141}
-  LinkedTown: []
+  pos: {x: 0, y: 0, z: 0}
+  nodeList: []
   verticePos: {x: 0, y: 0, z: 0}
-  type: 0
+  type: 2
   isOccupation: 0
 --- !u!65 &7416596401812634296
 BoxCollider:

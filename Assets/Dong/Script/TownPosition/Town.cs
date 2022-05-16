@@ -10,20 +10,14 @@ public enum AwnerType
 public class Town : MonoBehaviour
 {
     [SerializeField]
-    int index;
+    public Vector3 pos;
 
-    [SerializeField]
-    public Transform pos;
-
-    public List<GameObject> LinkedTown = new List<GameObject> ();
+    public List<GameObject> nodeList = new List<GameObject> ();
 
     public Vector3 verticePos;
 
     public AwnerType type = AwnerType.Neutrality;
 
-    LineRenderer line;
-
-    List<GameObject> boxList = new List<GameObject>();
 
     RaycastHit hit;
 
@@ -31,183 +25,97 @@ public class Town : MonoBehaviour
 
     private void OnEnable()
     {
-        switch (type)
-        {
-            case AwnerType.Player:
-                transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.blue;
-                break;
-            case AwnerType.Enermy:
-                transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.red;
-                break;
-            default:
-                transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.white;
-                return;
-        }
-        line.SetPosition(0, pos.position + Vector3.up);
-    }
-
-    private void Awake()
-    {
-        line = GetComponent<LineRenderer>();
+        pos = transform.position + new Vector3(1, 0, -1);
         isOccupation = false;
-    }
+        StartCoroutine("AreaCheck");
 
-    private void Update()
+    }
+    public void OnDisable()
     {
-        if (!isOccupation && type == AwnerType.Neutrality)
-        {
-            Physics.Raycast(pos.position + Vector3.up, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Area"));
-            if (null != hit.collider)
-                switch(hit.collider.tag)
-                {
-                    case "Player":
-                        SetIndex(0);
-                        transform.GetChild(2).gameObject.SetActive(false);
-                        transform.GetChild(0).gameObject.SetActive(true);
-                        break;
-                    case "Enermy":
-                        SetIndex(1);
-                        transform.GetChild(2).gameObject.SetActive(false);
-                        transform.GetChild(1).gameObject.SetActive(true);
-                        break;
-                }
-        }
-        else if(!isOccupation && type == AwnerType.Player)
-        {
-            Physics.Raycast(pos.position + Vector3.up, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Area"));
-            if (null != hit.collider)
-                switch (hit.collider.tag)
-                {
-                    case "Enermy":
-                        SetIndex(1);
-                        transform.GetChild(2).gameObject.SetActive(false);
-                        transform.GetChild(1).gameObject.SetActive(true);
-                        break;
-                }
-        }
-        else if(!isOccupation && type == AwnerType.Enermy)
-        {
-            Physics.Raycast(pos.position + Vector3.up, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Area"));
-            if (null != hit.collider)
-                switch (hit.collider.tag)
-                {
-                    case "Player":
-                        SetIndex(0);
-                        transform.GetChild(2).gameObject.SetActive(false);
-                        transform.GetChild(0).gameObject.SetActive(true);
-                        break;
-                }
-        }
+        StopCoroutine("AreaCheck");
     }
 
-    public void SetlinePos()
+    IEnumerator AreaCheck()
     {
-        float dis;
-        Vector3 vecDis;
-        line.positionCount = LinkedTown.Count * 2;
-        boxList.Clear();
-        for (int i = 0; i < LinkedTown.Count * 2; ++i)
+        while (true)
         {
-            line.SetPosition(i, (i) % 2 == 0 ? pos.position + (Vector3.up * 0.2f) : LinkedTown[i / 2].GetComponent<Town>().pos.position + (Vector3.up * 0.2f));
-        }
-        for(int i = 0; i < LinkedTown.Count; ++i)
-        {
-            Vector3 vec = LinkedTown[i].GetComponent<Town>().pos.position;
-            boxList.Add(new GameObject());
-            dis = Vector3.Distance(vec, pos.position);
-            vecDis = pos.position - vec;
-            BoxCollider col = boxList[boxList.Count - 1].AddComponent<BoxCollider>();
-            boxList[boxList.Count - 1].transform.position = pos.position - (vecDis / 2);
-            boxList[boxList.Count - 1].transform.rotation = Quaternion.Euler(new Vector3(0, Mathf.Atan2(vecDis.x, vecDis.z) * Mathf.Rad2Deg, 0));
-            boxList[boxList.Count - 1].layer = LayerMask.NameToLayer("Hit");
-            boxList[boxList.Count - 1].tag = tag;
-            col.size = new Vector3(0.1f, 3f, dis);
+            if (!isOccupation)
+            {
+                Physics.Raycast(pos + Vector3.up, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Area"));
+                if (null != hit.collider)
+                {
+                    switch (hit.collider.tag)
+                    {
+                        case "Player":
+                            SetType(AwnerType.Player);
+                            transform.GetChild(2).gameObject.SetActive(false);
+                            transform.GetChild(0).gameObject.SetActive(true);
+                            break;
+                        case "Enermy":
+                            SetType(AwnerType.Enermy);
+                            transform.GetChild(2).gameObject.SetActive(false);
+                            transform.GetChild(1).gameObject.SetActive(true);
+                            break;
+                    }
+                }
+            }
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
-    public void AddLinkedTown(GameObject obj)
+    public void AddnodeList(GameObject obj)
     {
         if (null == obj.GetComponent<Town>())
             return;
-        LinkedTown.Add(obj);
-        SetlinePos();
-        foreach (GameObject obj2 in obj.GetComponent<Town>().LinkedTown)
+        nodeList.Add(obj);
+        foreach (GameObject obj2 in obj.GetComponent<Town>().nodeList)
         {
             if (obj2 == gameObject)
                 return;
         }
-        obj.GetComponent<Town>().AddLinkedTown(gameObject);
-        switch (type)
-        {
-            case AwnerType.Player:
-                transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.blue;
-                break;
-            case AwnerType.Enermy:
-                transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.red;
-                break;
-            default:
-                transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.white;
-                return;
-        }
+        obj.GetComponent<Town>().AddnodeList(gameObject);
     }
 
-    public void RemoveAllLinkedTown()
+    public void RemoveAllnodeList()
     {
-        for(int i = 0; i < LinkedTown.Count;)
+        for(int i = 0; i < nodeList.Count;)
         { 
-            RemoveLinkedTown(LinkedTown[i]);
+            RemovenodeList(nodeList[i]);
         }
     }
 
-    public void RemoveLinkedTown(GameObject obj)
+    public void RemovenodeList(GameObject obj)
     {
-        if (LinkedTown.Find(x => x == obj) != null)
+        if (nodeList.Find(x => x == obj) != null)
         {
-            LinkedTown.Remove(obj);
-            obj.GetComponent<Town>().RemoveLinkedTown(gameObject);
+            nodeList.Remove(obj);
+            obj.GetComponent<Town>().RemovenodeList(gameObject);
 
-            switch(LinkedTown.Count)
+            switch(nodeList.Count)
             {
                 case 0:
                     MapMng.instance.RemoveVertexList(type, gameObject);
-                    //SetIndex((int)AwnerType.Neutrality);
                     break;
                 case 1:
-                    LinkedTown[0].GetComponent<Town>().RemoveLinkedTown(gameObject);
+                    nodeList[0].GetComponent<Town>().RemovenodeList(gameObject);
                     MapMng.instance.RemoveVertexList(type, gameObject);
-                    //type = AwnerType.Neutrality;
                     
                     break;
                 case 2:
-                    if(LinkedTown[0].GetComponent<Town>().LinkedTown.Find(x => x== LinkedTown[1]) == null)
+                    if(nodeList[0].GetComponent<Town>().nodeList.Find(x => x== nodeList[1]) == null)
                     {
-                        LinkedTown[0].GetComponent<Town>().RemoveLinkedTown(gameObject);
+                        nodeList[0].GetComponent<Town>().RemovenodeList(gameObject);
                         MapMng.instance.RemoveVertexList(type, gameObject);
-                        //type = AwnerType.Neutrality;
                     }
                     break;
             }
 
         }
-        SetlinePos();
-        switch (type)
-        {
-            case AwnerType.Player:
-                transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.blue;
-                break;
-            case AwnerType.Enermy:
-                transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.red;
-                break;
-            default:
-                transform.GetChild(3).GetComponent<MeshRenderer>().material.color = Color.white;
-                return;
-        }
     }
 
-    public void SetIndex(int num)
+    public void SetType(AwnerType awnerType)
     {
-        index = num;
-        type = (AwnerType)num;
+        type = awnerType;
     }
 
 
@@ -215,7 +123,7 @@ public class Town : MonoBehaviour
     {
         if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
         {
-            GameObject ui = UIMng.instance.GetInfoUI(index);
+            GameObject ui = UIMng.instance.GetInfoUI((int)type);
             ui.transform.position = Camera.main.WorldToScreenPoint(transform.position);
             ui.SetActive(true);
             MapMng.instance.curSelectTown = gameObject;

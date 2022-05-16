@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 88615589}
   - component: {fileID: 88615588}
   - component: {fileID: 88615587}
+  - component: {fileID: 88615590}
   m_Layer: 11
   m_Name: EnermyArea
   m_TagString: Enermy
@@ -422,6 +423,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &88615590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 88615585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62ce8e2b4cbbd142b1bc2b4db48d564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vlist: []
+  type: 1
 --- !u!1 &135587016
 GameObject:
   m_ObjectHideFlags: 0
@@ -4515,6 +4530,7 @@ GameObject:
   - component: {fileID: 1555497035}
   - component: {fileID: 1555497034}
   - component: {fileID: 1555497033}
+  - component: {fileID: 1555497036}
   m_Layer: 11
   m_Name: PlayerArea
   m_TagString: Player
@@ -4602,6 +4618,20 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &1555497036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1555497031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a62ce8e2b4cbbd142b1bc2b4db48d564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vlist: []
+  type: 0
 --- !u!1 &1746513110
 GameObject:
   m_ObjectHideFlags: 0
@@ -5095,8 +5125,6 @@ MonoBehaviour:
   range: 60
   rangeExcept: 2
   popList: []
-  vertexList: []
-  vertexEnermyList: []
   curSelectTown: {fileID: 0}
 --- !u!114 &2129236069
 MonoBehaviour:
