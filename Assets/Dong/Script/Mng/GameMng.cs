@@ -27,8 +27,12 @@ public class GameMng : Singleton<GameMng>
     [SerializeField]
     GameObject player;
 
+    public Vector3 playerNodePos;
+
     [SerializeField]
     GameObject enermy;
+
+    public Vector3 enermyNodePos;
 
     [SerializeField]
     public GameObject playerObj;
@@ -65,7 +69,8 @@ public class GameMng : Singleton<GameMng>
         while (isGamePlaying)
         {
             yield return new WaitForSeconds(DayRealTime);
-            DayAction?.Invoke();
+            if (Day <= 20)
+                DayAction?.Invoke();
             ++Day;
         }
     }
@@ -81,14 +86,13 @@ public class GameMng : Singleton<GameMng>
         player.name = name;
     }
 
-    public Transform GetPlayerTransform()
+    public Vector3 GetPlayerTransform()
     {
-        return player.transform;
+        return playerNodePos;
     }
-
-    public Mesh GetPlayerMesh()
+    public Vector3 GetEnermyTransform()
     {
-        return player.transform.GetChild(3).GetComponent<MeshFilter>().mesh;
+        return enermyNodePos;
     }
 
     public void SetUser(GameObject obj , GameObject obj1)
@@ -143,5 +147,10 @@ public class GameMng : Singleton<GameMng>
         for (int i = 0; i < points.Length - 1; i++)
             distance += Vector3.Distance(points[i], points[i + 1]);
         return distance;
+    }
+
+    public void MoveTown()
+    {
+        SceneMng.instance.SceneStreaming("Town");
     }
 }

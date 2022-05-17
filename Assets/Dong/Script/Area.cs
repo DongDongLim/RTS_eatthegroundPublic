@@ -54,6 +54,8 @@ public class Area : MonoBehaviour
         List<Vector3> newVertices = new List<Vector3>();
         List<int> newIndex = new List<int>();
         int? index = null;
+        List<Vector3[]> removeKeyList = new List<Vector3[]>();
+        List<Town> removeTownList = new List<Town>();
         for (int i = 0; i < vertices.Length; ++i)
         {
             if (targetTown.verticePos == vertices[i])
@@ -69,9 +71,61 @@ public class Area : MonoBehaviour
                         {
                             Destroy(boxList[veclist]);
                             boxList.Remove(veclist);
+                            removeKeyList.Add(veclist);
+                            removeTownList.Add(obj.GetComponent<Town>());
                         }
                     }
                 }
+
+                foreach (var townlist in removeTownList)
+                {
+                    foreach (var townNodelist in removeTownList)
+                    {
+                        if (townlist.nodeList.Find(x => x == townNodelist.gameObject))
+                        {
+                            foreach (var veclist in keyList)
+                            {
+                                if (((veclist[0] == townlist.verticePos) && (veclist[1] == townNodelist.verticePos))
+                                    ||
+                                ((veclist[1] == targetTown.verticePos) && (veclist[0] == townNodelist.verticePos)))
+                                {
+                                    Vector3[] vector3s = new Vector3[] { 
+                                        targetTown.verticePos
+                                        , townlist.verticePos
+                                        , townNodelist.verticePos} ;
+                                    if (isRight.isThreeAngleRight(vector3s))
+                                    {
+                                        if (boxList.ContainsKey(veclist))
+                                        {
+                                            Destroy(boxList[veclist]);
+                                            boxList.Remove(veclist);
+                                            removeKeyList.Add(veclist);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        vector3s = new Vector3[] {
+                                        targetTown.verticePos
+                                        , townNodelist.verticePos
+                                        , townlist.verticePos};
+                                        if (isRight.isThreeAngleRight(vector3s))
+                                        {
+                                            if (boxList.ContainsKey(veclist))
+                                            {
+                                                Destroy(boxList[veclist]);
+                                                boxList.Remove(veclist);
+                                                removeKeyList.Add(veclist);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                foreach (var veclist in removeKeyList)
+                    keyList.Remove(veclist);
             }
             else
             {
@@ -80,7 +134,7 @@ public class Area : MonoBehaviour
         }
         if (index == null)
         {
-            Debug.Log("여기 예외 난듯");
+            Debug.Log("여기요 예외 터졌으요!");
             return;
         }
         targetTown.RemoveAllnodeList();
@@ -183,6 +237,12 @@ public class Area : MonoBehaviour
             CreateLine(vertices[0], vertices[1]);
             CreateLine(vertices[1], vertices[2]);
             CreateLine(vertices[2], vertices[0]);
+
+            if (type == AwnerType.Player)
+                // 시계방향으로 넣야하기 때문
+                GameMng.instance.playerNodePos = isRight.TriangleCenterPoint(vertices[indexes[0]], vertices[indexes[1]], vertices[indexes[2]]);
+            else
+                GameMng.instance.enermyNodePos = isRight.TriangleCenterPoint(vertices[indexes[0]], vertices[indexes[1]], vertices[indexes[2]]);
 
         }
         else if (vlist.Count > 3)

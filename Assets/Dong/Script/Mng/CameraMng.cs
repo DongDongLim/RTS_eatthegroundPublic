@@ -22,11 +22,15 @@ public class CameraMng : SingletonMini<CameraMng>
     [SerializeField]
     int cameraSpd;
 
+    [SerializeField]
+    Material[] skyMaterial;
 
     protected override void OnAwake()
     {
         GameMng.instance.GameStart += SetCameraPoistion;
         GameMng.instance.DayAction += CameraSize;
+        GameMng.instance.DayAction += ChangeSkyBox;
+        RenderSettings.skybox = skyMaterial[0];
     }
 
     public void CameraSize()
@@ -44,9 +48,21 @@ public class CameraMng : SingletonMini<CameraMng>
             SetCameraPoistion();
     }
 
+    public void ChangeSkyBox()
+    {
+        if (RenderSettings.skybox == skyMaterial[0])
+        {
+            RenderSettings.skybox = skyMaterial[1];
+        }
+        else
+        {
+            RenderSettings.skybox = skyMaterial[0];
+        }
+    }
+
     public void SetCameraPoistion()
     {
-        moveCamGameObject.transform.position = GameMng.instance.GetPlayerTransform().position;
+        moveCamGameObject.transform.position = GameMng.instance.GetPlayerTransform();
     }
 
     public void CameraMoveToMinimap()

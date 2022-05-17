@@ -22,12 +22,14 @@ public class SceneMng : Singleton<SceneMng>
     public UnityAction<string> SceneExit;
 
     // 현재 씬
-    // SceneMng.instance.curScnen.name 등으로 현재 씬의 정보를 받을 수 있습니다
-    public Scene curScnen;
+    // SceneMng.instance.curScene.name 등으로 현재 씬의 정보를 받을 수 있습니다
+    public Scene curScene;
+
+    public List<Scene> loadScene;
 
     protected override void OnAwake()
     {
-        curScnen = SceneManager.GetActiveScene();
+        curScene = SceneManager.GetActiveScene();
 
         /* 사용 예시
         SceneEnter += SceneName;
@@ -58,19 +60,40 @@ public class SceneMng : Singleton<SceneMng>
         StartCoroutine(iter);
     }
 
+    public void SceneStreaming(string sceneName)
+    {
+        iter = StreamingScene(sceneName);
+        StartCoroutine(iter);
+    }
+
+    IEnumerator StreamingScene(string sceneName)
+    {
+        foreach (Scene scene in loadScene)
+        {
+            if (scene.name == sceneName)
+            {
+                yield break;
+            }
+        }
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        while(!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        loadScene.Add(SceneManager.GetSceneByName(sceneName));
+    }
+
     IEnumerator LoadYourAsyncScene(string sceneName)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-        SceneExit?.Invoke(curScnen.name);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        SceneExit?.Invoke(curScene.name);
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
-        curScnen = SceneManager.GetActiveScene();
+        curScene = SceneManager.GetActiveScene();
         SceneEnter?.Invoke(sceneName);
         //StopCoroutine(iter);
-
     }
-
 
 }

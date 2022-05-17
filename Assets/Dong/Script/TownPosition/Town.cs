@@ -18,16 +18,33 @@ public class Town : MonoBehaviour
 
     public AwnerType type = AwnerType.Neutrality;
 
+    Material material;
 
     RaycastHit hit;
 
     public bool isOccupation;
 
+    private void Awake()
+    {
+        material = transform.GetChild(3).GetComponent<MeshRenderer>().material;
+    }
     private void OnEnable()
     {
         pos = transform.position + new Vector3(1, 0, -1);
         isOccupation = false;
         StartCoroutine("AreaCheck");
+        switch (type)
+        {
+            case AwnerType.Player:
+                material.color = Color.blue;
+                break;
+            case AwnerType.Enermy:
+                material.color = Color.red;
+                break;
+            default:
+                material.color = Color.black;
+                break;
+        }
 
     }
     public void OnDisable()
@@ -55,6 +72,18 @@ public class Town : MonoBehaviour
                             SetType(AwnerType.Enermy);
                             transform.GetChild(2).gameObject.SetActive(false);
                             transform.GetChild(1).gameObject.SetActive(true);
+                            break;
+                    }
+                    switch (type)
+                    {
+                        case AwnerType.Player:
+                            material.color = Color.blue;
+                            break;
+                        case AwnerType.Enermy:
+                            material.color = Color.red;
+                            break;
+                        default:
+                            material.color = Color.white;
                             break;
                     }
                 }
@@ -90,22 +119,21 @@ public class Town : MonoBehaviour
         {
             nodeList.Remove(obj);
             obj.GetComponent<Town>().RemovenodeList(gameObject);
-
             switch(nodeList.Count)
             {
                 case 0:
-                    MapMng.instance.RemoveVertexList(type, gameObject);
+                    MapMng.instance.RemoveVertexList(tag, gameObject);
                     break;
                 case 1:
                     nodeList[0].GetComponent<Town>().RemovenodeList(gameObject);
-                    MapMng.instance.RemoveVertexList(type, gameObject);
+                    MapMng.instance.RemoveVertexList(tag, gameObject);
                     
                     break;
                 case 2:
                     if(nodeList[0].GetComponent<Town>().nodeList.Find(x => x== nodeList[1]) == null)
                     {
                         nodeList[0].GetComponent<Town>().RemovenodeList(gameObject);
-                        MapMng.instance.RemoveVertexList(type, gameObject);
+                        MapMng.instance.RemoveVertexList(tag, gameObject);
                     }
                     break;
             }

@@ -70,14 +70,14 @@ public class MapMng : SingletonMini<MapMng>
     {
         return Area_Player.UnitStartPoint();
     }
-    public void RemoveVertexList(AwnerType type, GameObject target)
+    public void RemoveVertexList(string targetTag, GameObject target)
     {
-        switch (type)
+        switch (targetTag)
         {
-            case AwnerType.Player:
+            case "Player":
                 Area_Player.RemoveVertexList(target);
                 break;
-            case AwnerType.Enermy:
+            case "Enermy":
                 Area_Enermy.RemoveVertexList(target);
                 break;
             default:
@@ -204,7 +204,7 @@ public class MapMng : SingletonMini<MapMng>
             GameMng.instance.SetUser(obj, obj1);
         }
         GameObject obj2;
-        for (int i = 0; i < range/2 - (GameMng.instance.Day * 8) - 10; ++i)
+        for (int i = 0; i < range/2 - (GameMng.instance.Day * 8) - 5; ++i)
         {
             index = Random.Range(0, creationPoint.Count);
             direction = Random.Range(0, 4);
@@ -217,7 +217,7 @@ public class MapMng : SingletonMini<MapMng>
         for (int i = 0; i < creationPoint.Count; ++i)
         {
             index = Random.Range(0, 100);
-            if(index >= 90)
+            if(index >= 99)
             {
                 index = Random.Range(0, 4);
                 switch (index)

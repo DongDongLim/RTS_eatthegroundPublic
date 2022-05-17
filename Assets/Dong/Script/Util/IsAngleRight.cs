@@ -28,4 +28,11 @@ public class IsAngleRight
         return ((isThreeAngleRight(ccw1) == isThreeAngleRight(ccw3)) && (isThreeAngleRight(ccw2) == isThreeAngleRight(ccw4))) && (isThreeAngleRight(ccw1) != isThreeAngleRight(ccw2));
     }
 
+    // 좌하, 상, 우하의 순서대로 들어오는 삼각형의 무게중심점
+    public Vector3 TriangleCenterPoint(Vector3 a, Vector3 b, Vector3 c)
+    {
+        Vector3 vec = (b - ((b - (c - ((c - a) / 2))) * 2 / 3));
+        return vec;
+    }
+
 }

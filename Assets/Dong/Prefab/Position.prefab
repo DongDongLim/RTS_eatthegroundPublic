@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5012776320192388800}
   m_Layer: 0
-  m_Name: Tree
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 8315174726815617605}
   - {fileID: 9108078901654163790}
   m_Father: {fileID: 1851588975716043198}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1029036221823855406
 GameObject:
@@ -45,7 +45,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1743661867488236689}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Enermy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,7 +65,7 @@ Transform:
   - {fileID: 1130448987103397655}
   - {fileID: 8514154506989107762}
   m_Father: {fileID: 1851588975716043198}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1851588974869045142
 GameObject:
@@ -192,8 +192,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1743661867488236689}
   - {fileID: 5012776320192388800}
+  - {fileID: 1743661867488236689}
   - {fileID: 462892081099015130}
   - {fileID: 1851588974869045141}
   m_Father: {fileID: 0}
@@ -350,7 +350,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100006, guid: 8c8f194712baf8f4498c09995ef85a9f, type: 3}
       propertyPath: m_Name
-      value: lava_cubes_1
+      value: Neutrality
       objectReference: {fileID: 0}
     - target: {fileID: 100006, guid: 8c8f194712baf8f4498c09995ef85a9f, type: 3}
       propertyPath: m_IsActive
