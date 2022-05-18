@@ -42,6 +42,8 @@ public class GameMng : Singleton<GameMng>
 
     NavMeshAgent playerNavMesh;
 
+    public List<Town> occupiedTown = new List<Town>();
+
     protected override void OnAwake()
     {
         isGamePlaying = false;
@@ -71,8 +73,39 @@ public class GameMng : Singleton<GameMng>
             yield return new WaitForSeconds(DayRealTime);
             if (Day <= 20)
                 DayAction?.Invoke();
+            else
+            {
+                if (Day == 30)
+                    GameEnd();
+            }
             ++Day;
         }
+    }
+
+    void GameEnd()
+    {
+        int playerOccupied = 0;
+        int enermyOccupied = 0;
+        foreach(Town town in occupiedTown)
+        {
+            if (town.type == AwnerType.Player)
+                ++playerOccupied;
+            else
+                ++enermyOccupied;
+        }
+        if(playerOccupied > enermyOccupied)
+        {
+            Debug.Log("승리");
+        }
+        else if (playerOccupied < enermyOccupied)
+        {
+            Debug.Log("패배");
+        }
+        else
+        {
+            Debug.Log("무승부");
+        }
+        isGamePlaying = false;
     }
 
     public void StartBtn()

@@ -175,10 +175,120 @@ public class Area : MonoBehaviour
         colObj.tag = tag;
         col.size = new Vector3(0.1f, 1f, dis - 1);
         line.positionCount = 2;
-        line.SetPosition(0, end);
-        line.SetPosition(1, start);
+        line.SetPosition(0, end + (Vector3.up * 0.25f));
+        line.SetPosition(1, start + (Vector3.up * 0.25f));
+        line.startWidth = 0.2f;
+        line.endWidth = 0.2f;
         keyList.Add(new Vector3[] { start, end });
         boxList.Add(keyList[keyList.Count - 1], colObj);
+    }
+
+    bool TagetOccupation(GameObject target)
+    {
+        if (target.GetComponent<Town>().isOccupation)
+        {
+            if (target.tag == tag)
+            {
+                float dis;
+                Vector3 vecDis;
+                List<GameObject> dislist = new List<GameObject>();
+                foreach (var vec in vlist)
+                {
+                    dis = Vector3.Distance(vec.GetComponent<Town>().pos, target.GetComponent<Town>().pos);
+                    vecDis = vec.GetComponent<Town>().pos - target.GetComponent<Town>().pos;
+                    Physics.Raycast(target.GetComponent<Town>().pos + (Vector3.up * 0.1f), vecDis.normalized, out hit, dis, LayerMask.GetMask("Hit"));
+                    if(hit.collider == null)
+                    {
+                        if (vec != target)
+                            dislist.Add(vec);
+                    }
+                }
+                if(0 == dislist.Count)
+                    return false;
+
+
+                GameObject[] curVertex = new GameObject[2];
+                curVertex[0] = query.NearestPoint(dislist, target);
+                curVertex[1] = query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, target.GetComponent<Town>().nodeList);
+
+                if(null == curVertex[1])
+                    return false;
+
+                Vector3[] vertices = new Vector3[]
+                {
+                    target.GetComponent<Town>().pos,
+                    curVertex[0].GetComponent<Town>().pos,
+                    curVertex[1].GetComponent<Town>().pos
+                };
+
+                if (!(isRight.IsIntersects(vertices[0], vertices[1], GameMng.instance.GetPlayerTransform(), vertices[2], 1))
+                       &&
+                      !(isRight.IsIntersects(vertices[0], vertices[2], GameMng.instance.GetPlayerTransform(), vertices[1], 1))
+                       &&
+                      !(isRight.IsIntersects(vertices[1], vertices[2], GameMng.instance.GetPlayerTransform(), vertices[0], 1))
+                       )
+                {
+                    return false;
+                }
+
+                int[] indexes = SetVertexIndex(vertices, vlist.FindIndex(vertexIndext => vertexIndext == target),
+                    vlist.FindIndex(vertexIndext => vertexIndext == curVertex[0]),
+                    vlist.FindIndex(vertexIndext => vertexIndext == curVertex[1]));
+
+
+                target.GetComponent<Town>().AddnodeList(curVertex[0]);
+
+                MakeTriangle(vertices, indexes, true);
+
+                return false;
+            }
+            MapMng.instance.RemoveVertex(type, target);
+        }
+        return true;
+
+    }
+
+    void MakeTriangle(Vector3[] vertices, int[] indexes, bool isMine = false)
+    {
+        List<int> miniIndex = new List<int>();
+        List<Vector3> miniVertices = new List<Vector3>();
+        if (mesh.vertices.Length >= 3)
+        {
+            miniIndex.AddRange(mesh.triangles);
+            miniVertices.AddRange(mesh.vertices);
+            if (!isMine)
+            {
+                miniVertices.Add(vertices[0]);
+            }
+        }
+        else
+        {
+            miniVertices.AddRange(vertices);
+        }
+        miniIndex.AddRange(indexes);
+
+        mesh.Clear();
+
+        mesh.vertices = miniVertices.ToArray();
+        mesh.triangles = miniIndex.ToArray();
+
+        Vector2[] uvs = new Vector2[mesh.vertices.Length];
+
+        for (int i = 0; i < uvs.Length; i++)
+        {
+            uvs[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].z);
+        }
+        mesh.uv = uvs;
+
+        mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
+
+        CreateLine(vertices[0], vertices[1]);
+        if (!isMine)
+        {
+            CreateLine(vertices[1], vertices[2]);
+            CreateLine(vertices[2], vertices[0]);
+        }
     }
 
     // 플러드 필알고리즘
@@ -190,33 +300,31 @@ public class Area : MonoBehaviour
     {
         float dis;
         Vector3 vecDis;
-
-        foreach (Vector3 vec in mesh.vertices)
+        List<GameObject> dislist = new List<GameObject>();
+        foreach (var vec in vlist)
         {
-            dis = Vector3.Distance(vec, target.GetComponent<Town>().pos);
-            vecDis = vec - target.GetComponent<Town>().pos;
+            dis = Vector3.Distance(vec.GetComponent<Town>().pos, target.GetComponent<Town>().pos);
+            vecDis = vec.GetComponent<Town>().pos - target.GetComponent<Town>().pos;
             Physics.Raycast(target.GetComponent<Town>().pos + (Vector3.up * 0.1f), vecDis.normalized, out hit, dis, LayerMask.GetMask("Hit"));
             if (hit.collider != null && hit.collider.gameObject.tag != tag)
             {
-                NotOccupyabase();
-                return;
             }
-        }
-        vlist.Add(target);
-
-        if (target.GetComponent<Town>().isOccupation)
-        {
-            if (target.tag != tag)
+            else
             {
-                MapMng.instance.RemoveVertex(type, target);
+                dislist.Add(vec);
             }
         }
 
-        target.GetComponent<Town>().isOccupation = true;
-        target.tag = tag;
-
-        if (vlist.Count == 3)
+        if (vlist.Count < 3)
         {
+            if(!TagetOccupation(target))
+                return;
+
+            target.GetComponent<Town>().isOccupation = true;
+            target.tag = tag;
+            vlist.Add(target);
+            if (vlist.Count != 3)
+                return;
             vlist[0].GetComponent<Town>().AddnodeList(vlist[1]);
             vlist[0].GetComponent<Town>().AddnodeList(vlist[2]);
             vlist[1].GetComponent<Town>().AddnodeList(vlist[2]);
@@ -229,14 +337,12 @@ public class Area : MonoBehaviour
             vlist[0].GetComponent<Town>().verticePos = vertices[0];
             vlist[1].GetComponent<Town>().verticePos = vertices[1];
             vlist[2].GetComponent<Town>().verticePos = vertices[2];
+
+
             int[] indexes;
             indexes = SetVertexIndex(vertices, 0, 1, 2);
-            mesh.Clear();
-            mesh.vertices = vertices;
-            mesh.triangles = indexes;
-            CreateLine(vertices[0], vertices[1]);
-            CreateLine(vertices[1], vertices[2]);
-            CreateLine(vertices[2], vertices[0]);
+
+            MakeTriangle(vertices, indexes);
 
             if (type == AwnerType.Player)
                 // 시계방향으로 넣야하기 때문
@@ -245,36 +351,109 @@ public class Area : MonoBehaviour
                 GameMng.instance.enermyNodePos = isRight.TriangleCenterPoint(vertices[indexes[0]], vertices[indexes[1]], vertices[indexes[2]]);
 
         }
-        else if (vlist.Count > 3)
+        else
         {
+            if (dislist.Count < 2)
+            {
+                NotOccupyabase();
+                return;
+            }
+
             GameObject[] curVertex = new GameObject[3];
             Town targetTown = target.GetComponent<Town>();
-            curVertex[0] = query.NearestPoint(vlist, target);
+            List<GameObject> curVectex2;
 
-            curVertex[1] = query.SmallestAngle(curVertex[0].GetComponent<Town>().nodeList, target, curVertex[0]);
+            int count = 0;
+            while (true)
+            {
+                curVertex[0] = query.NearestPoint(dislist, target, count);
+                if (null == curVertex[0])
+                {
+                    NotOccupyabase();
+                    return;
+                }
+                query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, dislist, out curVectex2);
+                if (0 != curVectex2.Count)
+                    break;
+                ++count;
+            }
+
+            if (!TagetOccupation(target))
+            {
+                NotOccupyabase();
+                return;
+            }
+
+            curVertex[1] = query.SmallestAngle(curVectex2, target, curVertex[0]);
 
             curVertex[2] = query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, curVertex[1].GetComponent<Town>().nodeList);
 
             if (isRight.IsIntersects(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, target.transform.position))
             {
+                if (!(isRight.IsIntersects(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), target.GetComponent<Town>().pos, 1))
+                    &&
+                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[0].GetComponent<Town>().pos, 1))
+                    &&
+                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[1].GetComponent<Town>().pos, 1))
+                    )
+                {
+                    NotOccupyabase();
+                    return;
+                }
                 targetTown.AddnodeList(curVertex[0]);
                 targetTown.AddnodeList(curVertex[1]);
             }
             else if (isRight.IsIntersects(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, target.transform.position))
             {
+                if (!(isRight.IsIntersects(curVertex[2].GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), target.GetComponent<Town>().pos, 1))
+                    &&
+                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[2].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[1].GetComponent<Town>().pos, 1))
+                    &&
+                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[2].GetComponent<Town>().pos, 1))
+                    )
+                {
+                    NotOccupyabase();
+                    return;
+                }
                 targetTown.AddnodeList(curVertex[1]);
                 targetTown.AddnodeList(curVertex[2]);
             }
             else if (isRight.IsIntersects(curVertex[2].transform.position, curVertex[0].transform.position, curVertex[1].transform.position, target.transform.position))
             {
+                if (!(isRight.IsIntersects(curVertex[2].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), target.GetComponent<Town>().pos, 1))
+                       &&
+                       !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[2].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[0].GetComponent<Town>().pos, 1))
+                       &&
+                      !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[2].GetComponent<Town>().pos, 1))
+                       )
+                {
+                    NotOccupyabase();
+                    return;
+                }
                 targetTown.AddnodeList(curVertex[0]);
                 targetTown.AddnodeList(curVertex[2]);
             }
             else
             {
+                if (!(isRight.IsIntersects(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), target.GetComponent<Town>().pos, 1))
+                    &&
+                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[0].GetComponent<Town>().pos, 1))
+                    &&
+                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[1].GetComponent<Town>().pos, 1))
+                    )
+                {
+                    NotOccupyabase();
+                    return;
+                }
                 targetTown.AddnodeList(curVertex[0]);
                 targetTown.AddnodeList(curVertex[1]);
             }
+
+
+            vlist.Add(target);
+
+            target.GetComponent<Town>().isOccupation = true;
+            target.tag = tag;
 
             Vector3[] vertices = new Vector3[]
             {
@@ -282,22 +461,13 @@ public class Area : MonoBehaviour
                 target.GetComponent<Town>().nodeList[0].GetComponent<Town>().pos,
                 target.GetComponent<Town>().nodeList[1].GetComponent<Town>().pos
             };
-            List<int> miniIndex = new List<int>();
-            miniIndex.AddRange(mesh.triangles);
-            miniIndex.AddRange(SetVertexIndex(vertices, mesh.vertices.Length,
+            int[] indexes = SetVertexIndex(vertices, mesh.vertices.Length,
                 vlist.FindIndex(vertexIndext => vertexIndext == target.GetComponent<Town>().nodeList[0]),
-                vlist.FindIndex(vertexIndext => vertexIndext == target.GetComponent<Town>().nodeList[1])));
-            List<Vector3> miniVertices = new List<Vector3>();
-            miniVertices.AddRange(mesh.vertices);
-            miniVertices.Add(vertices[0]);
-            target.GetComponent<Town>().verticePos = vertices[0];
-            mesh.Clear();
-            mesh.vertices = miniVertices.ToArray();
-            mesh.triangles = miniIndex.ToArray();
+                vlist.FindIndex(vertexIndext => vertexIndext == target.GetComponent<Town>().nodeList[1]));
 
-            CreateLine(vertices[0], vertices[1]);
-            CreateLine(vertices[1], vertices[2]);
-            CreateLine(vertices[2], vertices[0]);
+            target.GetComponent<Town>().verticePos = vertices[0];
+
+            MakeTriangle(vertices, indexes);
         }
 
         if (GetComponent<MeshCollider>() != null)

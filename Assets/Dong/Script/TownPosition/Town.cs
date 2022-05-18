@@ -64,11 +64,15 @@ public class Town : MonoBehaviour
                     switch (hit.collider.tag)
                     {
                         case "Player":
+                            if (type == AwnerType.Neutrality)
+                                GameMng.instance.occupiedTown.Add(this);
                             SetType(AwnerType.Player);
                             transform.GetChild(2).gameObject.SetActive(false);
                             transform.GetChild(0).gameObject.SetActive(true);
                             break;
                         case "Enermy":
+                            if (type == AwnerType.Neutrality)
+                                GameMng.instance.occupiedTown.Add(this);
                             SetType(AwnerType.Enermy);
                             transform.GetChild(2).gameObject.SetActive(false);
                             transform.GetChild(1).gameObject.SetActive(true);
@@ -83,7 +87,6 @@ public class Town : MonoBehaviour
                             material.color = Color.red;
                             break;
                         default:
-                            material.color = Color.white;
                             break;
                     }
                 }
