@@ -30,13 +30,19 @@ public class SceneMng : Singleton<SceneMng>
     protected override void OnAwake()
     {
         curScene = SceneManager.GetActiveScene();
-
+        loadScene.Add(curScene);
+        loadScene.Add(SceneManager.GetSceneByName("Town"));
         /* 사용 예시
         SceneEnter += SceneName;
         SceneEnter += Stage1Scene;
 
         SceneExit += SceneName;
         */
+    }
+
+    private void Start()
+    {
+        SceneUnStreaming("Town");
     }
 
     /* 사용 예시
@@ -66,6 +72,12 @@ public class SceneMng : Singleton<SceneMng>
         StartCoroutine(iter);
     }
 
+    public void SceneUnStreaming(string sceneName)
+    {
+        iter = UnStreamingScene(sceneName);
+        StartCoroutine(iter);
+    }
+
     IEnumerator StreamingScene(string sceneName)
     {
         foreach (Scene scene in loadScene)
@@ -78,9 +90,30 @@ public class SceneMng : Singleton<SceneMng>
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while(!asyncLoad.isDone)
         {
+            Debug.Log(asyncLoad.progress);
             yield return null;
         }
         loadScene.Add(SceneManager.GetSceneByName(sceneName));
+    }
+
+    IEnumerator UnStreamingScene(string sceneName)
+    {
+        string returnName = "";
+        foreach (Scene scene in loadScene)
+        {
+            if (scene.name == sceneName)
+            {
+                returnName = sceneName;
+            }
+        }
+        if (returnName != sceneName)
+            yield break;
+        AsyncOperation asyncLoad = SceneManager.UnloadSceneAsync(sceneName);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        loadScene.Remove(SceneManager.GetSceneByName(sceneName));
     }
 
     IEnumerator LoadYourAsyncScene(string sceneName)
