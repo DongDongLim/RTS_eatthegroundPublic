@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class TownUnitMove : MonoBehaviour
+public class TownUnitMove : UnitMove
 {
     [SerializeField]
     Transform rayStart;
@@ -37,20 +37,22 @@ public class TownUnitMove : MonoBehaviour
     [SerializeField]
     float MoveCheckTime;
 
-    void Start()
+    float CoolDown;
+
+    public override void Setting()
     {
         agent = GetComponent<NavMeshAgent>();
         startPos = transform.position;
-        StartCoroutine(Move());
+        CoolDown = 0;
     }
 
 
-    private void FixedUpdate()
-    {
-        Debug.DrawRay(hit.collider != null ? hit.point : Vector3.zero, Vector3.up * 3f, Color.red);
-        Debug.DrawRay(rayStart.transform.position, drawVector * 10f, Color.blue);
-        AnimationPlay();
-    }
+    //private void FixedUpdate()
+    //{
+    //    Debug.DrawRay(hit.collider != null ? hit.point : Vector3.zero, Vector3.up * 3f, Color.red);
+    //    Debug.DrawRay(rayStart.transform.position, drawVector * 10f, Color.blue);
+    //    AnimationPlay();
+    //}
 
     void AnimationPlay()
     {
@@ -88,28 +90,33 @@ public class TownUnitMove : MonoBehaviour
        
     }
 
-    IEnumerator Move()
+    public override IEnumerator Move()
     {
         while (true)
         {
-            if (agent.velocity.x < 1 && agent.velocity.y < 1 && agent.velocity.z < 1)
+            if (Time.time > CoolDown + MoveCheckTime)
             {
-                drawVector = (Vector3.down * Random.Range(1f, 0.45f)) + (Vector3.right * Random.Range(-0.7f, 0.71f)) + (Vector3.forward * Random.Range(-0.45f, 0.46f));
-                Physics.Raycast(rayStart.position,
-                     drawVector
-                     , out hit, Mathf.Infinity, layerMask.value + layerMaskEx.value);
-                if (hit.collider != null)
+                if (agent.velocity.x < 1 && agent.velocity.y < 1 && agent.velocity.z < 1)
                 {
-                    if (LayerMask.GetMask(LayerMask.LayerToName(hit.collider.gameObject.layer)) == layerMaskEx.value)
-                        agent.SetDestination(startPos);
+                    CoolDown = Time.time;
+                    drawVector = (Vector3.down * Random.Range(1f, 0.45f)) + (Vector3.right * Random.Range(-0.7f, 0.71f)) + (Vector3.forward * Random.Range(-0.45f, 0.46f));
+                    Physics.Raycast(rayStart.position,
+                         drawVector
+                         , out hit, Mathf.Infinity, layerMask.value + layerMaskEx.value);
+                    if (hit.collider != null)
+                    {
+                        if (LayerMask.GetMask(LayerMask.LayerToName(hit.collider.gameObject.layer)) == layerMaskEx.value)
+                            agent.SetDestination(startPos);
+                        else
+                            agent.SetDestination(hit.point);
+                    }
                     else
-                        agent.SetDestination(hit.point);
+                        agent.SetDestination(startPos);
                 }
-                else
-                    agent.SetDestination(hit.point);
-                yield return new WaitForSeconds(MoveCheckTime);
             }
-            yield return null;
+
+            AnimationPlay();
+            yield return new WaitForSeconds(0.1f);
         }
     }
 }
