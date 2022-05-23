@@ -44,12 +44,15 @@ public class GameMng : Singleton<GameMng>
 
     public List<Town> occupiedTown = new List<Town>();
 
+    public int m_resource = 500;
+
     protected override void OnAwake()
     {
         isGamePlaying = false;
         GameStart += OnSetDay;
         playerNavMesh = playerObj.GetComponent<NavMeshAgent>();
     }
+
 
     public void OnSetDay()
     {

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03243afe1b5950343a51bf015e5a49f7, type: 3}
+  m_Name: Owl
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  prefab: {fileID: 8534354213413414465, guid: 13022360cabdde74489c279659e7ff30, type: 3}
+  areaType: 2
+  hp: 000000000a000000140000001e000000
+  atk: 000000000a000000140000001e000000
+  spd: 000000000a000000140000001e000000
+  range: 000000000a000000140000001e000000
+  resource: 3
+  createTime: 2

@@ -85,7 +85,6 @@ public class SceneMng : Singleton<SceneMng>
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while(!asyncLoad.isDone)
         {
-            Debug.Log(asyncLoad.progress);
             yield return null;
         }
         loadScene.Add(SceneManager.GetSceneByName(sceneName));

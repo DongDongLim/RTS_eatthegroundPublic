@@ -59,6 +59,7 @@ public class Town : MonoBehaviour
             if (!isOccupation)
             {
                 Physics.Raycast(pos + Vector3.up, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Area"));
+                Debug.DrawRay(pos + Vector3.up, Vector3.down * 100f, Color.red);
                 if (null != hit.collider)
                 {
                     switch (hit.collider.tag)
@@ -66,6 +67,11 @@ public class Town : MonoBehaviour
                         case "Player":
                             if (type == AwnerType.Neutrality)
                                 GameMng.instance.occupiedTown.Add(this);
+                            if (type != AwnerType.Player)
+                            {
+                                GameMng.instance.m_resource += 100;
+                                UIMng.instance.SetResource();
+                            }
                             SetType(AwnerType.Player);
                             transform.GetChild(2).gameObject.SetActive(false);
                             transform.GetChild(0).gameObject.SetActive(true);
@@ -76,6 +82,9 @@ public class Town : MonoBehaviour
                             SetType(AwnerType.Enermy);
                             transform.GetChild(2).gameObject.SetActive(false);
                             transform.GetChild(1).gameObject.SetActive(true);
+                            break;
+                        default:
+                            Debug.Log(hit.collider.name);
                             break;
                     }
                     switch (type)

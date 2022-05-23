@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   prefab: {fileID: 6567936973121458660, guid: f9003a55841f1ea4cbc3daa420a6f85f, type: 3}
-  atk: 00000000
-  spd: 00000000
-  range: 00000000
+  areaType: 3
+  hp: 000000000a000000140000001e000000
+  atk: 000000000a000000140000001e000000
+  spd: 000000000a000000140000001e000000
+  range: 000000000a000000140000001e000000
+  resource: 10
+  createTime: 1

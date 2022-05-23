@@ -41,7 +41,9 @@ public class TownUnitMove : UnitMove
 
     public override void Setting()
     {
+        animator = transform.GetChild(0).GetComponentsInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
+        rayStart = transform.parent.transform;
         startPos = transform.position;
         CoolDown = 0;
     }
@@ -118,5 +120,12 @@ public class TownUnitMove : UnitMove
             AnimationPlay();
             yield return new WaitForSeconds(0.1f);
         }
+    }
+
+    public Vector3 ReturnStart()
+    {
+        //transform.position = startPos;
+        //agent.SetDestination(startPos);
+        return startPos;
     }
 }

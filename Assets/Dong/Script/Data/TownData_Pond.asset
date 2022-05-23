@@ -18,6 +18,8 @@ MonoBehaviour:
     m_keys:
     - {fileID: 11400000, guid: 967cfdf591f321e48865308ae6013bf1, type: 2}
     - {fileID: 11400000, guid: 3afb93cdf2adc3d4eac2286d4c0948fe, type: 2}
-    m_values: 0100000002000000
+    - {fileID: 11400000, guid: 17456910afd32114ea2f90a1627fb120, type: 2}
+    - {fileID: 11400000, guid: 77b78b41881531a4db79b1e276d30018, type: 2}
+    m_values: 01000000020000000300000001000000
   maxOutPut: 0a0000001e0000003200000046000000
   requiredResources: 000000003200000064000000

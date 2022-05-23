@@ -19,9 +19,9 @@ public class UIMng : Singleton<UIMng>
 
     protected override void OnAwake()
     {
-        SceneMng.instance.SceneEnter += DeActiveUI;
         SceneMng.instance.SceneExit += DeActiveUI;
         GameMng.instance.GameStart += OnStartBtnDisable;
+        SetResource();
     }
 
     public void DeActiveUI(string scene)
@@ -31,8 +31,7 @@ public class UIMng : Singleton<UIMng>
             case "FullMap":
                 break;
             case "Town":
-                infoUI[0].SetActive(false);
-                //uiList["타운유아이"].SetActive(true);
+                uiList["마을정보"].SetActive(false);
                 break;
         }
     }
@@ -82,5 +81,9 @@ public class UIMng : Singleton<UIMng>
         }
     }
 
+    public void SetResource()
+    {
+        uiList["자원"].GetComponent<Text>().text = GameMng.instance.m_resource.ToString();
+    }
 
 }
