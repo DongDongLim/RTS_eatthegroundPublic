@@ -44,6 +44,7 @@ public class Area : MonoBehaviour
     public void RemoveVertexList(GameObject target)
     {
         vlist.Remove(target);
+        RemoveVertex(target);
     }
 
     public void RemoveVertex(GameObject target)
@@ -61,71 +62,71 @@ public class Area : MonoBehaviour
             if (targetTown.verticePos == vertices[i])
             {
                 index = i;
-                foreach (GameObject obj in targetTown.nodeList)
-                {
-                    foreach(var veclist in keyList)
-                    {
-                        if(((veclist[0] == targetTown.verticePos) && (veclist[1] == obj.GetComponent<Town>().verticePos))
-                            ||
-                        ((veclist[1] == targetTown.verticePos) && (veclist[0] == obj.GetComponent<Town>().verticePos)))
-                        {
-                            Destroy(boxList[veclist]);
-                            boxList.Remove(veclist);
-                            removeKeyList.Add(veclist);
-                            removeTownList.Add(obj.GetComponent<Town>());
-                        }
-                    }
-                }
+                //foreach (GameObject obj in targetTown.nodeList)
+                //{
+                //    foreach(var veclist in keyList)
+                //    {
+                //        if(((veclist[0] == targetTown.verticePos) && (veclist[1] == obj.GetComponent<Town>().verticePos))
+                //            ||
+                //        ((veclist[1] == targetTown.verticePos) && (veclist[0] == obj.GetComponent<Town>().verticePos)))
+                //        {
+                //            Destroy(boxList[veclist]);
+                //            boxList.Remove(veclist);
+                //            removeKeyList.Add(veclist);
+                //            removeTownList.Add(obj.GetComponent<Town>());
+                //        }
+                //    }
+                //}
 
-                foreach (var townlist in removeTownList)
-                {
-                    foreach (var townNodelist in removeTownList)
-                    {
-                        if (townlist.nodeList.Find(x => x == townNodelist.gameObject))
-                        {
-                            foreach (var veclist in keyList)
-                            {
-                                if (((veclist[0] == townlist.verticePos) && (veclist[1] == townNodelist.verticePos))
-                                    ||
-                                ((veclist[1] == targetTown.verticePos) && (veclist[0] == townNodelist.verticePos)))
-                                {
-                                    Vector3[] vector3s = new Vector3[] { 
-                                        targetTown.verticePos
-                                        , townlist.verticePos
-                                        , townNodelist.verticePos} ;
-                                    if (isRight.isThreeAngleRight(vector3s))
-                                    {
-                                        if (boxList.ContainsKey(veclist))
-                                        {
-                                            Destroy(boxList[veclist]);
-                                            boxList.Remove(veclist);
-                                            removeKeyList.Add(veclist);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        vector3s = new Vector3[] {
-                                        targetTown.verticePos
-                                        , townNodelist.verticePos
-                                        , townlist.verticePos};
-                                        if (isRight.isThreeAngleRight(vector3s))
-                                        {
-                                            if (boxList.ContainsKey(veclist))
-                                            {
-                                                Destroy(boxList[veclist]);
-                                                boxList.Remove(veclist);
-                                                removeKeyList.Add(veclist);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+                //foreach (var townlist in removeTownList)
+                //{
+                //    foreach (var townNodelist in removeTownList)
+                //    {
+                //        if (townlist.nodeList.Find(x => x == townNodelist.gameObject))
+                //        {
+                //            foreach (var veclist in keyList)
+                //            {
+                //                if (((veclist[0] == townlist.verticePos) && (veclist[1] == townNodelist.verticePos))
+                //                    ||
+                //                ((veclist[1] == targetTown.verticePos) && (veclist[0] == townNodelist.verticePos)))
+                //                {
+                //                    Vector3[] vector3s = new Vector3[] { 
+                //                        targetTown.verticePos
+                //                        , townlist.verticePos
+                //                        , townNodelist.verticePos} ;
+                //                    if (isRight.isThreeAngleRight(vector3s))
+                //                    {
+                //                        if (boxList.ContainsKey(veclist))
+                //                        {
+                //                            Destroy(boxList[veclist]);
+                //                            boxList.Remove(veclist);
+                //                            removeKeyList.Add(veclist);
+                //                        }
+                //                    }
+                //                    else
+                //                    {
+                //                        vector3s = new Vector3[] {
+                //                        targetTown.verticePos
+                //                        , townNodelist.verticePos
+                //                        , townlist.verticePos};
+                //                        if (isRight.isThreeAngleRight(vector3s))
+                //                        {
+                //                            if (boxList.ContainsKey(veclist))
+                //                            {
+                //                                Destroy(boxList[veclist]);
+                //                                boxList.Remove(veclist);
+                //                                removeKeyList.Add(veclist);
+                //                            }
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
 
-                foreach (var veclist in removeKeyList)
-                    keyList.Remove(veclist);
+                //foreach (var veclist in removeKeyList)
+                //    keyList.Remove(veclist);
             }
             else
             {
@@ -134,10 +135,9 @@ public class Area : MonoBehaviour
         }
         if (index == null)
         {
-            Debug.Log("여기요 예외 터졌으요!");
             return;
         }
-        targetTown.RemoveAllnodeList();
+        //targetTown.RemoveAllnodeList();
         for (int i = 0; i < indexs.Length; i += 3)
         {
             if (indexs[i] != index && indexs[i + 1] != index && indexs[i + 2] != index)
@@ -155,10 +155,59 @@ public class Area : MonoBehaviour
                 else
                     newIndex.Add(indexs[i + 2]);
             }
+            else
+            {
+                Vector3[] vector3s = keyList.Find(x => x[0] == vertices[indexs[i]] && x[1] == vertices[indexs[i + 1]]);
+
+                if (vector3s != null && boxList.ContainsKey(vector3s))
+                {
+                    Destroy(boxList[vector3s]);
+                    boxList.Remove(vector3s);
+                    keyList.Remove(vector3s);
+                }
+
+                vector3s = keyList.Find(x => x[0] == vertices[indexs[i + 1]] && x[1] == vertices[indexs[i + 2]]);
+                if (vector3s != null && boxList.ContainsKey(vector3s))
+                {
+                    Destroy(boxList[vector3s]);
+                    boxList.Remove(vector3s);
+                    keyList.Remove(vector3s);
+                }
+
+                vector3s = keyList.Find(x => x[0] == vertices[indexs[i + 2]] && x[1] == vertices[indexs[i]]);
+                if (vector3s != null && boxList.ContainsKey(vector3s))
+                {
+                    Destroy(boxList[vector3s]);
+                    boxList.Remove(vector3s);
+                    keyList.Remove(vector3s);
+                }
+
+            }
         }
         mesh.Clear();
         mesh.vertices = newVertices.ToArray();
         mesh.triangles = newIndex.ToArray();
+
+        Vector2[] uvs = new Vector2[mesh.vertices.Length];
+
+        for (int i = 0; i < uvs.Length; i++)
+        {
+            uvs[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].z);
+        }
+        mesh.uv = uvs;
+
+        mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
+
+        if (GetComponent<MeshCollider>() != null)
+            Destroy(GetComponent<MeshCollider>());
+
+        if (vlist.Count != mesh.vertices.Length)
+        {
+            List<GameObject> im = vlist;
+            Vector3[] adsf = mesh.vertices;
+            Debug.Log("여기 나중에 지워라");
+        }
     }
 
     public void CreateLine(Vector3 start, Vector3 end)
@@ -221,11 +270,24 @@ public class Area : MonoBehaviour
                     curVertex[1].GetComponent<Town>().pos
                 };
 
-                if (!(isRight.IsIntersects(vertices[0], vertices[1], GameMng.instance.GetPlayerTransform(), vertices[2], 1))
+                Vector3 exPos;
+                switch (type)
+                {
+                    case AwnerType.Player:
+                        exPos = GameMng.instance.GetEnermyTransform();
+                        break;
+                    case AwnerType.Enermy:
+                        exPos = GameMng.instance.GetPlayerTransform();
+                        break;
+                    default:
+                        exPos = Vector3.zero;
+                        break;
+                }
+                if (!(isRight.IsIntersects(vertices[0], vertices[1], exPos, vertices[2], 1))
                        &&
-                      !(isRight.IsIntersects(vertices[0], vertices[2], GameMng.instance.GetPlayerTransform(), vertices[1], 1))
+                      !(isRight.IsIntersects(vertices[0], vertices[2], exPos, vertices[1], 1))
                        &&
-                      !(isRight.IsIntersects(vertices[1], vertices[2], GameMng.instance.GetPlayerTransform(), vertices[0], 1))
+                      !(isRight.IsIntersects(vertices[1], vertices[2], exPos, vertices[0], 1))
                        )
                 {
                     return false;
@@ -240,6 +302,8 @@ public class Area : MonoBehaviour
 
                 MakeTriangle(vertices, indexes, true);
 
+                if (GetComponent<MeshCollider>() != null)
+                    Destroy(GetComponent<MeshCollider>());
                 return false;
             }
             MapMng.instance.RemoveVertex(type, target);
@@ -283,12 +347,11 @@ public class Area : MonoBehaviour
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
 
-        CreateLine(vertices[0], vertices[1]);
-        if (!isMine)
-        {
-            CreateLine(vertices[1], vertices[2]);
-            CreateLine(vertices[2], vertices[0]);
-        }
+        int[] verticesIndex = SetVertexIndex(vertices, 0, 1, 2);
+
+        CreateLine(vertices[verticesIndex[0]], vertices[verticesIndex[1]]);
+        CreateLine(vertices[verticesIndex[1]], vertices[verticesIndex[2]]);
+        CreateLine(vertices[verticesIndex[2]], vertices[verticesIndex[0]]);
     }
 
     // 플러드 필알고리즘
@@ -388,13 +451,27 @@ public class Area : MonoBehaviour
 
             curVertex[2] = query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, curVertex[1].GetComponent<Town>().nodeList);
 
+            Vector3 exPos;
+            switch (type)
+            {
+                case AwnerType.Player:
+                    exPos = GameMng.instance.GetEnermyTransform();
+                    break;
+                case AwnerType.Enermy:
+                    exPos = GameMng.instance.GetPlayerTransform();
+                    break;
+                default:
+                    exPos = Vector3.zero;
+                    break;
+            }
+
             if (isRight.IsIntersects(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, target.transform.position))
             {
-                if (!(isRight.IsIntersects(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), target.GetComponent<Town>().pos, 1))
+                if (!(isRight.IsIntersects(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, target.GetComponent<Town>().pos, 1))
                     &&
-                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[0].GetComponent<Town>().pos, 1))
+                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, exPos, curVertex[0].GetComponent<Town>().pos, 1))
                     &&
-                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[1].GetComponent<Town>().pos, 1))
+                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, curVertex[1].GetComponent<Town>().pos, 1))
                     )
                 {
                     NotOccupyabase();
@@ -405,11 +482,11 @@ public class Area : MonoBehaviour
             }
             else if (isRight.IsIntersects(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, target.transform.position))
             {
-                if (!(isRight.IsIntersects(curVertex[2].GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), target.GetComponent<Town>().pos, 1))
+                if (!(isRight.IsIntersects(curVertex[2].GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, exPos, target.GetComponent<Town>().pos, 1))
                     &&
-                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[2].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[1].GetComponent<Town>().pos, 1))
+                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[2].GetComponent<Town>().pos, exPos, curVertex[1].GetComponent<Town>().pos, 1))
                     &&
-                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[2].GetComponent<Town>().pos, 1))
+                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, exPos, curVertex[2].GetComponent<Town>().pos, 1))
                     )
                 {
                     NotOccupyabase();
@@ -420,11 +497,11 @@ public class Area : MonoBehaviour
             }
             else if (isRight.IsIntersects(curVertex[2].transform.position, curVertex[0].transform.position, curVertex[1].transform.position, target.transform.position))
             {
-                if (!(isRight.IsIntersects(curVertex[2].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), target.GetComponent<Town>().pos, 1))
+                if (!(isRight.IsIntersects(curVertex[2].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, target.GetComponent<Town>().pos, 1))
                        &&
-                       !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[2].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[0].GetComponent<Town>().pos, 1))
+                       !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[2].GetComponent<Town>().pos, exPos, curVertex[0].GetComponent<Town>().pos, 1))
                        &&
-                      !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[2].GetComponent<Town>().pos, 1))
+                      !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, curVertex[2].GetComponent<Town>().pos, 1))
                        )
                 {
                     NotOccupyabase();
@@ -435,11 +512,11 @@ public class Area : MonoBehaviour
             }
             else
             {
-                if (!(isRight.IsIntersects(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), target.GetComponent<Town>().pos, 1))
+                if (!(isRight.IsIntersects(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, target.GetComponent<Town>().pos, 1))
                     &&
-                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[0].GetComponent<Town>().pos, 1))
+                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, exPos, curVertex[0].GetComponent<Town>().pos, 1))
                     &&
-                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, GameMng.instance.GetPlayerTransform(), curVertex[1].GetComponent<Town>().pos, 1))
+                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, curVertex[1].GetComponent<Town>().pos, 1))
                     )
                 {
                     NotOccupyabase();

@@ -12,7 +12,7 @@ public class SelectUI : MonoBehaviour
     GameObject createPanel;
 
     [SerializeField]
-    UnitData m_data;
+    public UnitData m_data;
 
 
     Text hpTxt;
@@ -34,12 +34,12 @@ public class SelectUI : MonoBehaviour
 
     int m_Lv;
 
-    int waitingCnt = 0;
+    public int waitingCnt = 0;
 
-    bool isCreating = false;
+    public bool isCreating = false;
 
     [SerializeField]
-    Image coolDownImg;
+    public Image coolDownImg;
 
     bool isStart = false;
 
@@ -87,8 +87,6 @@ public class SelectUI : MonoBehaviour
         atkTxt.text = m_data.atk[m_Lv].ToString();
         spdTxt.text = m_data.spd[m_Lv].ToString();
         rangeTxt.text = m_data.range[m_Lv].ToString();
-        Debug.Log(cntTxt.text);
-        Debug.Log(TownMng.instance.UnitCnt[m_data]);
         cntTxt.text = TownMng.instance.UnitCnt[m_data].ToString();
         resourceTxt.text = m_data.resource.ToString();
         TimeTxt.text = m_data.createTime.ToString();
@@ -103,14 +101,15 @@ public class SelectUI : MonoBehaviour
 
     public void UnitCreateBtn()
     {
-        if (GameMng.instance.m_resource < m_data.resource)
-            return;
-        GameMng.instance.m_resource -= m_data.resource;
-        UIMng.instance.SetResource();
-        ++waitingCnt;
-        SetInfo();
-        if (!isCreating)
-            StartCoroutine("UnitCreate");
+        GameMng.instance.UnitCreate(this);
+        //if (GameMng.instance.m_resource < m_data.resource)
+        //    return;
+        //GameMng.instance.m_resource -= m_data.resource;
+        //UIMng.instance.SetResource();
+        //++waitingCnt;
+        //SetInfo();
+        //if (!isCreating)
+        //    StartCoroutine("UnitCreate");
     }
 
     IEnumerator UnitCreate()

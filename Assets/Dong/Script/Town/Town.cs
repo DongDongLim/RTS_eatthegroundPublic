@@ -59,7 +59,6 @@ public class Town : MonoBehaviour
             if (!isOccupation)
             {
                 Physics.Raycast(pos + Vector3.up, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Area"));
-                Debug.DrawRay(pos + Vector3.up, Vector3.down * 100f, Color.red);
                 if (null != hit.collider)
                 {
                     switch (hit.collider.tag)
@@ -74,6 +73,7 @@ public class Town : MonoBehaviour
                             }
                             SetType(AwnerType.Player);
                             transform.GetChild(2).gameObject.SetActive(false);
+                            transform.GetChild(1).gameObject.SetActive(false);
                             transform.GetChild(0).gameObject.SetActive(true);
                             break;
                         case "Enermy":
@@ -81,6 +81,7 @@ public class Town : MonoBehaviour
                                 GameMng.instance.occupiedTown.Add(this);
                             SetType(AwnerType.Enermy);
                             transform.GetChild(2).gameObject.SetActive(false);
+                            transform.GetChild(0).gameObject.SetActive(false);
                             transform.GetChild(1).gameObject.SetActive(true);
                             break;
                         default:
@@ -127,29 +128,28 @@ public class Town : MonoBehaviour
 
     public void RemovenodeList(GameObject obj)
     {
-        if (nodeList.Find(x => x == obj) != null)
+        if (nodeList.Find(x => x == obj) == null)
+            return;
+
+        nodeList.Remove(obj);
+        obj.GetComponent<Town>().RemovenodeList(gameObject);
+        switch (nodeList.Count)
         {
-            nodeList.Remove(obj);
-            obj.GetComponent<Town>().RemovenodeList(gameObject);
-            switch(nodeList.Count)
-            {
-                case 0:
-                    MapMng.instance.RemoveVertexList(tag, gameObject);
-                    break;
-                case 1:
+            case 0:
+                MapMng.instance.RemoveVertexList(tag, gameObject);
+                break;
+            case 1:
+                nodeList[0].GetComponent<Town>().RemovenodeList(gameObject);
+                MapMng.instance.RemoveVertexList(tag, gameObject);
+
+                break;
+            case 2:
+                if (nodeList[0].GetComponent<Town>().nodeList.Find(x => x == nodeList[1]) == null)
+                {
                     nodeList[0].GetComponent<Town>().RemovenodeList(gameObject);
                     MapMng.instance.RemoveVertexList(tag, gameObject);
-                    
-                    break;
-                case 2:
-                    if(nodeList[0].GetComponent<Town>().nodeList.Find(x => x== nodeList[1]) == null)
-                    {
-                        nodeList[0].GetComponent<Town>().RemovenodeList(gameObject);
-                        MapMng.instance.RemoveVertexList(tag, gameObject);
-                    }
-                    break;
-            }
-
+                }
+                break;
         }
     }
 

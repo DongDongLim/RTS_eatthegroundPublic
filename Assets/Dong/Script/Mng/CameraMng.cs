@@ -25,12 +25,21 @@ public class CameraMng : SingletonMini<CameraMng>
     [SerializeField]
     Material[] skyMaterial;
 
+    public Camera[] camList;
+
+    public Camera curCam;
+
     protected override void OnAwake()
     {
         GameMng.instance.GameStart += SetCameraPoistion;
         GameMng.instance.DayAction += CameraSize;
         GameMng.instance.DayAction += ChangeSkyBox;
         RenderSettings.skybox = skyMaterial[0];
+    }
+
+    private void Start()
+    {
+        curCam = camList[0];
     }
 
     public void CameraSize()
@@ -80,4 +89,15 @@ public class CameraMng : SingletonMini<CameraMng>
         moveCamGameObject.transform.position = new Vector3(movePos.x, 0, movePos.z);
         UIMng.instance.ActiveMiniMap();
     }
+
+    public void CamSwich(int index)
+    {
+        curCam.depth = -10;
+        curCam = camList[index];
+        curCam.depth = 10;
+    }
+
+    
+
+
 }

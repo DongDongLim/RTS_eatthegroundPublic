@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Dong/Scenes/Town.unity
     guid: 6871693370873464a8f291115f36f16c
+  - enabled: 1
+    path: Assets/Dong/Scenes/Battle.unity
+    guid: f66329f3180bb9a4191d17b1761c11ac
   m_configObjects: {}

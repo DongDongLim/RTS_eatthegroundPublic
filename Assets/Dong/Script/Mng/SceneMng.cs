@@ -31,6 +31,8 @@ public class SceneMng : Singleton<SceneMng>
     {
         curScene = SceneManager.GetActiveScene();
         loadScene.Add(curScene);
+        SceneStreaming("Town");
+
         /* 사용 예시
         SceneEnter += SceneName;
         SceneEnter += Stage1Scene;
@@ -87,7 +89,9 @@ public class SceneMng : Singleton<SceneMng>
         {
             yield return null;
         }
-        loadScene.Add(SceneManager.GetSceneByName(sceneName));
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+        curScene = SceneManager.GetActiveScene();
+        loadScene.Add(curScene);
         SceneExit?.Invoke(sceneName);
     }
 
@@ -108,7 +112,9 @@ public class SceneMng : Singleton<SceneMng>
         {
             yield return null;
         }
-        loadScene.Remove(SceneManager.GetSceneByName(sceneName));
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+        loadScene.Remove(curScene);
+        curScene = SceneManager.GetActiveScene();
     }
 
     IEnumerator LoadYourAsyncScene(string sceneName)

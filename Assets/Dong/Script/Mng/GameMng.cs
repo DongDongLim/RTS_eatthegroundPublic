@@ -46,11 +46,33 @@ public class GameMng : Singleton<GameMng>
 
     public int m_resource = 500;
 
+    Text DayTxt;
+    Image DayFilledImg;
+
+    public float rotateSpd;
+
     protected override void OnAwake()
     {
         isGamePlaying = false;
         GameStart += OnSetDay;
         playerNavMesh = playerObj.GetComponent<NavMeshAgent>();
+    }
+
+    private void Start()
+    {
+        DayTxt = UIMng.instance.uiList["날짜"].transform.GetChild(0).GetComponent<Text>();
+        DayFilledImg = UIMng.instance.uiList["날짜"].transform.GetChild(1).GetComponent<Image>();
+    }
+
+    private void Update()
+    {
+        if (isGamePlaying)
+        {
+            rotateSpd += Time.deltaTime / GameMng.instance.DayRealTime;
+            if (rotateSpd >= 1)
+                rotateSpd = 0;
+            DayFilledImg.fillAmount = rotateSpd;
+        }
     }
 
 
@@ -82,6 +104,7 @@ public class GameMng : Singleton<GameMng>
                     GameEnd();
             }
             ++Day;
+            DayTxt.text = Day.ToString();
         }
     }
 
@@ -164,7 +187,7 @@ public class GameMng : Singleton<GameMng>
 
         while (playerNavMesh.velocity != Vector3.zero)
         {
-            UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = "Dis : " + string.Format("{0:0.0}",
+            UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = string.Format("{0:0.0}",
                 RemainingDistance(playerNavMesh.path.corners));
             yield return new WaitForSeconds(0.1f);
         }
@@ -172,7 +195,7 @@ public class GameMng : Singleton<GameMng>
         MapMng.instance.Occupyabase(targetTown);
         playerObj.SetActive(false);
         targetTown = null;
-        UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = "Dis : 0";
+        UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = "0";
     }
 
     // 네비메쉬에이전트의 remainingDistance은 마지막 직선경로만 계산하기 때문에 그 전 노드들을 받아와서 직선경로가 2개이상이라면 그 길이를 따로 계산해줌
@@ -187,6 +210,42 @@ public class GameMng : Singleton<GameMng>
 
     public void MoveTown()
     {
-        SceneMng.instance.SceneStreaming("Town");
+        if (CameraMng.instance.curCam == CameraMng.instance.camList[0])
+            CameraMng.instance.CamSwich(1);
+        else
+            CameraMng.instance.CamSwich(0);
+    }
+
+    public void UnitCreate(SelectUI build)
+    {
+        if (m_resource < build.m_data.resource)
+            return;
+        m_resource -= build.m_data.resource;
+        UIMng.instance.SetResource();
+        ++build.waitingCnt;
+        build.SetInfo();
+        if (!build.isCreating)
+            StartCoroutine(UnitCreateCor(build));
+    }
+
+    public IEnumerator UnitCreateCor(SelectUI build)
+    {
+        build.isCreating = true;
+        build.coolDownImg.fillAmount = 1;
+        for (float i = 0; i < build.m_data.createTime; i += Time.deltaTime)
+        {
+            build.coolDownImg.fillAmount = 1 - i / build.m_data.createTime;
+            yield return null;
+        }
+        build.coolDownImg.fillAmount = 0;
+        --build.waitingCnt;
+        ++TownMng.instance.UnitCnt[build.m_data];
+        if (build.waitingCnt > 0)
+            StartCoroutine(UnitCreateCor(build));
+        else
+            build.isCreating = false;
+
+        build.SetInfo();
+
     }
 }

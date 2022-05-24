@@ -125,7 +125,7 @@ public class TownUnitMove : UnitMove
     public Vector3 ReturnStart()
     {
         //transform.position = startPos;
-        //agent.SetDestination(startPos);
+        agent.SetDestination(startPos);
         return startPos;
     }
 }

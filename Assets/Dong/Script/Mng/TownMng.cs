@@ -23,8 +23,6 @@ public class TownMng : SingletonMini<TownMng>
     TownData pondData;
     [SerializeField]
     GameObject pondParant;
-    [SerializeField]
-    GameObject pondUnitPanel;
     public int pondLv;
 
 
@@ -34,8 +32,6 @@ public class TownMng : SingletonMini<TownMng>
     TownData treeData;
     [SerializeField]
     GameObject treeParant;
-    [SerializeField]
-    GameObject treeUnitPanel;
     public int treeLv;
 
     [SerializeField]
@@ -44,8 +40,6 @@ public class TownMng : SingletonMini<TownMng>
     TownData grassData;
     [SerializeField]
     GameObject grassParant;
-    [SerializeField]
-    GameObject grassUnitPanel;
     public int grassLv;
 
 
@@ -90,57 +84,90 @@ public class TownMng : SingletonMini<TownMng>
         }
     }
 
-    public void LevelUpPond()
+    public void LevelUp(UnitTypeArea type)
     {
-        if (pondLv == caveLv)
+        int lv;
+        GameObject[] objArray;
+        TownData townData;
+        GameObject parent;
+        bool isActive;
+
+        switch (type)
         {
-            Debug.Log("연못의 레벨은 동굴의 레벨을 초과할 수 없습니다");
+            case UnitTypeArea.POND:
+                lv = pondLv;
+                objArray = pondObj;
+                townData = pondData;
+                parent = pondParant;
+                isActive = false;
+                break;
+            case UnitTypeArea.TREE:
+                lv = treeLv;
+                objArray = treeObj;
+                townData = treeData;
+                parent = treeParant;
+                isActive = true;
+                break;
+            case UnitTypeArea.GRASS:
+                lv = grassLv;
+                objArray = grassObj;
+                townData = grassData;
+                parent = grassParant;
+                isActive = true;
+                break;
+            default:
+                return;
+        }
+
+        if (lv == caveLv)
+        {
+            Debug.Log("건물의 레벨은 동굴의 레벨을 초과할 수 없습니다");
             return;
         }
-        switch (pondLv)
+        switch (lv)
         {
             case 0:
-                pondObj[0].SetActive(false);
-                ++pondLv;
-                foreach(var data in pondData.unitData)
+                objArray[0].SetActive(isActive);
+                ++lv;
+                foreach (var data in townData.unitData)
                 {
-                    if (data.Value == pondLv)
+                    if (data.Value == lv)
                         dataKey.Add(data.Key);
                 }
                 for (int i = 0; i < dataKey.Count; ++i)
                 {
                     UnitActivity[dataKey[i]] = true;
-                    Instantiate((dataKey[i] as UnitData).prefab, pondParant.transform, false);
+                    Instantiate((dataKey[i] as UnitData).prefab, parent.transform, false);
                 }
                 dataKey.Clear();
                 break;
             case 1:
-                pondObj[1].SetActive(false);
-                ++pondLv;
-                foreach (var data in pondData.unitData)
+                objArray[1].SetActive(isActive);
+                ++lv;
+                foreach (var data in townData.unitData)
                 {
-                    if (data.Value == pondLv)
+                    if (data.Value == lv)
                         dataKey.Add(data.Key);
                 }
                 for (int i = 0; i < dataKey.Count; ++i)
                 {
                     UnitActivity[dataKey[i]] = true;
-                    Instantiate((dataKey[i] as UnitData).prefab, pondParant.transform, false);
+                    Instantiate((dataKey[i] as UnitData).prefab, parent.transform, false);
                 }
                 dataKey.Clear();
                 break;
             case 2:
-                pondObj[2].SetActive(false);
-                ++pondLv;
-                foreach (var data in pondData.unitData)
+                objArray[2].SetActive(isActive);
+                ++lv;
+                foreach (var data in townData.unitData)
                 {
-                    if (data.Value == pondLv)
+                    if (data.Value == lv)
                         dataKey.Add(data.Key);
                 }
                 for (int i = 0; i < dataKey.Count; ++i)
                 {
                     UnitActivity[dataKey[i]] = true;
-                    Instantiate((dataKey[i] as UnitData).prefab, pondParant.transform, false);
+                    Instantiate((dataKey[i] as UnitData).prefab, parent.transform, false);
                 }
                 dataKey.Clear();
                 break;
@@ -148,147 +175,236 @@ public class TownMng : SingletonMini<TownMng>
                 Debug.Log("최대레벨입니다");
                 break;
         }
+        switch (type)
+        {
+            case UnitTypeArea.POND:
+                pondLv = lv;
+                pondObj = objArray;
+                pondData = townData;
+                pondParant = parent;
+                break;
+            case UnitTypeArea.TREE:
+                treeLv = lv;
+                treeObj = objArray;
+                treeData = townData;
+                treeParant = parent;
+                break;
+            case UnitTypeArea.GRASS:
+                grassLv = lv;
+                grassObj = objArray;
+                grassData = townData;
+                grassParant = parent;
+                break;
+            default:
+                return;
+        }
         SetLevel();
+    }
+
+    public void LevelUpPond()
+    {
+        LevelUp(UnitTypeArea.POND);
+        //if (pondLv == caveLv)
+        //{
+        //    Debug.Log("연못의 레벨은 동굴의 레벨을 초과할 수 없습니다");
+        //    return;
+        //}
+        //switch (pondLv)
+        //{
+        //    case 0:
+        //        pondObj[0].SetActive(false);
+        //        ++pondLv;
+        //        foreach(var data in pondData.unitData)
+        //        {
+        //            if (data.Value == pondLv)
+        //                dataKey.Add(data.Key);
+        //        }
+        //        for (int i = 0; i < dataKey.Count; ++i)
+        //        {
+        //            UnitActivity[dataKey[i]] = true;
+        //            Instantiate((dataKey[i] as UnitData).prefab, pondParant.transform, false);
+        //        }
+        //        dataKey.Clear();
+        //        break;
+        //    case 1:
+        //        pondObj[1].SetActive(false);
+        //        ++pondLv;
+        //        foreach (var data in pondData.unitData)
+        //        {
+        //            if (data.Value == pondLv)
+        //                dataKey.Add(data.Key);
+        //        }
+        //        for (int i = 0; i < dataKey.Count; ++i)
+        //        {
+        //            UnitActivity[dataKey[i]] = true;
+        //            Instantiate((dataKey[i] as UnitData).prefab, pondParant.transform, false);
+        //        }
+        //        dataKey.Clear();
+        //        break;
+        //    case 2:
+        //        pondObj[2].SetActive(false);
+        //        ++pondLv;
+        //        foreach (var data in pondData.unitData)
+        //        {
+        //            if (data.Value == pondLv)
+        //                dataKey.Add(data.Key);
+        //        }
+        //        for (int i = 0; i < dataKey.Count; ++i)
+        //        {
+        //            UnitActivity[dataKey[i]] = true;
+        //            Instantiate((dataKey[i] as UnitData).prefab, pondParant.transform, false);
+        //        }
+        //        dataKey.Clear();
+        //        break;
+        //    default:
+        //        Debug.Log("최대레벨입니다");
+        //        break;
+        //}
+        //SetLevel();
     }
     public void LevelUpTree()
     {
-        if (treeLv == caveLv)
-        {
-            Debug.Log("나무의 레벨은 동굴의 레벨을 초과할 수 없습니다");
-            return;
-        }
-        switch (treeLv)
-        {
-            case 0:
-                treeObj[0].SetActive(true);
-                ++treeLv;
-                foreach (var data in treeData.unitData)
-                {
-                    if (data.Value == treeLv)
-                        dataKey.Add(data.Key);
-                }
-                for (int i = 0; i < dataKey.Count; ++i)
-                {
-                    UnitActivity[dataKey[i]] = true;
-                    Instantiate((dataKey[i] as UnitData).prefab, treeParant.transform, false);
-                }
-                dataKey.Clear();
-                break;
-            case 1:
-                treeObj[1].SetActive(true);
-                ++treeLv;
-                foreach (var data in treeData.unitData)
-                {
-                    if (data.Value == treeLv)
-                        dataKey.Add(data.Key);
-                }
-                for (int i = 0; i < dataKey.Count; ++i)
-                {
-                    UnitActivity[dataKey[i]] = true;
-                    Instantiate((dataKey[i] as UnitData).prefab, treeParant.transform, false);
-                }
-                dataKey.Clear();
-                break;
-            case 2:
-                treeObj[2].SetActive(true);
-                ++treeLv;
-                foreach (var data in treeData.unitData)
-                {
-                    if (data.Value == treeLv)
-                        dataKey.Add(data.Key);
-                }
-                for (int i = 0; i < dataKey.Count; ++i)
-                {
-                    UnitActivity[dataKey[i]] = true;
-                    Instantiate((dataKey[i] as UnitData).prefab, treeParant.transform, false);
-                }
-                dataKey.Clear();
-                break;
-            default:
-                Debug.Log("최대레벨입니다");
-                break;
-        }
-        SetLevel();
+        LevelUp(UnitTypeArea.TREE);
+        //if (treeLv == caveLv)
+        //{
+        //    Debug.Log("나무의 레벨은 동굴의 레벨을 초과할 수 없습니다");
+        //    return;
+        //}
+        //switch (treeLv)
+        //{
+        //    case 0:
+        //        treeObj[0].SetActive(true);
+        //        ++treeLv;
+        //        foreach (var data in treeData.unitData)
+        //        {
+        //            if (data.Value == treeLv)
+        //                dataKey.Add(data.Key);
+        //        }
+        //        for (int i = 0; i < dataKey.Count; ++i)
+        //        {
+        //            UnitActivity[dataKey[i]] = true;
+        //            Instantiate((dataKey[i] as UnitData).prefab, treeParant.transform, false);
+        //        }
+        //        dataKey.Clear();
+        //        break;
+        //    case 1:
+        //        treeObj[1].SetActive(true);
+        //        ++treeLv;
+        //        foreach (var data in treeData.unitData)
+        //        {
+        //            if (data.Value == treeLv)
+        //                dataKey.Add(data.Key);
+        //        }
+        //        for (int i = 0; i < dataKey.Count; ++i)
+        //        {
+        //            UnitActivity[dataKey[i]] = true;
+        //            Instantiate((dataKey[i] as UnitData).prefab, treeParant.transform, false);
+        //        }
+        //        dataKey.Clear();
+        //        break;
+        //    case 2:
+        //        treeObj[2].SetActive(true);
+        //        ++treeLv;
+        //        foreach (var data in treeData.unitData)
+        //        {
+        //            if (data.Value == treeLv)
+        //                dataKey.Add(data.Key);
+        //        }
+        //        for (int i = 0; i < dataKey.Count; ++i)
+        //        {
+        //            UnitActivity[dataKey[i]] = true;
+        //            Instantiate((dataKey[i] as UnitData).prefab, treeParant.transform, false);
+        //        }
+        //        dataKey.Clear();
+        //        break;
+        //    default:
+        //        Debug.Log("최대레벨입니다");
+        //        break;
+        //}
+        //SetLevel();
     }
     public void LevelUpGrass()
     {
-        if (grassLv == caveLv)
-        {
-            Debug.Log("풀의 레벨은 동굴의 레벨을 초과할 수 없습니다");
-            return;
-        }
-        switch (grassLv)
-        {
-            case 0:
-                grassObj[0].SetActive(true);
-                ++grassLv;
-                foreach (var data in grassData.unitData)
-                {
-                    if (data.Value == grassLv)
-                        dataKey.Add(data.Key);
-                }
-                for (int i = 0; i < dataKey.Count; ++i)
-                {
-                    UnitActivity[dataKey[i]] = true;
-                    Instantiate((dataKey[i] as UnitData).prefab, grassParant.transform, false);
-                }
-                dataKey.Clear();
-                break;
-            case 1:
-                grassObj[1].SetActive(true);
-                ++grassLv;
-                foreach (var data in grassData.unitData)
-                {
-                    if (data.Value == grassLv)
-                        dataKey.Add(data.Key);
-                }
-                for (int i = 0; i < dataKey.Count; ++i)
-                {
-                    UnitActivity[dataKey[i]] = true;
-                    Instantiate((dataKey[i] as UnitData).prefab, grassParant.transform, false);
-                }
-                dataKey.Clear();
-                break;
-            case 2:
-                grassObj[2].SetActive(true);
-                ++grassLv;
-                foreach (var data in grassData.unitData)
-                {
-                    if (data.Value == grassLv)
-                        dataKey.Add(data.Key);
-                }
-                for (int i = 0; i < dataKey.Count; ++i)
-                {
-                    UnitActivity[dataKey[i]] = true;
-                    Instantiate((dataKey[i] as UnitData).prefab, grassParant.transform, false);
-                }
-                dataKey.Clear();
-                break;
-            default:
-                Debug.Log("최대레벨입니다");
-                break;
-        }
-        SetLevel();
+        LevelUp(UnitTypeArea.GRASS);
+        //if (grassLv == caveLv)
+        //{
+        //    Debug.Log("풀의 레벨은 동굴의 레벨을 초과할 수 없습니다");
+        //    return;
+        //}
+        //switch (grassLv)
+        //{
+        //    case 0:
+        //        grassObj[0].SetActive(true);
+        //        ++grassLv;
+        //        foreach (var data in grassData.unitData)
+        //        {
+        //            if (data.Value == grassLv)
+        //                dataKey.Add(data.Key);
+        //        }
+        //        for (int i = 0; i < dataKey.Count; ++i)
+        //        {
+        //            UnitActivity[dataKey[i]] = true;
+        //            Instantiate((dataKey[i] as UnitData).prefab, grassParant.transform, false);
+        //        }
+        //        dataKey.Clear();
+        //        break;
+        //    case 1:
+        //        grassObj[1].SetActive(true);
+        //        ++grassLv;
+        //        foreach (var data in grassData.unitData)
+        //        {
+        //            if (data.Value == grassLv)
+        //                dataKey.Add(data.Key);
+        //        }
+        //        for (int i = 0; i < dataKey.Count; ++i)
+        //        {
+        //            UnitActivity[dataKey[i]] = true;
+        //            Instantiate((dataKey[i] as UnitData).prefab, grassParant.transform, false);
+        //        }
+        //        dataKey.Clear();
+        //        break;
+        //    case 2:
+        //        grassObj[2].SetActive(true);
+        //        ++grassLv;
+        //        foreach (var data in grassData.unitData)
+        //        {
+        //            if (data.Value == grassLv)
+        //                dataKey.Add(data.Key);
+        //        }
+        //        for (int i = 0; i < dataKey.Count; ++i)
+        //        {
+        //            UnitActivity[dataKey[i]] = true;
+        //            Instantiate((dataKey[i] as UnitData).prefab, grassParant.transform, false);
+        //        }
+        //        dataKey.Clear();
+        //        break;
+        //    default:
+        //        Debug.Log("최대레벨입니다");
+        //        break;
+        //}
+        //SetLevel();
     }
 
     public void UnitCreatePond()
     {
-        pondUnitPanel.SetActive(true);
+        UIMng.instance.uiList["연못패널"].SetActive(true);
     }
     public void UnitCreateTree()
     {
-        treeUnitPanel.SetActive(true);
+        UIMng.instance.uiList["나무패널"].SetActive(true);
     }
     public void UnitCreateGrass()
     {
-        grassUnitPanel.SetActive(true);
+        UIMng.instance.uiList["풀패널"].SetActive(true);
     }
 
     public void SetTigerPos()
     {
+        Vector3 pos = tiger.GetComponent<TownUnitMove>().ReturnStart();
         tiger.SetActive(false);
-        tiger.GetComponent<TownUnitMove>().ReturnStart();
+        tiger.transform.position = pos;
         tiger.SetActive(true);
+        StartCoroutine(tiger.GetComponent<TownUnitMove>().Move());
     }
 
 }

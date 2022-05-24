@@ -86,17 +86,18 @@ public class MapMng : SingletonMini<MapMng>
     }
     public void RemoveVertex(AwnerType type, GameObject target)
     {
-        switch (type)
-        {
-            case AwnerType.Player:
-                Area_Enermy.RemoveVertex(target);
-                break;
-            case AwnerType.Enermy:
-                Area_Player.RemoveVertex(target);
-                break;
-            default:
-                return;
-        }
+        target.GetComponent<Town>().RemoveAllnodeList();
+        //switch (type)
+        //{
+        //    case AwnerType.Player:
+        //        Area_Enermy.RemoveVertex(target);
+        //        break;
+        //    case AwnerType.Enermy:
+        //        Area_Player.RemoveVertex(target);
+        //        break;
+        //    default:
+        //        return;
+        //}
     }   
     public void AddVertex(AwnerType type, GameObject target)
     {
