@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 public enum AwnerType
 {
     Player,
@@ -161,7 +162,7 @@ public class Town : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        if (!UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+        if (!EventSystem.current.IsPointerOverGameObject())
         {
             GameObject ui = UIMng.instance.GetInfoUI((int)type);
             ui.transform.position = Camera.main.WorldToScreenPoint(transform.position);

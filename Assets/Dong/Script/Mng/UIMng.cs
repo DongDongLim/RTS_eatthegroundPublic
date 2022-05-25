@@ -74,10 +74,12 @@ public class UIMng : Singleton<UIMng>
     {
         if (!uiList["미니맵"].transform.GetChild(0).gameObject.activeSelf)
         {
+            CameraMng.instance.camList[1].gameObject.SetActive(true);
             uiList["미니맵"].transform.GetChild(0).gameObject.SetActive(true);
         }
         else
         {
+            CameraMng.instance.camList[1].gameObject.SetActive(false);
             uiList["미니맵"].transform.GetChild(0).gameObject.SetActive(false);
         }
     }

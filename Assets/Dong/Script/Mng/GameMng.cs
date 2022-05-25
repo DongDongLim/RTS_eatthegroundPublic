@@ -211,7 +211,7 @@ public class GameMng : Singleton<GameMng>
     public void MoveTown()
     {
         if (CameraMng.instance.curCam == CameraMng.instance.camList[0])
-            CameraMng.instance.CamSwich(1);
+            CameraMng.instance.CamSwich(2);
         else
             CameraMng.instance.CamSwich(0);
     }

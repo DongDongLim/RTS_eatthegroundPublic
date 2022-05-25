@@ -32,14 +32,22 @@ public class CameraMng : SingletonMini<CameraMng>
     protected override void OnAwake()
     {
         GameMng.instance.GameStart += SetCameraPoistion;
+        GameMng.instance.GameStart += CamSetting;
         GameMng.instance.DayAction += CameraSize;
         GameMng.instance.DayAction += ChangeSkyBox;
         RenderSettings.skybox = skyMaterial[0];
     }
 
-    private void Start()
+
+    public void CamSetting()
     {
+        foreach (var cam in camList)
+        {
+            if (cam != null)
+                cam.gameObject.SetActive(false);
+        }
         curCam = camList[0];
+        curCam.gameObject.SetActive(true);
     }
 
     public void CameraSize()
@@ -55,6 +63,15 @@ public class CameraMng : SingletonMini<CameraMng>
         }
         if (Input.GetButtonDown("Jump"))
             SetCameraPoistion();
+
+        //if(Input.GetButtonDown("Fire1"))
+        //{
+        //    Ray mray = curCam.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit mmhit;
+        //    Physics.Raycast(mray, out mmhit, Mathf.Infinity);
+        //    Debug.Log(mmhit.collider.name);
+
+        //}
     }
 
     public void ChangeSkyBox()
@@ -92,9 +109,9 @@ public class CameraMng : SingletonMini<CameraMng>
 
     public void CamSwich(int index)
     {
-        curCam.depth = -10;
+        curCam.gameObject.SetActive(false);
         curCam = camList[index];
-        curCam.depth = 10;
+        curCam.gameObject.SetActive(true);
     }
 
     
