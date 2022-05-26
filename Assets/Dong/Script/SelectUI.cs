@@ -102,35 +102,7 @@ public class SelectUI : MonoBehaviour
     public void UnitCreateBtn()
     {
         GameMng.instance.UnitCreate(this);
-        //if (GameMng.instance.m_resource < m_data.resource)
-        //    return;
-        //GameMng.instance.m_resource -= m_data.resource;
-        //UIMng.instance.SetResource();
-        //++waitingCnt;
-        //SetInfo();
-        //if (!isCreating)
-        //    StartCoroutine("UnitCreate");
     }
 
-    IEnumerator UnitCreate()
-    {
-        isCreating = true;
-        coolDownImg.fillAmount = 1;
-        for (float i = 0; i < m_data.createTime; i += Time.deltaTime)
-        {
-            coolDownImg.fillAmount = 1 - i / m_data.createTime;
-            yield return null;
-        }
-        coolDownImg.fillAmount = 0;
-        --waitingCnt;
-        ++TownMng.instance.UnitCnt[m_data];
-        if (waitingCnt > 0)
-            StartCoroutine("UnitCreate");
-        else
-            isCreating = false;
-
-        SetInfo();
-
-    }
 
 }

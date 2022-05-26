@@ -5946,6 +5946,7 @@ MonoBehaviour:
   occupiedTown: []
   m_resource: 500
   rotateSpd: 0
+  isAttack: 1
 --- !u!114 &2129236068
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -51,6 +51,9 @@ public class GameMng : Singleton<GameMng>
 
     public float rotateSpd;
 
+    // 배틀모드
+    public bool isAttack = false;
+
     protected override void OnAwake()
     {
         isGamePlaying = false;
@@ -72,6 +75,15 @@ public class GameMng : Singleton<GameMng>
             if (rotateSpd >= 1)
                 rotateSpd = 0;
             DayFilledImg.fillAmount = rotateSpd;
+        }
+        
+        if(Input.GetButtonDown("Jump"))
+        {
+            SceneMng.instance.SceneStreaming("Battle");
+        }
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            CameraMng.instance.CamSwich(3);
         }
     }
 

@@ -14,6 +14,10 @@ public class TownMng : SingletonMini<TownMng>
 
     public Dictionary<ScriptableObject, bool> UnitActivity = new Dictionary<ScriptableObject, bool>();
 
+    public List<UnitData> atkUnit = new List<UnitData>();
+
+    public List<UnitData> defUnit = new List<UnitData>();
+
     [SerializeField]
     GameObject tiger;
 
@@ -54,6 +58,10 @@ public class TownMng : SingletonMini<TownMng>
         {
             UnitCnt.Add(unit, 0);
             UnitActivity.Add(unit, false);
+            if(unit.battleMode == BattleMode.ATTACK)
+                atkUnit.Add(unit);
+            else if(unit.battleMode == BattleMode.DEFANCE)
+                defUnit.Add(unit);
         }
     }
 

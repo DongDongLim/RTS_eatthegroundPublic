@@ -32,20 +32,25 @@ public class CameraMng : SingletonMini<CameraMng>
     protected override void OnAwake()
     {
         GameMng.instance.GameStart += SetCameraPoistion;
-        GameMng.instance.GameStart += CamSetting;
+        //GameMng.instance.GameStart += CamSetting;
         GameMng.instance.DayAction += CameraSize;
         GameMng.instance.DayAction += ChangeSkyBox;
         RenderSettings.skybox = skyMaterial[0];
     }
 
+    private void Start()
+    {
+        CamSetting();
+    }
+
 
     public void CamSetting()
     {
-        foreach (var cam in camList)
-        {
-            if (cam != null)
-                cam.gameObject.SetActive(false);
-        }
+        //foreach (var cam in camList)
+        //{
+        //    if (cam != null)
+        //        cam.gameObject.SetActive(false);
+        //}
         curCam = camList[0];
         curCam.gameObject.SetActive(true);
     }

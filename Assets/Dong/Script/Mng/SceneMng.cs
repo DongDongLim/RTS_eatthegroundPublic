@@ -89,10 +89,10 @@ public class SceneMng : Singleton<SceneMng>
         {
             yield return null;
         }
-        //SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         curScene = SceneManager.GetActiveScene();
         loadScene.Add(curScene);
-        SceneExit?.Invoke(sceneName);
+        SceneEnter?.Invoke(sceneName);
     }
 
     IEnumerator UnStreamingScene(string sceneName)
@@ -115,6 +115,7 @@ public class SceneMng : Singleton<SceneMng>
         //SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         loadScene.Remove(curScene);
         curScene = SceneManager.GetActiveScene();
+        SceneExit?.Invoke(sceneName);
     }
 
     IEnumerator LoadYourAsyncScene(string sceneName)

@@ -19,7 +19,7 @@ NavMeshProjectSettings:
     cost: 1
   - name: Tree
     cost: 1
-  - name: 
+  - name: Battle
     cost: 1
   - name: 
     cost: 1

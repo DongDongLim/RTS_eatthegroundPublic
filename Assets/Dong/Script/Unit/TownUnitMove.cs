@@ -39,22 +39,17 @@ public class TownUnitMove : UnitMove
 
     float CoolDown;
 
+    Unit Aowner;
+
     public override void Setting()
     {
-        animator = transform.GetChild(0).GetComponentsInChildren<Animator>();
-        agent = GetComponent<NavMeshAgent>();
+        Aowner = GetComponent<Unit>();
+        animator = Aowner.animator;
+        agent = Aowner.agent;
         rayStart = transform.parent.transform;
         startPos = transform.position;
         CoolDown = 0;
     }
-
-
-    //private void FixedUpdate()
-    //{
-    //    Debug.DrawRay(hit.collider != null ? hit.point : Vector3.zero, Vector3.up * 3f, Color.red);
-    //    Debug.DrawRay(rayStart.transform.position, drawVector * 10f, Color.blue);
-    //    AnimationPlay();
-    //}
 
     void AnimationPlay()
     {
@@ -124,7 +119,6 @@ public class TownUnitMove : UnitMove
 
     public Vector3 ReturnStart()
     {
-        //transform.position = startPos;
         agent.SetDestination(startPos);
         return startPos;
     }

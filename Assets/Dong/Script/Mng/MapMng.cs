@@ -41,7 +41,6 @@ public class MapMng : SingletonMini<MapMng>
 
     public GameObject curSelectTown;
 
-    RaycastHit hit;
 
     protected override void OnAwake()
     {
@@ -156,18 +155,18 @@ public class MapMng : SingletonMini<MapMng>
             obj.GetComponent<Town>().SetType(AwnerType.Player);
             obj.SetActive(true);
             AddVertex(AwnerType.Player, obj);
-
-            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.back * 4))) != null)
-                creationPoint.Remove(creationPoint[index] + (Vector3.down * 4));
-            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.back * 2))) != null)
-                creationPoint.Remove(creationPoint[index] + (Vector3.down * 2));
-            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.right * 4))) != null)
-                creationPoint.Remove(creationPoint[index] + (Vector3.right * 4));
-            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.right * 2))) != null)
-                creationPoint.Remove(creationPoint[index] + (Vector3.right * 2));
-            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.right * 2) + (Vector3.back * 2))) != null)
-                creationPoint.Remove(creationPoint[index] + (Vector3.right * 2) + (Vector3.back * 2));
-            creationPoint.RemoveAt(index);
+            Vector3 removePos = creationPoint[index];
+            if (creationPoint.Find(x => x == (removePos + (Vector3.back * 4))) != null)
+                creationPoint.Remove(removePos + (Vector3.down * 4));
+            if (creationPoint.Find(x => x == (removePos + (Vector3.back * 2))) != null)
+                creationPoint.Remove(removePos + (Vector3.down * 2));
+            if (creationPoint.Find(x => x == (removePos + (Vector3.right * 4))) != null)
+                creationPoint.Remove(removePos + (Vector3.right * 4));
+            if (creationPoint.Find(x => x == (removePos + (Vector3.right * 2))) != null)
+                creationPoint.Remove(removePos + (Vector3.right * 2));
+            if (creationPoint.Find(x => x == (removePos + (Vector3.right * 2) + (Vector3.back * 2))) != null)
+                creationPoint.Remove(removePos + (Vector3.right * 2) + (Vector3.back * 2));
+            creationPoint.Remove(removePos);
 
             // 적
 
@@ -191,17 +190,19 @@ public class MapMng : SingletonMini<MapMng>
             obj1.GetComponent<Town>().SetType(AwnerType.Enermy);
             obj1.SetActive(true);
             AddVertex(AwnerType.Enermy, obj1);
-            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.back * 4))) != null)
-                creationPoint.Remove(creationPoint[index] + (Vector3.down * 4));
-            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.back * 2))) != null)
-                creationPoint.Remove(creationPoint[index] + (Vector3.down * 2));
-            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.right * 4))) != null)
-                creationPoint.Remove(creationPoint[index] + (Vector3.right * 4));
-            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.right * 2))) != null)
-                creationPoint.Remove(creationPoint[index] + (Vector3.right * 2));
-            if (creationPoint.Find(x => x == (creationPoint[index] + (Vector3.right * 2) + (Vector3.back * 2))) != null)
-                creationPoint.Remove(creationPoint[index] + (Vector3.right * 2) + (Vector3.back * 2));
-            creationPoint.RemoveAt(index);
+
+            removePos = creationPoint[index];
+            if (creationPoint.Find(x => x == (removePos + (Vector3.back * 4))) != null)
+                creationPoint.Remove(removePos + (Vector3.down * 4));
+            if (creationPoint.Find(x => x == (removePos + (Vector3.back * 2))) != null)
+                creationPoint.Remove(removePos + (Vector3.down * 2));
+            if (creationPoint.Find(x => x == (removePos + (Vector3.right * 4))) != null)
+                creationPoint.Remove(removePos + (Vector3.right * 4));
+            if (creationPoint.Find(x => x == (removePos + (Vector3.right * 2))) != null)
+                creationPoint.Remove(removePos + (Vector3.right * 2));
+            if (creationPoint.Find(x => x == (removePos + (Vector3.right * 2) + (Vector3.back * 2))) != null)
+                creationPoint.Remove(removePos + (Vector3.right * 2) + (Vector3.back * 2));
+            creationPoint.Remove(removePos);
             GameMng.instance.SetUser(obj, obj1);
         }
         GameObject obj2;

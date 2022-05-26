@@ -4,11 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-[System.Serializable]
-public class StringInt : SerializableDictionary<string, int> { }
-
-[System.Serializable]
-public class StringObj : SerializableDictionary<string, GameObject> { }
 public class UIMng : Singleton<UIMng>
 {
     [SerializeField]

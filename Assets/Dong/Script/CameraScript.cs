@@ -10,5 +10,6 @@ public class CameraScript : MonoBehaviour
     private void Start()
     {
         CameraMng.instance.camList[depthIndex] = GetComponent<Camera>();
+        gameObject.SetActive(false);
     }
 }

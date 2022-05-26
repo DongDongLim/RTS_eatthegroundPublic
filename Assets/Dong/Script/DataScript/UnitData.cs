@@ -10,10 +10,19 @@ public enum UnitTypeArea
     GRASS, 
 }
 
+public enum BattleMode
+{
+    NONE,
+    ATTACK,
+    DEFANCE,
+}
+
 [CreateAssetMenu(fileName = "UnitData", menuName = "Data/UnitData")]
 public class UnitData : Data
 {
     public UnitTypeArea areaType;
+
+    public BattleMode battleMode;
 
     public int[] hp;
     public int[] atk;

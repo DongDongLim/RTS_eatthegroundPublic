@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.56452316, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 13178597}
   - component: {fileID: 13178599}
   - component: {fileID: 13178598}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 107097161}
   - component: {fileID: 107097163}
   - component: {fileID: 107097162}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,6 +279,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107097160}
   m_Mesh: {fileID: 3729076494918021681, guid: 368c8802134dc42e8ad8a4c0932e6801, type: 3}
+--- !u!1 &111039959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 111039960}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &111039960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111039959}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -9, y: 0, z: 6}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 119774389}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &112771614
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +320,7 @@ GameObject:
   - component: {fileID: 112771615}
   - component: {fileID: 112771617}
   - component: {fileID: 112771616}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,6 +388,42 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112771614}
   m_Mesh: {fileID: -8126460888732189368, guid: e8aab347e04b847a2840677334d3265b, type: 3}
+--- !u!1 &119774388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 119774389}
+  m_Layer: 0
+  m_Name: EnermyPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &119774389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119774388}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1539912161}
+  - {fileID: 111039960}
+  - {fileID: 215007848}
+  - {fileID: 2027122226}
+  - {fileID: 1697407016}
+  - {fileID: 796296185}
+  m_Father: {fileID: 1873556745}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &170148736
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +435,7 @@ GameObject:
   - component: {fileID: 170148739}
   - component: {fileID: 170148738}
   - component: {fileID: 170148737}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -427,13 +493,43 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170148736}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -25, y: 0, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1020359989}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &215007847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 215007848}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &215007848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215007847}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -9, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 119774389}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &292971561
 GameObject:
   m_ObjectHideFlags: 0
@@ -444,7 +540,7 @@ GameObject:
   m_Component:
   - component: {fileID: 292971562}
   - component: {fileID: 292971563}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD_group (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -505,6 +601,36 @@ LODGroup:
     renderers:
     - renderer: {fileID: 1423285826}
   m_Enabled: 1
+--- !u!1 &305404538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 305404539}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &305404539
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305404538}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 849512578}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &310340773
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +642,7 @@ GameObject:
   - component: {fileID: 310340774}
   - component: {fileID: 310340776}
   - component: {fileID: 310340775}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,6 +710,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310340773}
   m_Mesh: {fileID: -8126460888732189368, guid: e8aab347e04b847a2840677334d3265b, type: 3}
+--- !u!1 &330819593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 330819594}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &330819594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330819593}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3, y: 0, z: 6}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 849512578}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &380534983
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,7 +750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 380534984}
   - component: {fileID: 380534985}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD_group (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -661,7 +817,7 @@ GameObject:
   - component: {fileID: 385643445}
   - component: {fileID: 385643447}
   - component: {fileID: 385643446}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -769,7 +925,7 @@ Camera:
   m_GameObject: {fileID: 404498289}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -791,7 +947,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1638400
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -810,12 +966,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404498289}
-  m_LocalRotation: {x: 0, y: 0.8191521, z: -0.5735764, w: 0}
+  m_LocalRotation: {x: -0, y: 0.8191521, z: -0.5735764, w: 0}
   m_LocalPosition: {x: 0, y: 18, z: 8.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_Father: {fileID: 1020359989}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 70, y: 180, z: 0}
 --- !u!1 &414120562
 GameObject:
@@ -828,7 +984,7 @@ GameObject:
   - component: {fileID: 414120563}
   - component: {fileID: 414120565}
   - component: {fileID: 414120564}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -907,7 +1063,7 @@ GameObject:
   - component: {fileID: 423723968}
   - component: {fileID: 423723970}
   - component: {fileID: 423723969}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -986,7 +1142,7 @@ GameObject:
   - component: {fileID: 426456648}
   - component: {fileID: 426456650}
   - component: {fileID: 426456649}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1065,7 +1221,7 @@ GameObject:
   - component: {fileID: 433951245}
   - component: {fileID: 433951247}
   - component: {fileID: 433951246}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1154,15 +1310,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 438047027}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -7.94628}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 438013205}
   - {fileID: 438013207}
   - {fileID: 438013201}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 963922587}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &438013205
 Transform:
@@ -1203,7 +1359,7 @@ GameObject:
   - component: {fileID: 438013201}
   - component: {fileID: 439340337}
   - component: {fileID: 440307697}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: candle_block_top_wax_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1221,7 +1377,7 @@ GameObject:
   - component: {fileID: 438013203}
   - component: {fileID: 445473525}
   - component: {fileID: 455432629}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: candle_block_top_wax (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1239,7 +1395,7 @@ GameObject:
   - component: {fileID: 438013205}
   - component: {fileID: 439340341}
   - component: {fileID: 440307701}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: candle_block_top_wax_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1257,7 +1413,7 @@ GameObject:
   - component: {fileID: 438013207}
   - component: {fileID: 439340343}
   - component: {fileID: 440307703}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: candle_block_top_wax_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1273,7 +1429,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 438746783}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD_group (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1328,7 +1484,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 439967501}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: PlayerBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1342,7 +1498,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 439967500}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1357,7 +1513,6 @@ Transform:
   - {fileID: 352352417450071949}
   - {fileID: 6913405527424391408}
   - {fileID: 513394102033569469}
-  - {fileID: 5396777015066943418}
   - {fileID: 1531391154666461700}
   - {fileID: 8922407978316212228}
   - {fileID: 5639056659997356937}
@@ -1375,7 +1530,8 @@ Transform:
   - {fileID: 3157287277629739511}
   - {fileID: 2420262399745336470}
   - {fileID: 2522307809095508286}
-  m_Father: {fileID: 0}
+  - {fileID: 5027528598371534476}
+  m_Father: {fileID: 1020359989}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &440307697
@@ -1506,7 +1662,7 @@ GameObject:
   - component: {fileID: 444527881}
   - component: {fileID: 444527883}
   - component: {fileID: 444527882}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1631,7 +1787,7 @@ GameObject:
   - component: {fileID: 529379246}
   - component: {fileID: 529379248}
   - component: {fileID: 529379247}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1699,6 +1855,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 529379245}
   m_Mesh: {fileID: 7516830393199503808, guid: ece68b38520f6489599a44dab7e2a725, type: 3}
+--- !u!1 &596413907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 596413908}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &596413908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596413907}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3, y: 0, z: -6}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 849512578}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &629264655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,7 +1896,7 @@ GameObject:
   - component: {fileID: 629264656}
   - component: {fileID: 629264658}
   - component: {fileID: 629264657}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1788,7 +1974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 768322427}
   - component: {fileID: 768322428}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD_group (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1849,6 +2035,36 @@ LODGroup:
     renderers:
     - renderer: {fileID: 310340775}
   m_Enabled: 1
+--- !u!1 &796296184
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 796296185}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &796296185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 796296184}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -9, y: 0, z: -6}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 119774389}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &801281880
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,7 +2076,7 @@ GameObject:
   - component: {fileID: 801281881}
   - component: {fileID: 801281883}
   - component: {fileID: 801281882}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1938,7 +2154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 819804626}
   - component: {fileID: 819804627}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD_group (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2005,7 +2221,7 @@ GameObject:
   - component: {fileID: 839303688}
   - component: {fileID: 839303690}
   - component: {fileID: 839303689}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2073,6 +2289,136 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839303687}
   m_Mesh: {fileID: 7516830393199503808, guid: ece68b38520f6489599a44dab7e2a725, type: 3}
+--- !u!1 &842355218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 842355219}
+  - component: {fileID: 842355222}
+  - component: {fileID: 842355221}
+  - component: {fileID: 842355220}
+  m_Layer: 19
+  m_Name: Quad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 8
+  m_IsActive: 1
+--- !u!4 &842355219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842355218}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5000001, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5027528598371534476}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!64 &842355220
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842355218}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &842355221
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842355218}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 898a94097d882274982d9214737d3c81, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &842355222
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842355218}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &849512577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 849512578}
+  m_Layer: 0
+  m_Name: PlayerPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &849512578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849512577}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 330819594}
+  - {fileID: 2067006950}
+  - {fileID: 929318315}
+  - {fileID: 305404539}
+  - {fileID: 596413908}
+  - {fileID: 1899335008}
+  m_Father: {fileID: 1873556745}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &859594420
 GameObject:
   m_ObjectHideFlags: 0
@@ -2084,7 +2430,7 @@ GameObject:
   - component: {fileID: 859594421}
   - component: {fileID: 859594423}
   - component: {fileID: 859594422}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2152,6 +2498,85 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 859594420}
   m_Mesh: {fileID: -7025650549629435407, guid: ece68b38520f6489599a44dab7e2a725, type: 3}
+--- !u!1 &875070203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 875070204}
+  - component: {fileID: 875070206}
+  - component: {fileID: 875070205}
+  m_Layer: 19
+  m_Name: Quad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 7
+  m_StaticEditorFlags: 8
+  m_IsActive: 1
+--- !u!4 &875070204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875070203}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2820137293285078886}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!23 &875070205
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875070203}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 898a94097d882274982d9214737d3c81, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &875070206
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875070203}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &888377679
 GameObject:
   m_ObjectHideFlags: 0
@@ -2163,7 +2588,7 @@ GameObject:
   - component: {fileID: 888377680}
   - component: {fileID: 888377682}
   - component: {fileID: 888377681}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2241,7 +2666,7 @@ GameObject:
   m_Component:
   - component: {fileID: 910581598}
   - component: {fileID: 910581599}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD_group (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2297,6 +2722,36 @@ LODGroup:
     renderers:
     - renderer: {fileID: 1455755253}
   m_Enabled: 1
+--- !u!1 &929318314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 929318315}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &929318315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 929318314}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -9, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 849512578}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &943576702
 GameObject:
   m_ObjectHideFlags: 0
@@ -2308,7 +2763,7 @@ GameObject:
   - component: {fileID: 943576703}
   - component: {fileID: 943576705}
   - component: {fileID: 943576704}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2387,7 +2842,7 @@ GameObject:
   - component: {fileID: 962812815}
   - component: {fileID: 962812817}
   - component: {fileID: 962812816}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2455,6 +2910,78 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962812814}
   m_Mesh: {fileID: 311535236305389747, guid: e8aab347e04b847a2840677334d3265b, type: 3}
+--- !u!1 &963922586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 963922587}
+  m_Layer: 19
+  m_Name: ExBG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &963922587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 963922586}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -2.05372}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2075415865}
+  - {fileID: 438013203}
+  m_Father: {fileID: 1020359989}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1020359988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1020359989}
+  m_Layer: 0
+  m_Name: BattleScene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1020359989
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020359988}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 200, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 404498292}
+  - {fileID: 1030302096}
+  - {fileID: 1635064219}
+  - {fileID: 1690737051065896816}
+  - {fileID: 170148739}
+  - {fileID: 2081568881}
+  - {fileID: 439967501}
+  - {fileID: 1067349109}
+  - {fileID: 963922587}
+  - {fileID: 1873556745}
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1030302093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2495,7 +3022,7 @@ Camera:
   m_GameObject: {fileID: 1030302093}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 3
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -2517,7 +3044,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1638400
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -2536,12 +3063,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030302093}
-  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
+  m_LocalRotation: {x: 0.5735764, y: -0, z: -0, w: 0.8191521}
   m_LocalPosition: {x: 0, y: 18, z: -8.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 1020359989}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
 --- !u!1 &1030698478
 GameObject:
@@ -2554,7 +3081,7 @@ GameObject:
   - component: {fileID: 1030698479}
   - component: {fileID: 1030698481}
   - component: {fileID: 1030698480}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2633,7 +3160,7 @@ GameObject:
   - component: {fileID: 1045646754}
   - component: {fileID: 1045646756}
   - component: {fileID: 1045646755}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2710,7 +3237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1067349109}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: EnermyBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2724,7 +3251,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067349108}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2753,7 +3280,8 @@ Transform:
   - {fileID: 7274532261812576938}
   - {fileID: 906815295066854427}
   - {fileID: 1549628700150528675}
-  m_Father: {fileID: 0}
+  - {fileID: 2820137293285078886}
+  m_Father: {fileID: 1020359989}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1114498314
@@ -2767,7 +3295,7 @@ GameObject:
   - component: {fileID: 1114498315}
   - component: {fileID: 1114498317}
   - component: {fileID: 1114498316}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2846,7 +3374,7 @@ GameObject:
   - component: {fileID: 1117481481}
   - component: {fileID: 1117481483}
   - component: {fileID: 1117481482}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2925,7 +3453,7 @@ GameObject:
   - component: {fileID: 1155326856}
   - component: {fileID: 1155326858}
   - component: {fileID: 1155326857}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3004,7 +3532,7 @@ GameObject:
   - component: {fileID: 1196807213}
   - component: {fileID: 1196807215}
   - component: {fileID: 1196807214}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3101,7 +3629,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -3138,7 +3666,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1638400
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
@@ -3157,13 +3685,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1215102997}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1269537758
 GameObject:
   m_ObjectHideFlags: 0
@@ -3174,7 +3702,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1269537759}
   - component: {fileID: 1269537760}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD_group (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3246,7 +3774,7 @@ GameObject:
   - component: {fileID: 1282783617}
   - component: {fileID: 1282783619}
   - component: {fileID: 1282783618}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3314,94 +3842,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282783616}
   m_Mesh: {fileID: 5927002693197568359, guid: ece68b38520f6489599a44dab7e2a725, type: 3}
---- !u!1 &1396810498
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1396810501}
-  - component: {fileID: 1396810500}
-  - component: {fileID: 1396810499}
-  m_Layer: 0
-  m_Name: Camera_Arrangement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1396810499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396810498}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bf88a15e3e05e342a5a26acd10a0156, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  depthIndex: 5
---- !u!20 &1396810500
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396810498}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: 2
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!4 &1396810501
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396810498}
-  m_LocalRotation: {x: 0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -10.43, y: 18, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
 --- !u!1 &1420608476
 GameObject:
   m_ObjectHideFlags: 0
@@ -3412,7 +3852,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1420608477}
   - component: {fileID: 1420608478}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD_group (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3479,7 +3919,7 @@ GameObject:
   - component: {fileID: 1420864292}
   - component: {fileID: 1420864294}
   - component: {fileID: 1420864293}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3558,7 +3998,7 @@ GameObject:
   - component: {fileID: 1423285825}
   - component: {fileID: 1423285827}
   - component: {fileID: 1423285826}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3637,7 +4077,7 @@ GameObject:
   - component: {fileID: 1455755252}
   - component: {fileID: 1455755254}
   - component: {fileID: 1455755253}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3716,7 +4156,7 @@ GameObject:
   - component: {fileID: 1486848983}
   - component: {fileID: 1486848985}
   - component: {fileID: 1486848984}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3795,7 +4235,7 @@ GameObject:
   - component: {fileID: 1497356671}
   - component: {fileID: 1497356673}
   - component: {fileID: 1497356672}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3874,7 +4314,7 @@ GameObject:
   - component: {fileID: 1524131334}
   - component: {fileID: 1524131336}
   - component: {fileID: 1524131335}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3942,6 +4382,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524131333}
   m_Mesh: {fileID: 725961288911515690, guid: 368c8802134dc42e8ad8a4c0932e6801, type: 3}
+--- !u!1 &1539912160
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1539912161}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1539912161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1539912160}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3, y: 0, z: 6}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 119774389}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1544088264
 GameObject:
   m_ObjectHideFlags: 0
@@ -3953,7 +4423,7 @@ GameObject:
   - component: {fileID: 1544088265}
   - component: {fileID: 1544088267}
   - component: {fileID: 1544088266}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4032,7 +4502,7 @@ GameObject:
   - component: {fileID: 1587036519}
   - component: {fileID: 1587036521}
   - component: {fileID: 1587036520}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4110,7 +4580,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1601025136}
   - component: {fileID: 1601025137}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD_group (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4177,7 +4647,7 @@ GameObject:
   - component: {fileID: 1618643178}
   - component: {fileID: 1618643180}
   - component: {fileID: 1618643179}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4245,6 +4715,258 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1618643177}
   m_Mesh: {fileID: -3907282674507769939, guid: 06aed493cf9e445108f2371c56bae6da, type: 3}
+--- !u!1001 &1635064218
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1020359989}
+    m_Modifications:
+    - target: {fileID: 931043005825510872, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143467042530170551, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_Name
+      value: Tiger
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368224, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -86.96062
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368224, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -15.121525
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368224, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -3.9982305
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368226, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -84.5255
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368226, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -174.42627
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368226, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -158.22313
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368228, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -56.9832
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368228, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 178.26694
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368228, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -154.42928
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368230, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368232, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 48.33387
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368232, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368232, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368234, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -6.2996793
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368234, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 12.554868
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368234, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 6.5006933
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368236, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -12.8671255
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368236, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -10.954108
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368236, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -2.5991125
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368238, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -62.87986
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368238, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 5.7324524
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368238, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -19.87994
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368248, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.0000031680324
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368250, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -42.704487
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368250, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -159.20964
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368250, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -0.31370544
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368252, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -12.932785
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368252, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -15.606077
+      objectReference: {fileID: 0}
+    - target: {fileID: 8215858476863368252, guid: 68111482ab52d0945a795af23cb05ecd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 10.642414
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68111482ab52d0945a795af23cb05ecd, type: 3}
+--- !u!4 &1635064219 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4143467042530170550, guid: 68111482ab52d0945a795af23cb05ecd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1635064218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1635064220 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 931043005825510872, guid: 68111482ab52d0945a795af23cb05ecd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1635064218}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0eb2c54763441d49bb2b9f677e0ca04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1652828069
 GameObject:
   m_ObjectHideFlags: 0
@@ -4255,7 +4977,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1652828070}
   - component: {fileID: 1652828071}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD_group (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4311,6 +5033,36 @@ LODGroup:
     renderers:
     - renderer: {fileID: 1155326857}
   m_Enabled: 1
+--- !u!1 &1697407015
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1697407016}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1697407016
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697407015}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3, y: 0, z: -6}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 119774389}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1721976405
 GameObject:
   m_ObjectHideFlags: 0
@@ -4322,7 +5074,7 @@ GameObject:
   - component: {fileID: 1721976406}
   - component: {fileID: 1721976408}
   - component: {fileID: 1721976407}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4401,7 +5153,7 @@ GameObject:
   - component: {fileID: 1772635573}
   - component: {fileID: 1772635575}
   - component: {fileID: 1772635574}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4480,7 +5232,7 @@ GameObject:
   - component: {fileID: 1793083383}
   - component: {fileID: 1793083385}
   - component: {fileID: 1793083384}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4559,7 +5311,7 @@ GameObject:
   - component: {fileID: 1802682377}
   - component: {fileID: 1802682379}
   - component: {fileID: 1802682378}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4638,7 +5390,7 @@ GameObject:
   - component: {fileID: 1848081874}
   - component: {fileID: 1848081876}
   - component: {fileID: 1848081875}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4717,7 +5469,7 @@ GameObject:
   - component: {fileID: 1850622380}
   - component: {fileID: 1850622382}
   - component: {fileID: 1850622381}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4796,7 +5548,7 @@ GameObject:
   - component: {fileID: 1860998878}
   - component: {fileID: 1860998880}
   - component: {fileID: 1860998879}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4864,6 +5616,97 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860998877}
   m_Mesh: {fileID: -7025650549629435407, guid: ece68b38520f6489599a44dab7e2a725, type: 3}
+--- !u!1 &1873556744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1873556745}
+  - component: {fileID: 1873556746}
+  m_Layer: 0
+  m_Name: BattleSystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1873556745
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873556744}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 849512578}
+  - {fileID: 119774389}
+  m_Father: {fileID: 1020359989}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1873556746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873556744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb4dbfe5538c17a49bb47b7c3eb7bf1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPointPlayer:
+  - {fileID: 330819594}
+  - {fileID: 2067006950}
+  - {fileID: 929318315}
+  - {fileID: 305404539}
+  - {fileID: 596413908}
+  - {fileID: 1899335008}
+  spawnPointEnermy:
+  - {fileID: 1539912161}
+  - {fileID: 111039960}
+  - {fileID: 215007848}
+  - {fileID: 2027122226}
+  - {fileID: 1697407016}
+  - {fileID: 796296185}
+  playerFlag: {fileID: 1690737051065896817}
+  EnermyFlag: {fileID: 1635064220}
+--- !u!1 &1899335007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1899335008}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1899335008
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1899335007}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -9, y: 0, z: -6}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 849512578}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &1916176101
 GameObject:
   m_ObjectHideFlags: 0
@@ -4875,7 +5718,7 @@ GameObject:
   - component: {fileID: 1916176102}
   - component: {fileID: 1916176104}
   - component: {fileID: 1916176103}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4954,7 +5797,7 @@ GameObject:
   - component: {fileID: 1966863541}
   - component: {fileID: 1966863543}
   - component: {fileID: 1966863542}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5022,6 +5865,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966863540}
   m_Mesh: {fileID: 5927002693197568359, guid: ece68b38520f6489599a44dab7e2a725, type: 3}
+--- !u!1 &2027122225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2027122226}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2027122226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2027122225}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 119774389}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!205 &2055897503
 LODGroup:
   m_ObjectHideFlags: 0
@@ -5060,7 +5933,7 @@ GameObject:
   - component: {fileID: 2056284143}
   - component: {fileID: 2056284145}
   - component: {fileID: 2056284144}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5147,6 +6020,36 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &2067006949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2067006950}
+  m_Layer: 0
+  m_Name: Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2067006950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2067006949}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -9, y: 0, z: 6}
+  m_LocalScale: {x: 6, y: 6, z: 1}
+  m_Children: []
+  m_Father: {fileID: 849512578}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &2071991579
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5299,7 +6202,7 @@ GameObject:
   - component: {fileID: 2075415865}
   - component: {fileID: 2065873631}
   - component: {fileID: 2055897503}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: candle_block_top_wax
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5317,7 +6220,7 @@ GameObject:
   - component: {fileID: 2075415867}
   - component: {fileID: 2071991579}
   - component: {fileID: 2073122779}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: candle_block_top_wax_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5335,7 +6238,7 @@ GameObject:
   - component: {fileID: 2075415869}
   - component: {fileID: 2071991581}
   - component: {fileID: 2073122781}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: candle_block_top_wax_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5353,7 +6256,7 @@ GameObject:
   - component: {fileID: 2075415871}
   - component: {fileID: 2071991583}
   - component: {fileID: 2073122783}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: candle_block_top_wax_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5367,15 +6270,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075379993}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 12.05372}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 2075415871}
   - {fileID: 2075415869}
   - {fileID: 2075415867}
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_Father: {fileID: 963922587}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2075415867
 Transform:
@@ -5435,7 +6338,7 @@ GameObject:
   m_Name: BattleGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
+  m_NavMeshLayer: 7
   m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!64 &2081568878
@@ -5506,11 +6409,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081568877}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 27, y: 19, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1020359989}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &2091888887
@@ -5523,7 +6426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2091888888}
   - component: {fileID: 2091888889}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD_group (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5604,7 +6507,7 @@ GameObject:
   - component: {fileID: 2198448365125341735}
   - component: {fileID: 7520258288567950821}
   - component: {fileID: 2194023102726345393}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5700,7 +6603,7 @@ GameObject:
   - component: {fileID: 6026628188338371494}
   - component: {fileID: 6556410929678634857}
   - component: {fileID: 7604613196670482535}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5782,7 +6685,7 @@ GameObject:
   m_Component:
   - component: {fileID: 761776258769895043}
   - component: {fileID: 5532743412870056434}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD_group (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5830,6 +6733,38 @@ LODGroup:
     renderers:
     - renderer: {fileID: 3113112790800715395}
   m_Enabled: 1
+--- !u!4 &153131147682864156
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288584278095648977}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5027528598371534476}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &172306520936832061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 951709207727470119}
+  - component: {fileID: 5638017227559765183}
+  - component: {fileID: 3217896904891841278}
+  m_Layer: 19
+  m_Name: block_stone_large1_LOD1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &173185604869260366
 GameObject:
   m_ObjectHideFlags: 0
@@ -5841,7 +6776,7 @@ GameObject:
   - component: {fileID: 6743239427151107177}
   - component: {fileID: 4551020448953444922}
   - component: {fileID: 7934754504150857056}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5859,7 +6794,7 @@ GameObject:
   - component: {fileID: 4801221959920998435}
   - component: {fileID: 7080659057645987915}
   - component: {fileID: 6770069960318409443}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5907,7 +6842,7 @@ GameObject:
   - component: {fileID: 8534764318845507302}
   - component: {fileID: 104227011002869905}
   - component: {fileID: 2048612745765748480}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5986,7 +6921,7 @@ GameObject:
   - component: {fileID: 3480662555973424094}
   - component: {fileID: 6323129174766284599}
   - component: {fileID: 1881500471260923921}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6102,6 +7037,20 @@ Transform:
   m_Father: {fileID: 6902810720719413032}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &380688419286954247
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6400332435014779876}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 2820137293285078886}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &386952138446017184
 GameObject:
   m_ObjectHideFlags: 0
@@ -6113,7 +7062,7 @@ GameObject:
   - component: {fileID: 8019902042824181357}
   - component: {fileID: 5359708636737015515}
   - component: {fileID: 5967582492926909727}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_crown_stone_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6286,7 +7235,7 @@ GameObject:
   - component: {fileID: 1766578973387131588}
   - component: {fileID: 7951949589894399238}
   - component: {fileID: 1762296651394746962}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6304,7 +7253,7 @@ GameObject:
   - component: {fileID: 4454140526041130622}
   - component: {fileID: 5831648710495037241}
   - component: {fileID: 6359736485180334301}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6391,13 +7340,13 @@ GameObject:
   m_Component:
   - component: {fileID: 906815295066854427}
   - component: {fileID: 5390729715970958186}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_crown_stone_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &567994070230532648
 Transform:
   m_ObjectHideFlags: 0
@@ -6504,7 +7453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 267314942790077584}
   - component: {fileID: 5039438026747853793}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD_group (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6622,7 +7571,7 @@ GameObject:
   - component: {fileID: 1948615485989336153}
   - component: {fileID: 8781978534544061167}
   - component: {fileID: 7249445347756176657}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6706,7 +7655,7 @@ GameObject:
   - component: {fileID: 5505578542816677433}
   - component: {fileID: 4710231913266193870}
   - component: {fileID: 3497257052592843699}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6728,7 +7677,7 @@ Transform:
   - {fileID: 8403267720467177172}
   - {fileID: 8186574921012369751}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 22
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &772101859372050399
 GameObject:
@@ -6741,7 +7690,7 @@ GameObject:
   - component: {fileID: 5502645536869485025}
   - component: {fileID: 4712162199707574806}
   - component: {fileID: 3508916226286021739}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6772,7 +7721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 122822413413676680}
   - component: {fileID: 5183157173176549881}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD_group (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6832,6 +7781,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!33 &822105334483043140
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6400332435014779876}
+  m_Mesh: {fileID: -5451833093405358256, guid: 06aed493cf9e445108f2371c56bae6da, type: 3}
 --- !u!4 &822355926055914873
 Transform:
   m_ObjectHideFlags: 0
@@ -6942,7 +7899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 513394102033569469}
   - component: {fileID: 4703427749886517708}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD_group (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6960,13 +7917,27 @@ GameObject:
   - component: {fileID: 681228277533413503}
   - component: {fileID: 7209173214140102171}
   - component: {fileID: 6488291133513867238}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &902530722417453204
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6476405358324113693}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5027528598371534476}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &903489221971105716
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7035,13 +8006,27 @@ GameObject:
   - component: {fileID: 4920921306556968485}
   - component: {fileID: 2839938669190844358}
   - component: {fileID: 8075385717309031199}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &951709207727470119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172306520936832061}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 2820137293285078886}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &958891448520505890
 LODGroup:
   m_ObjectHideFlags: 0
@@ -7155,7 +8140,7 @@ GameObject:
   - component: {fileID: 6047285483914233766}
   - component: {fileID: 6758927155535640037}
   - component: {fileID: 903489221971105716}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7254,7 +8239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 410921110466958451}
   - component: {fileID: 4893720904252072706}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD_group (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7363,7 +8348,7 @@ GameObject:
   m_Component:
   - component: {fileID: 352352417450071949}
   - component: {fileID: 4808103881535004924}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD_group (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7398,7 +8383,7 @@ GameObject:
   - component: {fileID: 563158751291442347}
   - component: {fileID: 5914085164492047300}
   - component: {fileID: 393507259491821702}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7416,7 +8401,7 @@ GameObject:
   - component: {fileID: 3148400248760518895}
   - component: {fileID: 5084346238144268712}
   - component: {fileID: 5630421812606586444}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7469,7 +8454,7 @@ GameObject:
   - component: {fileID: 6331077938791426825}
   - component: {fileID: 6549682655130075390}
   - component: {fileID: 3113112790800715395}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7526,7 +8511,7 @@ GameObject:
   - component: {fileID: 7258130820282650454}
   - component: {fileID: 8660940410224639850}
   - component: {fileID: 6849044402612964432}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7558,7 +8543,7 @@ GameObject:
   - component: {fileID: 1123771399283986147}
   - component: {fileID: 8739048229024481569}
   - component: {fileID: 1110341142467333749}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7668,7 +8653,7 @@ GameObject:
   - component: {fileID: 1622691538158848538}
   - component: {fileID: 7851117700599737521}
   - component: {fileID: 3475795475497687405}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7686,7 +8671,7 @@ GameObject:
   - component: {fileID: 44898071667902710}
   - component: {fileID: 2347918638247088898}
   - component: {fileID: 2763004564001625242}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_small_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7816,7 +8801,7 @@ GameObject:
   - component: {fileID: 7680414635382999506}
   - component: {fileID: 4172502280448507846}
   - component: {fileID: 5898390387683893824}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7887,7 +8872,7 @@ GameObject:
   - component: {fileID: 2643087882224534306}
   - component: {fileID: 7188667872361201321}
   - component: {fileID: 4232054848940268042}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7905,7 +8890,7 @@ GameObject:
   - component: {fileID: 5675812044120459261}
   - component: {fileID: 6416304071314587939}
   - component: {fileID: 7167894539911000741}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_face_stone_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7923,7 +8908,7 @@ GameObject:
   - component: {fileID: 7011087243632209504}
   - component: {fileID: 9063417694001864284}
   - component: {fileID: 6555794845680856422}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7999,7 +8984,7 @@ GameObject:
   - component: {fileID: 6106961920573601458}
   - component: {fileID: 8368419867520468698}
   - component: {fileID: 5446271073477162098}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8035,7 +9020,7 @@ Transform:
   - {fileID: 1002656752961831789}
   - {fileID: 8035090389861700579}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1549628700150528675
 Transform:
@@ -8066,7 +9051,7 @@ GameObject:
   - component: {fileID: 2402757648691323412}
   - component: {fileID: 7364839368275615647}
   - component: {fileID: 4561348466134399804}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8109,6 +9094,24 @@ Transform:
   m_Father: {fileID: 1366113966179737076}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1651899506563979376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3235845228696863614}
+  - component: {fileID: 4083676845977270194}
+  - component: {fileID: 4982009056280322953}
+  m_Layer: 19
+  m_Name: block_stone_large1_LOD0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &1674818139172707527
 Transform:
   m_ObjectHideFlags: 0
@@ -8123,6 +9126,93 @@ Transform:
   m_Father: {fileID: 6241722555696488897}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1690737051065896815
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1020359989}
+    m_Modifications:
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6856434923947755915, guid: 8a855c19306dbe44a974a1ae55e70c23,
+        type: 3}
+      propertyPath: m_Name
+      value: Boss
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8a855c19306dbe44a974a1ae55e70c23, type: 3}
+--- !u!4 &1690737051065896816 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2325444414338312503, guid: 8a855c19306dbe44a974a1ae55e70c23,
+    type: 3}
+  m_PrefabInstance: {fileID: 1690737051065896815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1690737051065896817 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3268097832107698392, guid: 8a855c19306dbe44a974a1ae55e70c23,
+    type: 3}
+  m_PrefabInstance: {fileID: 1690737051065896815}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0eb2c54763441d49bb2b9f677e0ca04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &1691013684371481781
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8131,6 +9221,14 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2419136954431855332}
   m_Mesh: {fileID: 1429922396982737893, guid: bb8f908309f5f4154be6c81bebba16c4, type: 3}
+--- !u!33 &1731335739730829707
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6476405358324113693}
+  m_Mesh: {fileID: -3855233910442633537, guid: 1c05d60e65da247a3a521d661f044521, type: 3}
 --- !u!4 &1740829702210037253
 Transform:
   m_ObjectHideFlags: 0
@@ -8309,7 +9407,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1366113966179737076}
   - component: {fileID: 6102226601462295173}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD_group (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8418,7 +9516,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1279467038839237741}
   - component: {fileID: 6312793060172094236}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD_group (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8435,7 +9533,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1174562771142442766}
   - component: {fileID: 6203423951018346623}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD_group (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8495,6 +9593,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!33 &1971533097603886176
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288584278095648977}
+  m_Mesh: {fileID: 1924723156403605734, guid: 1c05d60e65da247a3a521d661f044521, type: 3}
 --- !u!1 &1972045261221279995
 GameObject:
   m_ObjectHideFlags: 0
@@ -8506,7 +9612,7 @@ GameObject:
   - component: {fileID: 2180247464048770938}
   - component: {fileID: 8302912379903203614}
   - component: {fileID: 5566154946521280739}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8698,7 +9804,7 @@ GameObject:
   - component: {fileID: 814541799539045955}
   - component: {fileID: 6813494931956347180}
   - component: {fileID: 714784062901213806}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8732,7 +9838,7 @@ GameObject:
   - component: {fileID: 6567122966218784365}
   - component: {fileID: 6204482478425429402}
   - component: {fileID: 2867778982971497447}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8788,7 +9894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1531391154666461700}
   - component: {fileID: 5988247695844666741}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD_group (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8806,7 +9912,7 @@ GameObject:
   - component: {fileID: 1880707830532012274}
   - component: {fileID: 6947274555150638681}
   - component: {fileID: 4369029317823916933}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8838,7 +9944,7 @@ GameObject:
   - component: {fileID: 6377750360390654874}
   - component: {fileID: 6177802148757975149}
   - component: {fileID: 2624802983596736016}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8936,7 +10042,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1549628700150528675}
   - component: {fileID: 6042560484659842514}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_face_stone_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8954,7 +10060,7 @@ GameObject:
   - component: {fileID: 2668159971615365572}
   - component: {fileID: 3549715257908014344}
   - component: {fileID: 5533969134566275379}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8972,7 +10078,7 @@ GameObject:
   - component: {fileID: 7353033484068027194}
   - component: {fileID: 3853634471508675886}
   - component: {fileID: 6721097270527283368}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9042,7 +10148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1488975772370782391}
   - component: {fileID: 5977394059191025606}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9064,7 +10170,7 @@ Transform:
   - {fileID: 1417224969701984132}
   - {fileID: 5828143541118201599}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 24
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2314450808004108414
 GameObject:
@@ -9077,7 +10183,7 @@ GameObject:
   - component: {fileID: 9218058460846026841}
   - component: {fileID: 2112657858002308618}
   - component: {fileID: 5504589459377967440}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9095,7 +10201,7 @@ GameObject:
   - component: {fileID: 5867747089714144557}
   - component: {fileID: 5283186631244325158}
   - component: {fileID: 2620331147474475815}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: oval_leave_plant_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9136,7 +10242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3157287277629739511}
   - component: {fileID: 7893384786037024390}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_large_LOD_group (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9176,7 +10282,7 @@ GameObject:
   - component: {fileID: 3993829032717626546}
   - component: {fileID: 7111006385022921693}
   - component: {fileID: 3876006612358103199}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9224,7 +10330,7 @@ GameObject:
   - component: {fileID: 7058789426567847080}
   - component: {fileID: 1691013684371481781}
   - component: {fileID: 9087919786251714186}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_face_stone_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9246,7 +10352,7 @@ Transform:
   - {fileID: 1307499446347402326}
   - {fileID: 5867747089714144557}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 27
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2428568752060168290
 GameObject:
@@ -9259,7 +10365,7 @@ GameObject:
   - component: {fileID: 5828143541118201599}
   - component: {fileID: 5250761173367859956}
   - component: {fileID: 2725412265128071413}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: oval_leave_plant_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9277,7 +10383,7 @@ GameObject:
   - component: {fileID: 6055161378869998294}
   - component: {fileID: 2525281574963989665}
   - component: {fileID: 4474310479056378672}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9392,7 +10498,7 @@ GameObject:
   - component: {fileID: 7561396776577151373}
   - component: {fileID: 2917242988833424940}
   - component: {fileID: 6721917982410260517}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_small_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9414,7 +10520,7 @@ Transform:
   - {fileID: 3563166250716647197}
   - {fileID: 6413706493603346022}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 28
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2524230062817268003
 MeshFilter:
@@ -9549,7 +10655,7 @@ GameObject:
   - component: {fileID: 5875532180174244663}
   - component: {fileID: 5548942232404982539}
   - component: {fileID: 7655182021617322033}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9581,7 +10687,7 @@ GameObject:
   - component: {fileID: 1314894046840971956}
   - component: {fileID: 6147998500891352895}
   - component: {fileID: 876535282123717532}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9597,7 +10703,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3372103902068796892}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD_group (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9654,7 +10760,7 @@ GameObject:
   - component: {fileID: 2362448948088932525}
   - component: {fileID: 5598272960840756937}
   - component: {fileID: 8337892612508452660}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9737,7 +10843,7 @@ Transform:
   - {fileID: 6383330702697665514}
   - {fileID: 6743239427151107177}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2805789169602406015
 GameObject:
@@ -9750,7 +10856,7 @@ GameObject:
   - component: {fileID: 1269514306425751363}
   - component: {fileID: 6265454527595461320}
   - component: {fileID: 1120091821375446635}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9768,13 +10874,32 @@ GameObject:
   - component: {fileID: 5920928119196905152}
   - component: {fileID: 5665673663351529212}
   - component: {fileID: 7610488393629625798}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &2820137293285078886
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200074998608227804}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3235845228696863614}
+  - {fileID: 951709207727470119}
+  - {fileID: 380688419286954247}
+  - {fileID: 5597661491195642616}
+  - {fileID: 875070204}
+  m_Father: {fileID: 1067349109}
+  m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2833375426378726432
 Transform:
   m_ObjectHideFlags: 0
@@ -9790,7 +10915,7 @@ Transform:
   - {fileID: 9068180786722682416}
   - {fileID: 3802389115670653673}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2839938669190844358
 MeshFilter:
@@ -9919,7 +11044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2522307809095508286}
   - component: {fileID: 7303455684653897295}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_small_LOD_group (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9984,7 +11109,7 @@ GameObject:
   - component: {fileID: 7047282750225487740}
   - component: {fileID: 211414808133842591}
   - component: {fileID: 6167658866648611398}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10018,7 +11143,7 @@ GameObject:
   - component: {fileID: 2216029916959700944}
   - component: {fileID: 6461977499738655323}
   - component: {fileID: 60110769968819960}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10088,7 +11213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2420262399745336470}
   - component: {fileID: 7479459171205682151}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: oval_leave_plant_flower_LOD_group (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10137,7 +11262,7 @@ GameObject:
   - component: {fileID: 7718169893923176689}
   - component: {fileID: 5475993050526691481}
   - component: {fileID: 8379283063541121585}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10232,7 +11357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2313067470998875972}
   - component: {fileID: 7368932655849052213}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: oval_leave_plant_flower_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10250,7 +11375,7 @@ GameObject:
   - component: {fileID: 7904460340033675259}
   - component: {fileID: 6956914321816794124}
   - component: {fileID: 1251216254711216753}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10286,7 +11411,7 @@ Transform:
   - {fileID: 4142590846819424313}
   - {fileID: 8313250647192868404}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 26
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3165234160211606449
 GameObject:
@@ -10299,7 +11424,7 @@ GameObject:
   - component: {fileID: 6833304915098762148}
   - component: {fileID: 4782574801755868056}
   - component: {fileID: 7305534052180228258}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10316,13 +11441,83 @@ GameObject:
   m_Component:
   - component: {fileID: 2833375426378726432}
   - component: {fileID: 6991895980082809681}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD_group (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &3200074998608227804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2820137293285078886}
+  - component: {fileID: 7023711358425759767}
+  m_Layer: 19
+  m_Name: block_stone_large1_LOD_group
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &3217896904891841278
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172306520936832061}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5d84c2ba2c1d4408ca682be990685e67, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!4 &3235845228696863614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651899506563979376}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 2820137293285078886}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3245115160379962117
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -10377,7 +11572,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2781568106770625469}
   - component: {fileID: 6971575375429158092}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD_group (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10395,7 +11590,7 @@ GameObject:
   - component: {fileID: 1529407553813610296}
   - component: {fileID: 8649137513747349119}
   - component: {fileID: 8118749363163003291}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10413,7 +11608,7 @@ GameObject:
   - component: {fileID: 8186574921012369751}
   - component: {fileID: 1378166290148550404}
   - component: {fileID: 4761900345192872030}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10431,7 +11626,7 @@ GameObject:
   - component: {fileID: 3073089302977073387}
   - component: {fileID: 5824841899138790976}
   - component: {fileID: 873059214699709340}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10488,7 +11683,7 @@ GameObject:
   - component: {fileID: 7513171832110169805}
   - component: {fileID: 7313143766826407226}
   - component: {fileID: 1489384951214955335}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10535,13 +11730,21 @@ GameObject:
   - component: {fileID: 6248580931583136547}
   - component: {fileID: 416177918815642935}
   - component: {fileID: 7924771724024346801}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!33 &3421582264230413390
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6675332726502155422}
+  m_Mesh: {fileID: 1435862531450112201, guid: 06aed493cf9e445108f2371c56bae6da, type: 3}
 --- !u!1 &3432744990248268752
 GameObject:
   m_ObjectHideFlags: 0
@@ -10553,7 +11756,7 @@ GameObject:
   - component: {fileID: 6519471603714579416}
   - component: {fileID: 3276944761369650607}
   - component: {fileID: 3487581048167215678}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10610,7 +11813,7 @@ GameObject:
   - component: {fileID: 266430394839048764}
   - component: {fileID: 7223498188960390869}
   - component: {fileID: 3018308516630755827}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10681,7 +11884,7 @@ GameObject:
   - component: {fileID: 5003492356591459988}
   - component: {fileID: 6477338607517757096}
   - component: {fileID: 9140415911089970578}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10699,7 +11902,7 @@ GameObject:
   - component: {fileID: 7142341595921388479}
   - component: {fileID: 7656505011892676464}
   - component: {fileID: 6428132929904119934}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10770,7 +11973,7 @@ GameObject:
   - component: {fileID: 4995923259060083020}
   - component: {fileID: 6475839061132290416}
   - component: {fileID: 9143340381801273930}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10827,7 +12030,7 @@ GameObject:
   - component: {fileID: 7522817426076203384}
   - component: {fileID: 2012427223398624097}
   - component: {fileID: 5082837075363448754}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_floor_stone_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10953,7 +12156,7 @@ GameObject:
   - component: {fileID: 395142641821749984}
   - component: {fileID: 4762188375968788331}
   - component: {fileID: 1976712145073261512}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10971,13 +12174,52 @@ GameObject:
   - component: {fileID: 378645786952619320}
   - component: {fileID: 4768288828974327987}
   - component: {fileID: 1969301521894837264}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!23 &3620621560407966640
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6675332726502155422}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5d84c2ba2c1d4408ca682be990685e67, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!4 &3687858204026109067
 Transform:
   m_ObjectHideFlags: 0
@@ -11003,7 +12245,7 @@ GameObject:
   - component: {fileID: 3938413958025913916}
   - component: {fileID: 6615818592473792600}
   - component: {fileID: 7338388313124809125}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11032,6 +12274,45 @@ Transform:
   m_Father: {fileID: 2833375426378726432}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &3804672741584913483
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288584278095648977}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5d84c2ba2c1d4408ca682be990685e67, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &3814624094052458814
 GameObject:
   m_ObjectHideFlags: 0
@@ -11043,7 +12324,7 @@ GameObject:
   - component: {fileID: 4695596241767893302}
   - component: {fileID: 3902862622740494145}
   - component: {fileID: 3113583260907561168}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11100,7 +12381,7 @@ GameObject:
   - component: {fileID: 7696446715658439609}
   - component: {fileID: 609096417451161066}
   - component: {fileID: 6432934829416557232}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11154,7 +12435,7 @@ GameObject:
   - component: {fileID: 1674818139172707527}
   - component: {fileID: 8333214547148741948}
   - component: {fileID: 6877183584815173841}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_large_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11171,7 +12452,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4530679998756071096}
   - component: {fileID: 8699312759283388873}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD_group (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11298,6 +12579,45 @@ Transform:
   m_Father: {fileID: 1067349109}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &4002573130954806553
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6476405358324113693}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5d84c2ba2c1d4408ca682be990685e67, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!205 &4025373943903401654
 LODGroup:
   m_ObjectHideFlags: 0
@@ -11379,7 +12699,7 @@ GameObject:
   - component: {fileID: 2022401329966586755}
   - component: {fileID: 8321446075141374775}
   - component: {fileID: 8887790883214499885}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_floor_stone_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11413,6 +12733,14 @@ LODGroup:
     renderers:
     - renderer: {fileID: 1251216254711216753}
   m_Enabled: 1
+--- !u!33 &4083676845977270194
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651899506563979376}
+  m_Mesh: {fileID: -1123581988574803552, guid: 06aed493cf9e445108f2371c56bae6da, type: 3}
 --- !u!33 &4104272275481301216
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -11432,7 +12760,7 @@ GameObject:
   - component: {fileID: 147618331403079741}
   - component: {fileID: 8012491667987517818}
   - component: {fileID: 7466521238614333086}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11450,7 +12778,7 @@ GameObject:
   - component: {fileID: 8313250647192868404}
   - component: {fileID: 4711189072353063223}
   - component: {fileID: 2898106147242438856}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_large_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11521,7 +12849,7 @@ GameObject:
   - component: {fileID: 4142590846819424313}
   - component: {fileID: 1995805112516245449}
   - component: {fileID: 1384386677980611500}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_large_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11553,7 +12881,7 @@ GameObject:
   - component: {fileID: 6967889061573500322}
   - component: {fileID: 4393268366279154556}
   - component: {fileID: 4530719204274836468}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_small_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11661,7 +12989,7 @@ GameObject:
   - component: {fileID: 8254475162628406272}
   - component: {fileID: 1274003686195895779}
   - component: {fileID: 5104511527009734970}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11679,7 +13007,7 @@ GameObject:
   - component: {fileID: 8946836779594543092}
   - component: {fileID: 6686539968474554268}
   - component: {fileID: 7168832903824469300}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11704,7 +13032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3995551466168313005}
   - component: {fileID: 8154069812185551836}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11788,7 +13116,7 @@ GameObject:
   - component: {fileID: 8035505042142159191}
   - component: {fileID: 7411858649284744600}
   - component: {fileID: 6172245147531043478}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11951,7 +13279,7 @@ Transform:
   - {fileID: 7235799045681048744}
   - {fileID: 3276036973979054193}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &4530719204274836468
 MeshRenderer:
@@ -12105,7 +13433,7 @@ GameObject:
   - component: {fileID: 8812475837690361311}
   - component: {fileID: 7928620638830838035}
   - component: {fileID: 1407263649923306792}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12122,7 +13450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5410148169159265619}
   - component: {fileID: 958891448520505890}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12194,24 +13522,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 772101859372050399}
   m_Mesh: {fileID: -908549280105269768, guid: f61223d69a85341adaa89e60bde018e0, type: 3}
---- !u!1 &4732971731059115264
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5396777015066943418}
-  - component: {fileID: 9028291801903124511}
-  - component: {fileID: 6534187351249331413}
-  m_Layer: 0
-  m_Name: sample_big_tree_2 (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!23 &4761900345192872030
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12408,7 +13718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5239371617980917924}
   - component: {fileID: 1076328508651380693}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD_group (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12440,7 +13750,7 @@ GameObject:
   - component: {fileID: 4914146241456826383}
   - component: {fileID: 7421223799206332415}
   - component: {fileID: 7960580511720502170}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_large_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12489,7 +13799,7 @@ GameObject:
   - component: {fileID: 1633543286329918930}
   - component: {fileID: 6310187564339235659}
   - component: {fileID: 2148842894694462749}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12507,7 +13817,7 @@ GameObject:
   - component: {fileID: 1013702433766483458}
   - component: {fileID: 4336539921870242049}
   - component: {fileID: 6158630410653581566}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_large_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12585,7 +13895,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5639056659997356937}
   - component: {fileID: 584319575630267640}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD_group (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12600,6 +13910,45 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6872464123543693259}
   m_Mesh: {fileID: -6273699997393326069, guid: ab9d9df3195bb4a0f8162fd18c21d281, type: 3}
+--- !u!23 &4982009056280322953
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651899506563979376}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5d84c2ba2c1d4408ca682be990685e67, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &4985583562186082297
 GameObject:
   m_ObjectHideFlags: 0
@@ -12611,7 +13960,7 @@ GameObject:
   - component: {fileID: 277540576240626119}
   - component: {fileID: 1072879071672468016}
   - component: {fileID: 9166368880225619021}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12685,6 +14034,24 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!4 &5027528598371534476
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5660618131727309878}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -14, y: 1, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children:
+  - {fileID: 153131147682864156}
+  - {fileID: 902530722417453204}
+  - {fileID: 8208551207759038684}
+  - {fileID: 842355219}
+  m_Father: {fileID: 439967501}
+  m_RootOrder: 28
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5035622690131260130
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -12840,7 +14207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5506484694241144795}
   - component: {fileID: 734342989804001450}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD_group (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12858,7 +14225,7 @@ GameObject:
   - component: {fileID: 8403267720467177172}
   - component: {fileID: 1374705252194132541}
   - component: {fileID: 6831896772231791899}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12985,7 +14352,7 @@ GameObject:
   - component: {fileID: 8140750382360878886}
   - component: {fileID: 5101488249663338457}
   - component: {fileID: 4132747253498974411}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_floor_stone_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13015,7 +14382,7 @@ Transform:
   - {fileID: 1314894046840971956}
   - {fileID: 6567122966218784365}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 18
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5249707034693818007
 GameObject:
@@ -13028,7 +14395,7 @@ GameObject:
   - component: {fileID: 7670153174097538289}
   - component: {fileID: 1074807730155629834}
   - component: {fileID: 2467787455833596135}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_large_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13054,7 +14421,7 @@ GameObject:
   - component: {fileID: 4453087560977201732}
   - component: {fileID: 2397977031963921016}
   - component: {fileID: 466744426008230210}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13072,7 +14439,7 @@ GameObject:
   - component: {fileID: 8858570196250621914}
   - component: {fileID: 2117394362067815219}
   - component: {fileID: 5818180378180004885}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13106,7 +14473,7 @@ GameObject:
   - component: {fileID: 9068180786722682416}
   - component: {fileID: 4230502217135197115}
   - component: {fileID: 7191619117199093528}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13158,20 +14525,6 @@ LODGroup:
     renderers:
     - renderer: {fileID: 6605905036144815704}
   m_Enabled: 1
---- !u!4 &5396777015066943418
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4732971731059115264}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -14, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 439967501}
-  m_RootOrder: 11
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &5410148169159265619
 Transform:
   m_ObjectHideFlags: 0
@@ -13200,7 +14553,7 @@ GameObject:
   - component: {fileID: 6413706493603346022}
   - component: {fileID: 8721476942898326930}
   - component: {fileID: 9206968006235908618}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_small_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13257,7 +14610,7 @@ GameObject:
   - component: {fileID: 567994070230532648}
   - component: {fileID: 833861492429187104}
   - component: {fileID: 306004643253972080}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_face_stone_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13354,7 +14707,7 @@ Transform:
   - {fileID: 6106961920573601458}
   - {fileID: 3938413958025913916}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 20
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &5532743412870056434
 LODGroup:
@@ -13483,6 +14836,20 @@ Transform:
   m_Father: {fileID: 1488975772370782391}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &5597661491195642616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6675332726502155422}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_Children: []
+  m_Father: {fileID: 2820137293285078886}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5598002353640983914
 GameObject:
   m_ObjectHideFlags: 0
@@ -13494,7 +14861,7 @@ GameObject:
   - component: {fileID: 8549325938250866456}
   - component: {fileID: 1989229884123668063}
   - component: {fileID: 1384669091333167547}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13520,7 +14887,7 @@ GameObject:
   - component: {fileID: 1002656752961831789}
   - component: {fileID: 3245115160379962117}
   - component: {fileID: 1350908553750692269}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13577,13 +14944,21 @@ GameObject:
   - component: {fileID: 3842460538603140214}
   - component: {fileID: 4806256865024283975}
   - component: {fileID: 1817410620738025772}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!33 &5638017227559765183
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172306520936832061}
+  m_Mesh: {fileID: -3907282674507769939, guid: 06aed493cf9e445108f2371c56bae6da, type: 3}
 --- !u!4 &5639056659997356937
 Transform:
   m_ObjectHideFlags: 0
@@ -13599,7 +14974,7 @@ Transform:
   - {fileID: 3480662555973424094}
   - {fileID: 3841330630624220253}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5642609111568550747
 GameObject:
@@ -13612,7 +14987,7 @@ GameObject:
   - component: {fileID: 1417224969701984132}
   - component: {fileID: 2963382700606715011}
   - component: {fileID: 637698947317421061}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: oval_leave_plant_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13630,8 +15005,24 @@ GameObject:
   - component: {fileID: 3489421174185625331}
   - component: {fileID: 5234230395552961006}
   - component: {fileID: 2920553842614219518}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_crown_stone_LOD2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &5660618131727309878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5027528598371534476}
+  m_Layer: 19
+  m_Name: stump_LOD_group
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13669,7 +15060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4920858683152940480}
   - component: {fileID: 148752171619617457}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD_group (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13687,7 +15078,7 @@ GameObject:
   - component: {fileID: 1307499446347402326}
   - component: {fileID: 2931801120128597841}
   - component: {fileID: 672824803523485655}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: oval_leave_plant_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13705,7 +15096,7 @@ GameObject:
   - component: {fileID: 8757962044971657432}
   - component: {fileID: 7206246783555289809}
   - component: {fileID: 8288269478322907178}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13791,7 +15182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6488529046930669898}
   - component: {fileID: 2040690707933820475}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD_group (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13809,7 +15200,7 @@ GameObject:
   - component: {fileID: 2629703125724618972}
   - component: {fileID: 4104272275481301216}
   - component: {fileID: 2290127763896558554}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14045,7 +15436,7 @@ GameObject:
   - component: {fileID: 7235799045681048744}
   - component: {fileID: 2524230062817268003}
   - component: {fileID: 8827017884250289536}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14240,7 +15631,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6902810720719413032}
   - component: {fileID: 1842441114073933913}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD_group (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14288,7 +15679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6913405527424391408}
   - component: {fileID: 1849649156186238849}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD_group (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14306,7 +15697,7 @@ GameObject:
   - component: {fileID: 6598084037371347078}
   - component: {fileID: 1772868827149382174}
   - component: {fileID: 8794536310074870879}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14549,7 +15940,7 @@ Transform:
   - {fileID: 4914146241456826383}
   - {fileID: 1013702433766483458}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 25
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6246514208782140076
 GameObject:
@@ -14561,7 +15952,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6772221141245466646}
   - component: {fileID: 1991115047406743399}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD_group (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14601,7 +15992,7 @@ GameObject:
   - component: {fileID: 426348593059131054}
   - component: {fileID: 4959440757370560567}
   - component: {fileID: 1050194158277303905}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14784,7 +16175,7 @@ GameObject:
   - component: {fileID: 3266581502156810032}
   - component: {fileID: 6509638347740125511}
   - component: {fileID: 5137070110357868246}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14816,8 +16207,26 @@ GameObject:
   - component: {fileID: 7968800687655578879}
   - component: {fileID: 8295047023903082230}
   - component: {fileID: 7212953749652565005}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &6400332435014779876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 380688419286954247}
+  - component: {fileID: 822105334483043140}
+  - component: {fileID: 6498107858337063189}
+  m_Layer: 19
+  m_Name: block_stone_large1_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14895,7 +16304,7 @@ GameObject:
   - component: {fileID: 481996160762652095}
   - component: {fileID: 7209366352005733356}
   - component: {fileID: 3835168378466305206}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14957,6 +16366,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3489437123451230553}
   m_Mesh: {fileID: -3707388151176217866, guid: f61223d69a85341adaa89e60bde018e0, type: 3}
+--- !u!1 &6476405358324113693
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 902530722417453204}
+  - component: {fileID: 1731335739730829707}
+  - component: {fileID: 4002573130954806553}
+  m_Layer: 19
+  m_Name: stump_LOD_group_log1_LOD1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!33 &6477338607517757096
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -15021,6 +16448,45 @@ Transform:
   m_Father: {fileID: 439967501}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &6498107858337063189
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6400332435014779876}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5d84c2ba2c1d4408ca682be990685e67, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!33 &6509638347740125511
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -15040,7 +16506,7 @@ GameObject:
   - component: {fileID: 3382200923590177824}
   - component: {fileID: 394691816105043926}
   - component: {fileID: 7320799923427858737}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15089,45 +16555,6 @@ Transform:
   m_Father: {fileID: 906815295066854427}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &6534187351249331413
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4732971731059115264}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 5d84c2ba2c1d4408ca682be990685e67, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!33 &6549682655130075390
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -15258,6 +16685,14 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3726686445538615741}
   m_Mesh: {fileID: -5041558942655210726, guid: aa66aeb54ecc24ec6b1e1469141707da, type: 3}
+--- !u!33 &6629514007264141239
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8086240586991978401}
+  m_Mesh: {fileID: -2906309387039420808, guid: 1c05d60e65da247a3a521d661f044521, type: 3}
 --- !u!1 &6659709406566740728
 GameObject:
   m_ObjectHideFlags: 0
@@ -15269,7 +16704,7 @@ GameObject:
   - component: {fileID: 8056284968544406586}
   - component: {fileID: 594514880241758419}
   - component: {fileID: 5015900493144709109}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15290,6 +16725,24 @@ Transform:
   m_Father: {fileID: 410921110466958451}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6675332726502155422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5597661491195642616}
+  - component: {fileID: 3421582264230413390}
+  - component: {fileID: 3620621560407966640}
+  m_Layer: 19
+  m_Name: block_stone_large1_LOD3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!33 &6686539968474554268
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -15387,7 +16840,7 @@ GameObject:
   - component: {fileID: 2743284534820265738}
   - component: {fileID: 5904907512836243003}
   - component: {fileID: 754791002793906768}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15426,7 +16879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6241722555696488897}
   - component: {fileID: 1208392078780503728}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_large_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15509,7 +16962,7 @@ GameObject:
   - component: {fileID: 7534677301509157916}
   - component: {fileID: 8438547530955365909}
   - component: {fileID: 7070612024641942766}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15658,7 +17111,7 @@ GameObject:
   - component: {fileID: 6528336453726438152}
   - component: {fileID: 4975356843591262460}
   - component: {fileID: 6605905036144815704}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_crown_stone_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15715,7 +17168,7 @@ GameObject:
   - component: {fileID: 2284818225789390804}
   - component: {fileID: 4564290575540600764}
   - component: {fileID: 63064959373069588}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15737,7 +17190,7 @@ Transform:
   - {fileID: 378645786952619320}
   - {fileID: 5502645536869485025}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6912867545821102547
 GameObject:
@@ -15750,7 +17203,7 @@ GameObject:
   - component: {fileID: 7276171810626196385}
   - component: {fileID: 703761217648612070}
   - component: {fileID: 101397103159039234}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15785,7 +17238,7 @@ GameObject:
   - component: {fileID: 4120644893949387570}
   - component: {fileID: 7306409593818441196}
   - component: {fileID: 7457340314984770916}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_small_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15833,7 +17286,7 @@ GameObject:
   - component: {fileID: 9180116219522483353}
   - component: {fileID: 6305051078961120921}
   - component: {fileID: 4817170226901182134}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15908,6 +17361,37 @@ Transform:
   m_Father: {fileID: 8922407978316212228}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!205 &7023711358425759767
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3200074998608227804}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0.0071333647, y: 0.0004518628, z: -0.00481534}
+  m_Size: 2.2526393
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.25
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 4982009056280322953}
+  - screenRelativeHeight: 0.125
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3217896904891841278}
+  - screenRelativeHeight: 0.0625
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 6498107858337063189}
+  - screenRelativeHeight: 0.01
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3620621560407966640}
+  m_Enabled: 1
 --- !u!1 &7046429524203008795
 GameObject:
   m_ObjectHideFlags: 0
@@ -15919,7 +17403,7 @@ GameObject:
   - component: {fileID: 3687858204026109067}
   - component: {fileID: 8220247591557804562}
   - component: {fileID: 4058971091701697604}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15983,7 +17467,7 @@ GameObject:
   - component: {fileID: 8745772043833674538}
   - component: {fileID: 2757612305853542276}
   - component: {fileID: 9207794028657881128}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16070,7 +17554,7 @@ GameObject:
   - component: {fileID: 266558335355961276}
   - component: {fileID: 7195459976008312074}
   - component: {fileID: 7774382208393800572}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_face_stone_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16398,7 +17882,7 @@ GameObject:
   - component: {fileID: 7078624067109545462}
   - component: {fileID: 9029604995320166892}
   - component: {fileID: 7760223586198437014}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: oval_leave_plant_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16462,7 +17946,7 @@ GameObject:
   - component: {fileID: 7184233568685551140}
   - component: {fileID: 8989269172048278078}
   - component: {fileID: 7655573408383448900}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: oval_leave_plant_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16661,7 +18145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7874421359729979407}
   - component: {fileID: 3106796723368527742}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD_group (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16714,7 +18198,7 @@ GameObject:
   - component: {fileID: 8745990496239688826}
   - component: {fileID: 5874481275067457146}
   - component: {fileID: 4961935275945623125}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16853,7 +18337,7 @@ GameObject:
   - component: {fileID: 9176482550179173321}
   - component: {fileID: 2324792939825002343}
   - component: {fileID: 8777222064531712203}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16988,7 +18472,7 @@ GameObject:
   - component: {fileID: 6662116670168203516}
   - component: {fileID: 7197755865936465365}
   - component: {fileID: 816995374108747597}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17191,7 +18675,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7051220933074109159}
   - component: {fileID: 2846529764496307606}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large5_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17223,7 +18707,7 @@ GameObject:
   - component: {fileID: 8035090389861700579}
   - component: {fileID: 214613084967073159}
   - component: {fileID: 4394774131646733434}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17241,7 +18725,7 @@ GameObject:
   - component: {fileID: 3841330630624220253}
   - component: {fileID: 6337569283534989838}
   - component: {fileID: 488078148537726292}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17273,7 +18757,7 @@ GameObject:
   - component: {fileID: 7494130363875888899}
   - component: {fileID: 5035622690131260130}
   - component: {fileID: 6297056178695596043}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_floor_stone_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17305,7 +18789,7 @@ GameObject:
   - component: {fileID: 6383330702697665514}
   - component: {fileID: 4547418639278894851}
   - component: {fileID: 8270728666222413861}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17323,7 +18807,7 @@ GameObject:
   - component: {fileID: 2209714626903938770}
   - component: {fileID: 7613793361932888229}
   - component: {fileID: 8409851230978539316}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17341,7 +18825,7 @@ GameObject:
   - component: {fileID: 3276036973979054193}
   - component: {fileID: 2328209543608687494}
   - component: {fileID: 5879919922000057851}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17437,7 +18921,7 @@ GameObject:
   - component: {fileID: 1740829702210037253}
   - component: {fileID: 3728255550803899891}
   - component: {fileID: 6007768952806394644}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17697,7 +19181,7 @@ GameObject:
   - component: {fileID: 6517487961106946079}
   - component: {fileID: 7342490030002083126}
   - component: {fileID: 959512883540803502}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17764,7 +19248,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7274532261812576938}
   - component: {fileID: 2499017468068730331}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_floor_stone_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17781,7 +19265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7242689263792289437}
   - component: {fileID: 2511086827361878508}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17841,6 +19325,24 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &8086240586991978401
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8208551207759038684}
+  - component: {fileID: 6629514007264141239}
+  - component: {fileID: 8508261334695998716}
+  m_Layer: 19
+  m_Name: stump_LOD_group_log1_LOD2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &8113536424694149822
 GameObject:
   m_ObjectHideFlags: 0
@@ -17851,7 +19353,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8922407978316212228}
   - component: {fileID: 4434037245374668661}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD_group (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17985,7 +19487,7 @@ GameObject:
   - component: {fileID: 7961332876160915549}
   - component: {fileID: 5087395828128979549}
   - component: {fileID: 6034827681127545458}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18002,7 +19504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8835107042141052846}
   - component: {fileID: 4379333519060510943}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_small_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18017,6 +19519,20 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8882326711441388493}
   m_Mesh: {fileID: -8841266444182060110, guid: b9232008c28f54a6f9b8d31aa10bcd21, type: 3}
+--- !u!4 &8208551207759038684
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8086240586991978401}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5027528598371534476}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8220247591557804562
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18036,7 +19552,7 @@ GameObject:
   - component: {fileID: 3802389115670653673}
   - component: {fileID: 4178611181255459102}
   - component: {fileID: 5200446459211878243}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18143,6 +19659,24 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &8288584278095648977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 153131147682864156}
+  - component: {fileID: 1971533097603886176}
+  - component: {fileID: 3804672741584913483}
+  m_Layer: 19
+  m_Name: stump_LOD_group_log1_LOD0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!33 &8295047023903082230
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18192,7 +19726,7 @@ GameObject:
   - component: {fileID: 4957565790717483825}
   - component: {fileID: 2355270649680089714}
   - component: {fileID: 6829460955004981451}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: door_large_crown_stone_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18261,7 +19795,7 @@ Transform:
   - {fileID: 7718169893923176689}
   - {fileID: 681228277533413503}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 19
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8368419867520468698
 MeshFilter:
@@ -18389,13 +19923,52 @@ GameObject:
   m_Component:
   - component: {fileID: 9089583452073576754}
   - component: {fileID: 4070884991953010243}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD_group (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!23 &8508261334695998716
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8086240586991978401}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 5d84c2ba2c1d4408ca682be990685e67, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!4 &8534764318845507302
 Transform:
   m_ObjectHideFlags: 0
@@ -18435,7 +20008,7 @@ GameObject:
   - component: {fileID: 7945316503048769293}
   - component: {fileID: 3555969988992936867}
   - component: {fileID: 7553928518508704783}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18452,7 +20025,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9060878549786968683}
   - component: {fileID: 4315761953722922266}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_leaves_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18478,7 +20051,7 @@ GameObject:
   - component: {fileID: 5579558417838693432}
   - component: {fileID: 8284817722767167761}
   - component: {fileID: 1895041237227338633}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large4_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18531,7 +20104,7 @@ GameObject:
   - component: {fileID: 9069415327610216282}
   - component: {fileID: 1199396098950625598}
   - component: {fileID: 3360308585317601475}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18549,7 +20122,7 @@ GameObject:
   - component: {fileID: 257970950281094739}
   - component: {fileID: 8391357919319590754}
   - component: {fileID: 3458742397207718665}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18566,7 +20139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8338077731885013400}
   - component: {fileID: 3885711667037171433}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_plain_LOD_group (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18785,7 +20358,7 @@ Transform:
   - {fileID: 7561396776577151373}
   - {fileID: 44898071667902710}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 23
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8848675256945564541
 GameObject:
@@ -18797,7 +20370,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8180542359863755207}
   - component: {fileID: 4025373943903401654}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large1_LOD_group (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18829,7 +20402,7 @@ GameObject:
   - component: {fileID: 3563166250716647197}
   - component: {fileID: 8206037458121406652}
   - component: {fileID: 348077170378522293}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: philodendron_orange_small_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18890,7 +20463,7 @@ Transform:
   - {fileID: 2402757648691323412}
   - {fileID: 7513171832110169805}
   m_Father: {fileID: 439967501}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &8946836779594543092
 Transform:
@@ -18914,14 +20487,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7283083948573885786}
   m_Mesh: {fileID: -8577076291182963750, guid: f929afbe57e5e48b191ac2c4daef043a, type: 3}
---- !u!33 &9028291801903124511
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4732971731059115264}
-  m_Mesh: {fileID: -3952746000508436403, guid: d16948bc73afc46f7bd22f6395e20aae, type: 3}
 --- !u!33 &9029604995320166892
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -18941,7 +20506,7 @@ GameObject:
   - component: {fileID: 5388116116279702814}
   - component: {fileID: 984892162117240981}
   - component: {fileID: 6112240207808392246}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19291,7 +20856,7 @@ GameObject:
   - component: {fileID: 822355926055914873}
   - component: {fileID: 2376879792682622607}
   - component: {fileID: 4620360304726433896}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: block_stone_large2_LOD3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19309,7 +20874,7 @@ GameObject:
   - component: {fileID: 779759237491964266}
   - component: {fileID: 1610487709116746070}
   - component: {fileID: 3559247760929929836}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: bush_square_big_flower_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -15,6 +15,7 @@ MonoBehaviour:
   icon: {fileID: 0}
   prefab: {fileID: 1515317623701832292, guid: eb41bee78c535cb4da3e2a8bc4dcc2c1, type: 3}
   areaType: 3
+  battleMode: 1
   hp: 000000000a000000140000001e000000
   atk: 000000000a000000140000001e000000
   spd: 000000000a000000140000001e000000
