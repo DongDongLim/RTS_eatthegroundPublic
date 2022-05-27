@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Dong/Scenes/Battle.unity
     guid: f66329f3180bb9a4191d17b1761c11ac
+  - enabled: 1
+    path: Assets/Dong/Scenes/BattleDefance.unity
+    guid: 2c107a63991414c469f3226fbfc619e7
   m_configObjects: {}

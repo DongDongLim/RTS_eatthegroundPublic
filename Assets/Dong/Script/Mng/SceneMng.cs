@@ -107,6 +107,7 @@ public class SceneMng : Singleton<SceneMng>
         }
         if (returnName != sceneName)
             yield break;
+        SceneExit?.Invoke(sceneName);
         AsyncOperation asyncLoad = SceneManager.UnloadSceneAsync(sceneName);
         while (!asyncLoad.isDone)
         {
@@ -115,7 +116,6 @@ public class SceneMng : Singleton<SceneMng>
         //SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         loadScene.Remove(curScene);
         curScene = SceneManager.GetActiveScene();
-        SceneExit?.Invoke(sceneName);
     }
 
     IEnumerator LoadYourAsyncScene(string sceneName)

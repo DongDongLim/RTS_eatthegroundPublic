@@ -106,6 +106,74 @@ public class Town : MonoBehaviour
         }
     }
 
+    public IEnumerator Battle(bool isAttack)
+    {
+        bool isTrue = true;
+        if(isAttack)
+        {
+            if(tag != "Enermy")
+            {
+                GameMng.instance.isAttackWin = true;
+                yield break;
+            }
+            SceneMng.instance.SceneStreaming("Battle");
+            UIMng.instance.uiList["공격전투"].SetActive(false);
+            while (isTrue)
+            {
+                isTrue = true;
+                foreach (var cs in SceneMng.instance.loadScene)
+                {
+                    if (cs.name == "Battle")
+                        isTrue = false;
+                }
+                yield return null;
+            }
+            while (!isTrue)
+            {
+                isTrue = true;
+                foreach (var cs in SceneMng.instance.loadScene)
+                {
+                    if (cs.name == "Battle")
+                        isTrue = false;
+                }
+                yield return null;
+            }
+            UIMng.instance.uiList["공격전투"].SetActive(true);
+        }
+        else
+        {
+            if (tag != "Player")
+            {
+                GameMng.instance.isDefanceWin = false;
+                yield break;
+            }
+            SceneMng.instance.SceneStreaming("BattleDefance");
+            UIMng.instance.uiList["방어전투"].SetActive(false);
+
+            while (isTrue)
+            {
+                isTrue = true;
+                foreach (var cs in SceneMng.instance.loadScene)
+                {
+                    if (cs.name == "BattleDefance")
+                        isTrue = false;
+                }
+                yield return null;
+            }
+            while (!isTrue)
+            {
+                isTrue = true;
+                foreach (var cs in SceneMng.instance.loadScene)
+                {
+                    if (cs.name == "BattleDefance")
+                        isTrue = false;
+                }
+                yield return null;
+            }
+            UIMng.instance.uiList["방어전투"].SetActive(true);
+        }
+    }
+
     public void AddnodeList(GameObject obj)
     {
         if (null == obj.GetComponent<Town>())

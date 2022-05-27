@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: -5864607404906864556}
   - component: {fileID: 4195028298189945236}
   - component: {fileID: 2865825849868084320}
+  - component: {fileID: -3299122701407738286}
+  - component: {fileID: -1142657344440484560}
   m_Layer: 16
   m_Name: Gorilla
   m_TagString: Player
@@ -71,6 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f094d9ed5c1a12e41b2f53d66827de2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_target: {fileID: 0}
+  animator: []
 --- !u!114 &4195028298189945236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +115,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Move: {fileID: 0}
+  animator: []
+  agent: {fileID: 0}
+  rigid: {fileID: 0}
   m_Data: {fileID: 11400000, guid: 38647b1872d020d46989def0cb0b9692, type: 2}
+--- !u!54 &-3299122701407738286
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195028298189945234}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0.01
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-1142657344440484560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195028298189945234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b50f8d1715bb546a93e8ec2a77ca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4702037413006861150
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,7 +202,7 @@ Transform:
   m_GameObject: {fileID: 4829327268892178621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4195028298189945237}
   m_RootOrder: 2
@@ -248,7 +283,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 8053137003149243757}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 1.0384281
   m_Height: 2.718738
   m_Direction: 1

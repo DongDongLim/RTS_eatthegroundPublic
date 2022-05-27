@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: -3404729119282890487}
   - component: {fileID: 2553363660616317332}
   - component: {fileID: 4856439309531123156}
+  - component: {fileID: 4702105019831086966}
+  - component: {fileID: -5200087058507742786}
   m_Layer: 16
   m_Name: Monkey
   m_TagString: Player
@@ -71,6 +73,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f094d9ed5c1a12e41b2f53d66827de2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_target: {fileID: 0}
+  animator: []
 --- !u!114 &2553363660616317332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +115,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Move: {fileID: 0}
+  animator: []
+  agent: {fileID: 0}
+  rigid: {fileID: 0}
   m_Data: {fileID: 11400000, guid: b784b3a85a3e50a4093293767dad0cc3, type: 2}
+--- !u!54 &4702105019831086966
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553363660616317338}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0.01
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-5200087058507742786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553363660616317338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b50f8d1715bb546a93e8ec2a77ca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3538160522950386509
 GameObject:
   m_ObjectHideFlags: 0

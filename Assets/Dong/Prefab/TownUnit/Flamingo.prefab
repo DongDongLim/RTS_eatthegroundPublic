@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1638509677261848084}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2854711402357808527}
@@ -73,6 +73,8 @@ GameObject:
   - component: {fileID: -1936489179141469136}
   - component: {fileID: 2854711402357808525}
   - component: {fileID: 8124526954602095825}
+  - component: {fileID: 7032027579092342247}
+  - component: {fileID: 6256805913745859969}
   m_Layer: 16
   m_Name: Flamingo
   m_TagString: Player
@@ -131,6 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f094d9ed5c1a12e41b2f53d66827de2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_target: {fileID: 0}
+  animator: []
 --- !u!114 &2854711402357808525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,7 +175,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Move: {fileID: 0}
+  animator: []
+  agent: {fileID: 0}
+  rigid: {fileID: 0}
   m_Data: {fileID: 11400000, guid: 3afb93cdf2adc3d4eac2286d4c0948fe, type: 2}
+--- !u!54 &7032027579092342247
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2854711402357808520}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0.01
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &6256805913745859969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2854711402357808520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b50f8d1715bb546a93e8ec2a77ca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6688261222928522472
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +283,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 6688261222928522472}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.9
   m_Height: 3.4
   m_Direction: 1

@@ -136,7 +136,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 5542690972588510006}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.67726934
   m_Height: 1.9560494
   m_Direction: 1
@@ -154,6 +154,8 @@ GameObject:
   - component: {fileID: -7450600057515102322}
   - component: {fileID: 6668425070651008300}
   - component: {fileID: 2058323572232535219}
+  - component: {fileID: 628093242751025058}
+  - component: {fileID: -4218511997582278637}
   m_Layer: 16
   m_Name: Snake
   m_TagString: Player
@@ -212,6 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f094d9ed5c1a12e41b2f53d66827de2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_target: {fileID: 0}
+  animator: []
 --- !u!114 &6668425070651008300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +256,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Move: {fileID: 0}
+  animator: []
+  agent: {fileID: 0}
+  rigid: {fileID: 0}
   m_Data: {fileID: 11400000, guid: c36c753f73acf69429e320b0c52f7245, type: 2}
+--- !u!54 &628093242751025058
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6668425070651008302}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0.01
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-4218511997582278637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6668425070651008302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b50f8d1715bb546a93e8ec2a77ca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2814334355380097125
 PrefabInstance:
   m_ObjectHideFlags: 0

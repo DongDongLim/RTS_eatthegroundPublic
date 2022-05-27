@@ -51,8 +51,9 @@ public class GameMng : Singleton<GameMng>
 
     public float rotateSpd;
 
-    // 배틀모드
-    public bool isAttack = false;
+    public bool isAttackWin;
+
+    public bool isDefanceWin;
 
     protected override void OnAwake()
     {
@@ -75,15 +76,6 @@ public class GameMng : Singleton<GameMng>
             if (rotateSpd >= 1)
                 rotateSpd = 0;
             DayFilledImg.fillAmount = rotateSpd;
-        }
-        
-        if(Input.GetButtonDown("Jump"))
-        {
-            SceneMng.instance.SceneStreaming("Battle");
-        }
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            CameraMng.instance.CamSwich(3);
         }
     }
 
@@ -204,7 +196,10 @@ public class GameMng : Singleton<GameMng>
             yield return new WaitForSeconds(0.1f);
         }
 
-        MapMng.instance.Occupyabase(targetTown);
+        yield return StartCoroutine(targetTown.GetComponent<Town>().Battle(true));
+
+        if (isAttackWin)
+            MapMng.instance.Occupyabase(targetTown);
         playerObj.SetActive(false);
         targetTown = null;
         UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = "0";
@@ -251,7 +246,7 @@ public class GameMng : Singleton<GameMng>
         }
         build.coolDownImg.fillAmount = 0;
         --build.waitingCnt;
-        ++TownMng.instance.UnitCnt[build.m_data];
+        ++UnitMng.instance.UnitCnt[build.m_data];
         if (build.waitingCnt > 0)
             StartCoroutine(UnitCreateCor(build));
         else

@@ -43,6 +43,8 @@ GameObject:
   - component: {fileID: 2234768307434252149}
   - component: {fileID: 6474998851310845038}
   - component: {fileID: 5596337526829213105}
+  - component: {fileID: 2387497595106626800}
+  - component: {fileID: -9139033737374802697}
   m_Layer: 16
   m_Name: Clownfish
   m_TagString: Player
@@ -101,6 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f094d9ed5c1a12e41b2f53d66827de2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_target: {fileID: 0}
+  animator: []
 --- !u!114 &6474998851310845038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +145,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Move: {fileID: 0}
+  animator: []
+  agent: {fileID: 0}
+  rigid: {fileID: 0}
   m_Data: {fileID: 11400000, guid: 77b78b41881531a4db79b1e276d30018, type: 2}
+--- !u!54 &2387497595106626800
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104569544085170427}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0.01
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-9139033737374802697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3104569544085170427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b50f8d1715bb546a93e8ec2a77ca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4866179095884268351
 GameObject:
   m_ObjectHideFlags: 0

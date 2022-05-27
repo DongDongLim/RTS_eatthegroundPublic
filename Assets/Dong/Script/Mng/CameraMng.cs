@@ -35,24 +35,30 @@ public class CameraMng : SingletonMini<CameraMng>
         //GameMng.instance.GameStart += CamSetting;
         GameMng.instance.DayAction += CameraSize;
         GameMng.instance.DayAction += ChangeSkyBox;
+        SceneMng.instance.SceneExit += CamSetting;
         RenderSettings.skybox = skyMaterial[0];
     }
 
     private void Start()
     {
-        CamSetting();
+        curCam = camList[0];
+        curCam.gameObject.SetActive(true);
+        CamSetting("");
     }
 
 
-    public void CamSetting()
+    public void CamSetting(string not)
     {
         //foreach (var cam in camList)
         //{
         //    if (cam != null)
         //        cam.gameObject.SetActive(false);
         //}
-        curCam = camList[0];
-        curCam.gameObject.SetActive(true);
+        if (curCam != camList[0] && curCam != camList[2])
+        {
+            curCam = camList[0];
+            curCam.gameObject.SetActive(true);
+        }
     }
 
     public void CameraSize()
@@ -66,8 +72,6 @@ public class CameraMng : SingletonMini<CameraMng>
         {
             moveCamGameObject.transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * cameraSpd * Time.deltaTime, Space.World);            
         }
-        if (Input.GetButtonDown("Jump"))
-            SetCameraPoistion();
 
         //if(Input.GetButtonDown("Fire1"))
         //{
@@ -119,7 +123,13 @@ public class CameraMng : SingletonMini<CameraMng>
         curCam.gameObject.SetActive(true);
     }
 
-    
-
+    public void BattleCamAttack()
+    {
+        CamSwich(3);
+    }
+    public void BattleCamDefance()
+    {
+        CamSwich(4);
+    }
 
 }

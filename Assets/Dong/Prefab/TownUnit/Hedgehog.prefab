@@ -106,7 +106,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2962661333024837493}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.6747891
   m_Height: 1.8881166
   m_Direction: 2
@@ -154,6 +154,8 @@ GameObject:
   - component: {fileID: -3685191332450892788}
   - component: {fileID: 6567936973121458662}
   - component: {fileID: 2571614522771873109}
+  - component: {fileID: -8307467197996239816}
+  - component: {fileID: -3245096338883609433}
   m_Layer: 16
   m_Name: Hedgehog
   m_TagString: Player
@@ -212,6 +214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f094d9ed5c1a12e41b2f53d66827de2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_target: {fileID: 0}
+  animator: []
 --- !u!114 &6567936973121458662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252,7 +256,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Move: {fileID: 0}
+  animator: []
+  agent: {fileID: 0}
+  rigid: {fileID: 0}
   m_Data: {fileID: 11400000, guid: 1b96573abc0fbf6488b1e27386505b3b, type: 2}
+--- !u!54 &-8307467197996239816
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6567936973121458660}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0.01
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-3245096338883609433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6567936973121458660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b50f8d1715bb546a93e8ec2a77ca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1003606283735048160
 PrefabInstance:
   m_ObjectHideFlags: 0

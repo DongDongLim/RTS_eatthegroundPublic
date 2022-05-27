@@ -25,7 +25,7 @@ public class BattleMng : MonoBehaviour
     {
         spawnCheckPlayer = new bool[spawnPointPlayer.Length];
         spawnCheckEnermy = new bool[spawnPointEnermy.Length];
-        if (GameMng.instance.isAttack)
+        if (gameObject.scene.name == "Battle")
             AttackSet();
         else
             DefanceSet();
@@ -43,6 +43,16 @@ public class BattleMng : MonoBehaviour
             Instantiate(unit.prefab, spawnPointPlayer[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0)).transform.SetParent(transform);
             spawnCheckPlayer[spawnIndex] = true;
         }
+        foreach (var unit in EnermyMng.instance.defUnit)
+        {
+            do
+            {
+                spawnIndex = Random.Range(0, spawnPointEnermy.Length);
+            }
+            while (spawnCheckEnermy[spawnIndex]);
+            Instantiate(unit.prefab, spawnPointEnermy[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0)).transform.SetParent(transform);
+            spawnCheckEnermy[spawnIndex] = true;
+        }
     }
 
     void DefanceSet()
@@ -56,6 +66,16 @@ public class BattleMng : MonoBehaviour
             while (spawnCheckPlayer[spawnIndex]);
             Instantiate(unit.prefab, spawnPointPlayer[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0)).transform.SetParent(transform);
             spawnCheckPlayer[spawnIndex] = true;
+        }
+        foreach (var unit in EnermyMng.instance.atkUnit)
+        {
+            do
+            {
+                spawnIndex = Random.Range(0, spawnPointEnermy.Length);
+            }
+            while (spawnCheckEnermy[spawnIndex]);
+            Instantiate(unit.prefab, spawnPointEnermy[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0)).transform.SetParent(transform);
+            spawnCheckEnermy[spawnIndex] = true;
         }
     }
 

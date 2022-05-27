@@ -43,6 +43,8 @@ GameObject:
   - component: {fileID: -1842778475417201112}
   - component: {fileID: 1830928189681734493}
   - component: {fileID: 1830928189681734492}
+  - component: {fileID: 6796900912221904645}
+  - component: {fileID: -5403171475354138606}
   m_Layer: 16
   m_Name: Skunk
   m_TagString: Player
@@ -101,6 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f094d9ed5c1a12e41b2f53d66827de2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_target: {fileID: 0}
+  animator: []
 --- !u!114 &1830928189681734493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +145,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Move: {fileID: 0}
+  animator: []
+  agent: {fileID: 0}
+  rigid: {fileID: 0}
   m_Data: {fileID: 11400000, guid: fbbc5db0baec82d468d15b9945c094e9, type: 2}
+--- !u!54 &6796900912221904645
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830928189681734494}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0.01
+  m_AngularDrag: 0.01
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &-5403171475354138606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830928189681734494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b50f8d1715bb546a93e8ec2a77ca2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2785054842963138964
 GameObject:
   m_ObjectHideFlags: 0
@@ -248,7 +283,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 7906342829183819660}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5865629
   m_Height: 2.1975036
   m_Direction: 2

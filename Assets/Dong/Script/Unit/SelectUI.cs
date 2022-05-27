@@ -87,7 +87,7 @@ public class SelectUI : MonoBehaviour
         atkTxt.text = m_data.atk[m_Lv].ToString();
         spdTxt.text = m_data.spd[m_Lv].ToString();
         rangeTxt.text = m_data.range[m_Lv].ToString();
-        cntTxt.text = TownMng.instance.UnitCnt[m_data].ToString();
+        cntTxt.text = UnitMng.instance.UnitCnt[m_data].ToString();
         resourceTxt.text = m_data.resource.ToString();
         TimeTxt.text = m_data.createTime.ToString();
         if (waitingCnt == 0)

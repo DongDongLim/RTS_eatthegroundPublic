@@ -8,6 +8,9 @@ public enum UnitTypeArea
     POND,
     TREE,
     GRASS, 
+    Mon1,
+    Mon2,
+    Mon3,
 }
 
 public enum BattleMode

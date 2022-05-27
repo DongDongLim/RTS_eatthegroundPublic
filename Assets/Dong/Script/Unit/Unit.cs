@@ -14,25 +14,34 @@ public class Unit : MonoBehaviour
 
     public NavMeshAgent agent;
 
+    public Rigidbody rigid;
+
 
     public UnitData m_Data;
 
+
     private void Start()
     {
-        animator = transform.GetChild(0).GetComponentsInChildren<Animator>();
+        if (transform.GetChild(0).GetComponent<Animator>() == null)
+            animator = transform.GetChild(0).GetComponentsInChildren<Animator>();
+        else
+            animator = new Animator[] { transform.GetChild(0).GetComponent<Animator>() };
         agent = GetComponent<NavMeshAgent>();
+        rigid = GetComponent<Rigidbody>();
         Setting(gameObject.scene.name);
     }
 
     private void Setting(string SceneName)
     {
-        if (SceneName == "Battle")
+        if (SceneName == "Battle" || SceneName == "BattleDefance")
         {
+            agent.enabled = false;
             transform.GetChild(0).localPosition = transform.GetChild(2).localPosition;
             m_Move = GetComponent<BattleUnitMove>();
         }
         else if(SceneName == "Town")
         {
+            Destroy(rigid);
             m_Move = GetComponent<TownUnitMove>();
         }
         m_Move.Setting();
