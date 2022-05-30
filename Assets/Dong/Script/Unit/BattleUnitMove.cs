@@ -48,8 +48,7 @@ public class BattleUnitMove : UnitMove
         rigid.mass = Aowner.m_Data.hp[2];// * plus + plus;
         m_range = Aowner.m_Data.range[2];
         SetTargetBagic();
-        if (gameObject.layer == LayerMask.NameToLayer("Town_Unit"))
-            StartCoroutine(Fire());
+        StartCoroutine(Fire());
         isSetting = true;
     }
 
@@ -69,6 +68,15 @@ public class BattleUnitMove : UnitMove
         {
             targetLayer = "Null";
             m_target = Aowner;
+        }
+        if (m_target != Aowner)
+        {
+            rigid.AddForce((m_target.transform.position - transform.position).normalized * 50, ForceMode.Impulse);
+        }
+        else
+        {
+            foreach (var anim in animator)
+                anim.Play("Clicked");
         }
     }
 
@@ -94,7 +102,7 @@ public class BattleUnitMove : UnitMove
                 float i = 0;
                 while (i <= 1)
                 {
-                    rigid.AddForce((m_target.transform.position - transform.position).normalized * m_spd * 100 * Time.deltaTime, ForceMode.Force);
+                    rigid.AddForce((m_target.transform.position - transform.position).normalized * m_spd * 500 * Time.deltaTime, ForceMode.Force);
                     i += Time.deltaTime * 2;
                     yield return null;
                 }
@@ -122,22 +130,26 @@ public class BattleUnitMove : UnitMove
     {
         while(true)
         {
-            if (CameraMng.instance.curCam == CameraMng.instance.camList[3]
+            if (gameObject.layer == LayerMask.NameToLayer("Town_Unit"))
+            {
+                if (CameraMng.instance.curCam == CameraMng.instance.camList[3]
                 ||
                 CameraMng.instance.curCam == CameraMng.instance.camList[4])
-            {
-                if (Input.GetButtonDown("Fire1"))
                 {
-                    if (m_target != Aowner)
-                    {
-                        rigid.AddForce((m_target.transform.position - transform.position).normalized * m_spd, ForceMode.Impulse);
-                    }
-                    else
-                    {
-                        foreach (var anim in animator)
-                            anim.Play("Clicked");
-                    }
 
+                    if (Input.GetButtonDown("Fire1"))
+                    {
+                        if (m_target != Aowner)
+                        {
+                            rigid.AddForce((m_target.transform.position - transform.position).normalized * 50, ForceMode.Impulse);
+                        }
+                        else
+                        {
+                            foreach (var anim in animator)
+                                anim.Play("Clicked");
+                        }
+
+                    }
                 }
             }
             Physics.Raycast(transform.position, Vector3.down, out hitGround, 1f, LayerMask.GetMask("Default"));

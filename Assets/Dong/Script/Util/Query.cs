@@ -26,17 +26,21 @@ public class Query
     }
 
     // 가장 작은 각도의 오브젝트
-    public GameObject SmallestAngle(List<GameObject> list, GameObject target, GameObject comparison)
+    public GameObject SmallestAngle(List<GameObject> list, GameObject target, GameObject comparison, int index = 0)
     {
         var vertexQuery = from vertex in list
-                          orderby Mathf.Abs((Mathf.Atan2((target.transform.position - comparison.transform.position).z
-                          , (target.transform.position - comparison.transform.position).x) * Mathf.Rad2Deg)
-             - (Mathf.Atan2((vertex.transform.position - comparison.transform.position).z
-             , (vertex.transform.position - comparison.transform.position).x) * Mathf.Rad2Deg))
+                          where vertex != target
+                          orderby Mathf.Abs((Mathf.Atan2((target.transform.position - comparison.transform.position).x
+                          , (target.transform.position - comparison.transform.position).z) * Mathf.Rad2Deg)
+             - (Mathf.Atan2((vertex.transform.position - comparison.transform.position).x
+             , (vertex.transform.position - comparison.transform.position).z) * Mathf.Rad2Deg))
                           select vertex;
+        int count = 0;
         foreach (var vertex in vertexQuery)
         {
-            return vertex;
+            if (count == index)
+                return vertex;
+            ++count;
         }
         return null;
     }
@@ -53,6 +57,7 @@ public class Query
         return null;
     }
 
+    // 두 리스트가 모두 포함하는 오브젝트들
     public List<GameObject> IntersectObj(List<GameObject> list, List<GameObject> targetList, out List<GameObject> allList)
     {
         allList = new List<GameObject>();

@@ -61,10 +61,16 @@ public class MapMng : SingletonMini<MapMng>
     {
         AddVertex(AwnerType.Player, target);
     }
-    public void EnermyQccupyabase()
+    public void EnermyQccupyabase(GameObject target)
     {
-        AddVertex(AwnerType.Enermy, curSelectTown);
+        AddVertex(AwnerType.Enermy, target);
     }
+
+    public Vector3 EnermyStartPoint()
+    {
+        return Area_Enermy.UnitStartPoint();
+    }
+
     public Vector3 PlayerStartPoint()
     {
         return Area_Player.UnitStartPoint();

@@ -114,7 +114,7 @@ public class SceneMng : Singleton<SceneMng>
             yield return null;
         }
         //SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
-        loadScene.Remove(curScene);
+        loadScene.Remove(SceneManager.GetSceneByName(sceneName));
         curScene = SceneManager.GetActiveScene();
     }
 

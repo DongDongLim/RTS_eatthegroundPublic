@@ -30,17 +30,23 @@ public class GameMng : Singleton<GameMng>
     public Vector3 playerNodePos;
 
     [SerializeField]
-    GameObject enermy;
+    public GameObject playerObj;
+
+    NavMeshAgent playerNavMesh;
+
+    [SerializeField]
+    public GameObject enermy;
 
     public Vector3 enermyNodePos;
 
     [SerializeField]
-    public GameObject playerObj;
+    public GameObject enermyObj;
+
+    public NavMeshAgent enermyNavMesh;
 
     [SerializeField]
     GameObject targetTown;
 
-    NavMeshAgent playerNavMesh;
 
     public List<Town> occupiedTown = new List<Town>();
 
@@ -60,6 +66,7 @@ public class GameMng : Singleton<GameMng>
         isGamePlaying = false;
         GameStart += OnSetDay;
         playerNavMesh = playerObj.GetComponent<NavMeshAgent>();
+        enermyNavMesh = enermyObj.GetComponent<NavMeshAgent>();
     }
 
     private void Start()
@@ -204,6 +211,8 @@ public class GameMng : Singleton<GameMng>
         targetTown = null;
         UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = "0";
     }
+
+
 
     // 네비메쉬에이전트의 remainingDistance은 마지막 직선경로만 계산하기 때문에 그 전 노드들을 받아와서 직선경로가 2개이상이라면 그 길이를 따로 계산해줌
     public float RemainingDistance(Vector3[] points)

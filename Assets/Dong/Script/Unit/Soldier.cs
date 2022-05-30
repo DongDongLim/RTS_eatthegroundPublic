@@ -17,6 +17,7 @@ public class Soldier : MonoBehaviour, Damaged
     {
         if(rigid == null)
             rigid = Aowner.rigid;
-        rigid.AddExplosionForce(apk * 1000, transform.forward, 10, apk * 10000);
+        //rigid.velocity = Vector3.zero;
+        rigid.AddExplosionForce(apk * 50, transform.forward, 100, apk * 50);
     }
 }

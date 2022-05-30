@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnermyMng : Singleton<EnermyMng>
 {
+    #region 마을 변수
     public int caveLv = 0;
 
     public UnitData[] m_data;
@@ -34,8 +35,17 @@ public class EnermyMng : Singleton<EnermyMng>
 
     public int mon3Lv;
 
-
     List<ScriptableObject> dataKey = new List<ScriptableObject>();
+
+    #endregion
+
+    #region 맵 변수
+
+    [SerializeField]
+    GameObject targetTown;
+
+
+    #endregion
 
     protected override void OnAwake()
     {
@@ -67,6 +77,7 @@ public class EnermyMng : Singleton<EnermyMng>
     //    SetLevel();
     //}
 
+    #region 마을
 
     public void LevelUpCave()
     {
@@ -179,4 +190,48 @@ public class EnermyMng : Singleton<EnermyMng>
         LevelUp(UnitTypeArea.Mon3);
     }
 
+    #endregion
+
+    #region 맵
+
+
+    public void SetTarget()
+    {
+        if (null != targetTown)
+        {
+            return;
+        }
+
+        if (MapMng.instance.curSelectTown.GetComponent<Town>().type != AwnerType.Neutrality)
+            return;
+
+        GameMng.instance.enermyObj.transform.position = MapMng.instance.EnermyStartPoint();
+        GameMng.instance.enermyObj.SetActive(true);
+        targetTown = MapMng.instance.curSelectTown;
+        GameMng.instance.enermyNavMesh.destination = targetTown.transform.position;
+        StartCoroutine("EnermyMove");
+    }
+
+    IEnumerator EnermyMove()
+    {
+        while (GameMng.instance.enermyNavMesh.velocity == Vector3.zero)
+        {
+            yield return null;
+        }
+
+        while (GameMng.instance.enermyNavMesh.velocity != Vector3.zero)
+        {
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        yield return StartCoroutine(targetTown.GetComponent<Town>().Battle(false));
+
+        if (!GameMng.instance.isDefanceWin)
+            MapMng.instance.EnermyQccupyabase(targetTown);
+        GameMng.instance.enermyObj.SetActive(false);
+        targetTown = null;
+    }
+
+
+    #endregion
 }

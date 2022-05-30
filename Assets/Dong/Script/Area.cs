@@ -62,71 +62,6 @@ public class Area : MonoBehaviour
             if (targetTown.verticePos == vertices[i])
             {
                 index = i;
-                //foreach (GameObject obj in targetTown.nodeList)
-                //{
-                //    foreach(var veclist in keyList)
-                //    {
-                //        if(((veclist[0] == targetTown.verticePos) && (veclist[1] == obj.GetComponent<Town>().verticePos))
-                //            ||
-                //        ((veclist[1] == targetTown.verticePos) && (veclist[0] == obj.GetComponent<Town>().verticePos)))
-                //        {
-                //            Destroy(boxList[veclist]);
-                //            boxList.Remove(veclist);
-                //            removeKeyList.Add(veclist);
-                //            removeTownList.Add(obj.GetComponent<Town>());
-                //        }
-                //    }
-                //}
-
-                //foreach (var townlist in removeTownList)
-                //{
-                //    foreach (var townNodelist in removeTownList)
-                //    {
-                //        if (townlist.nodeList.Find(x => x == townNodelist.gameObject))
-                //        {
-                //            foreach (var veclist in keyList)
-                //            {
-                //                if (((veclist[0] == townlist.verticePos) && (veclist[1] == townNodelist.verticePos))
-                //                    ||
-                //                ((veclist[1] == targetTown.verticePos) && (veclist[0] == townNodelist.verticePos)))
-                //                {
-                //                    Vector3[] vector3s = new Vector3[] { 
-                //                        targetTown.verticePos
-                //                        , townlist.verticePos
-                //                        , townNodelist.verticePos} ;
-                //                    if (isRight.isThreeAngleRight(vector3s))
-                //                    {
-                //                        if (boxList.ContainsKey(veclist))
-                //                        {
-                //                            Destroy(boxList[veclist]);
-                //                            boxList.Remove(veclist);
-                //                            removeKeyList.Add(veclist);
-                //                        }
-                //                    }
-                //                    else
-                //                    {
-                //                        vector3s = new Vector3[] {
-                //                        targetTown.verticePos
-                //                        , townNodelist.verticePos
-                //                        , townlist.verticePos};
-                //                        if (isRight.isThreeAngleRight(vector3s))
-                //                        {
-                //                            if (boxList.ContainsKey(veclist))
-                //                            {
-                //                                Destroy(boxList[veclist]);
-                //                                boxList.Remove(veclist);
-                //                                removeKeyList.Add(veclist);
-                //                            }
-                //                        }
-                //                    }
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-
-                //foreach (var veclist in removeKeyList)
-                //    keyList.Remove(veclist);
             }
             else
             {
@@ -137,7 +72,7 @@ public class Area : MonoBehaviour
         {
             return;
         }
-        //targetTown.RemoveAllnodeList();
+
         for (int i = 0; i < indexs.Length; i += 3)
         {
             if (indexs[i] != index && indexs[i + 1] != index && indexs[i + 2] != index)
@@ -222,10 +157,10 @@ public class Area : MonoBehaviour
         colObj.transform.parent = transform;
         colObj.layer = LayerMask.NameToLayer("Hit");
         colObj.tag = tag;
-        col.size = new Vector3(0.1f, 1f, dis - 1);
+        col.size = new Vector3(0.1f, 4f, dis - 1);
         line.positionCount = 2;
-        line.SetPosition(0, end + (Vector3.up * 0.25f));
-        line.SetPosition(1, start + (Vector3.up * 0.25f));
+        line.SetPosition(0, end + (Vector3.up * 0.5f));
+        line.SetPosition(1, start + (Vector3.up * 0.5f));
         line.startWidth = 0.2f;
         line.endWidth = 0.2f;
         keyList.Add(new Vector3[] { start, end });
@@ -241,26 +176,63 @@ public class Area : MonoBehaviour
                 float dis;
                 Vector3 vecDis;
                 List<GameObject> dislist = new List<GameObject>();
+                bool isTrue = false;
                 foreach (var vec in vlist)
                 {
                     dis = Vector3.Distance(vec.GetComponent<Town>().pos, target.GetComponent<Town>().pos);
                     vecDis = vec.GetComponent<Town>().pos - target.GetComponent<Town>().pos;
-                    Physics.Raycast(target.GetComponent<Town>().pos + (Vector3.up * 0.1f), vecDis.normalized, out hit, dis, LayerMask.GetMask("Hit"));
+                    Physics.Raycast(target.GetComponent<Town>().pos + (Vector3.up * 0.1f) + (vecDis.normalized * 2), vecDis.normalized, out hit, dis - 2, LayerMask.GetMask("Hit"));
+                    Debug.DrawRay(target.GetComponent<Town>().pos + (Vector3.up * 0.1f) + (vecDis.normalized * 2), vecDis.normalized * (dis - 2), Color.red, 10f);
                     if(hit.collider == null)
                     {
-                        if (vec != target)
+                        isTrue = false;
+                        foreach (var node in target.GetComponent<Town>().nodeList)
+                        {
+                            if (node == vec)
+                                isTrue = true;
+                        }
+
+                        if (vec != target && !isTrue)
                             dislist.Add(vec);
                     }
+                    //else
+                    //{
+                    //    foreach (var box in Physics.OverlapBox(target.GetComponent<Town>().pos, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Hit")))
+                    //    {
+                    //        if (hit.collider == box)
+                    //        {
+                    //            if (vec != target)
+                    //                dislist.Add(vec);
+                    //        }
+                    //    }
+                    //}
                 }
                 if(0 == dislist.Count)
                     return false;
-
 
                 GameObject[] curVertex = new GameObject[2];
                 curVertex[0] = query.NearestPoint(dislist, target);
                 curVertex[1] = query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, target.GetComponent<Town>().nodeList);
 
-                if(null == curVertex[1])
+                //int count = 0;
+                //bool isTrue = true;
+                //while (isTrue)
+                //{
+                //    isTrue = false;
+                //    curVertex[1] = query.SmallestAngle(curVertex[0].GetComponent<Town>().nodeList, target, curVertex[0], count);
+                //    if (null == curVertex[1])
+                //    {
+                //        return false;
+                //    }
+                //    foreach(var curver in target.GetComponent<Town>().nodeList)
+                //    {
+                //        if (curver == curVertex[1])
+                //            isTrue = true;
+                //    }
+                //    ++count;
+                //}
+
+                if (null == curVertex[1])
                     return false;
 
                 Vector3[] vertices = new Vector3[]
@@ -298,6 +270,7 @@ public class Area : MonoBehaviour
                     vlist.FindIndex(vertexIndext => vertexIndext == curVertex[1]));
 
 
+                //target.GetComponent<Town>().AddnodeList(curVertex[1]);
                 target.GetComponent<Town>().AddnodeList(curVertex[0]);
 
                 MakeTriangle(vertices, indexes, true);
@@ -355,6 +328,7 @@ public class Area : MonoBehaviour
     }
 
     // 플러드 필알고리즘
+    // 브레즌햄 알고리즘
     // https://www.crocus.co.kr/1288
     // https://ko.wikipedia.org/wiki/%EB%B3%B4%EB%A1%9C%EB%85%B8%EC%9D%B4_%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8
 
@@ -369,12 +343,22 @@ public class Area : MonoBehaviour
             dis = Vector3.Distance(vec.GetComponent<Town>().pos, target.GetComponent<Town>().pos);
             vecDis = vec.GetComponent<Town>().pos - target.GetComponent<Town>().pos;
             Physics.Raycast(target.GetComponent<Town>().pos + (Vector3.up * 0.1f), vecDis.normalized, out hit, dis, LayerMask.GetMask("Hit"));
-            if (hit.collider != null && hit.collider.gameObject.tag != tag)
+            if (hit.collider != null)// && hit.collider.gameObject.tag != tag)
             {
+                
+                foreach (var box in Physics.OverlapBox(target.GetComponent<Town>().pos, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Hit")))
+                {
+                    if (hit.collider == box)
+                    {
+                        if (vec != target)
+                            dislist.Add(vec);
+                    }
+                }
             }
             else
             {
-                dislist.Add(vec);
+                if (vec != target)
+                    dislist.Add(vec);
             }
         }
 
@@ -449,7 +433,7 @@ public class Area : MonoBehaviour
 
             curVertex[1] = query.SmallestAngle(curVectex2, target, curVertex[0]);
 
-            curVertex[2] = query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, curVertex[1].GetComponent<Town>().nodeList);
+            //curVertex[2] = query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, curVertex[1].GetComponent<Town>().nodeList);
 
             Vector3 exPos;
             switch (type)
@@ -465,66 +449,19 @@ public class Area : MonoBehaviour
                     break;
             }
 
-            if (isRight.IsIntersects(curVertex[0].transform.position, curVertex[1].transform.position, curVertex[2].transform.position, target.transform.position))
+            if (!(isRight.IsIntersects(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, target.GetComponent<Town>().pos, 1))
+                &&
+                !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, exPos, curVertex[0].GetComponent<Town>().pos, 1))
+                &&
+               !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, curVertex[1].GetComponent<Town>().pos, 1))
+                )
             {
-                if (!(isRight.IsIntersects(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, target.GetComponent<Town>().pos, 1))
-                    &&
-                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, exPos, curVertex[0].GetComponent<Town>().pos, 1))
-                    &&
-                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, curVertex[1].GetComponent<Town>().pos, 1))
-                    )
-                {
-                    NotOccupyabase();
-                    return;
-                }
-                targetTown.AddnodeList(curVertex[0]);
-                targetTown.AddnodeList(curVertex[1]);
+                NotOccupyabase();
+                return;
             }
-            else if (isRight.IsIntersects(curVertex[2].transform.position, curVertex[1].transform.position, curVertex[0].transform.position, target.transform.position))
-            {
-                if (!(isRight.IsIntersects(curVertex[2].GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, exPos, target.GetComponent<Town>().pos, 1))
-                    &&
-                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[2].GetComponent<Town>().pos, exPos, curVertex[1].GetComponent<Town>().pos, 1))
-                    &&
-                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, exPos, curVertex[2].GetComponent<Town>().pos, 1))
-                    )
-                {
-                    NotOccupyabase();
-                    return;
-                }
-                targetTown.AddnodeList(curVertex[1]);
-                targetTown.AddnodeList(curVertex[2]);
-            }
-            else if (isRight.IsIntersects(curVertex[2].transform.position, curVertex[0].transform.position, curVertex[1].transform.position, target.transform.position))
-            {
-                if (!(isRight.IsIntersects(curVertex[2].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, target.GetComponent<Town>().pos, 1))
-                       &&
-                       !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[2].GetComponent<Town>().pos, exPos, curVertex[0].GetComponent<Town>().pos, 1))
-                       &&
-                      !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, curVertex[2].GetComponent<Town>().pos, 1))
-                       )
-                {
-                    NotOccupyabase();
-                    return;
-                }
-                targetTown.AddnodeList(curVertex[0]);
-                targetTown.AddnodeList(curVertex[2]);
-            }
-            else
-            {
-                if (!(isRight.IsIntersects(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, target.GetComponent<Town>().pos, 1))
-                    &&
-                    !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, exPos, curVertex[0].GetComponent<Town>().pos, 1))
-                    &&
-                   !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, curVertex[1].GetComponent<Town>().pos, 1))
-                    )
-                {
-                    NotOccupyabase();
-                    return;
-                }
-                targetTown.AddnodeList(curVertex[0]);
-                targetTown.AddnodeList(curVertex[1]);
-            }
+            targetTown.AddnodeList(curVertex[0]);
+            targetTown.AddnodeList(curVertex[1]);
+
 
 
             vlist.Add(target);
@@ -565,6 +502,5 @@ public class Area : MonoBehaviour
         }
         return indexes;
     }
-
 
 }
