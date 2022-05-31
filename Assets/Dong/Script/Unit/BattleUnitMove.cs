@@ -62,7 +62,7 @@ public class BattleUnitMove : UnitMove
         else if (tag == "Enermy")
         {
             targetLayer = "Town_Unit";
-            m_target = battleMng.EnermyFlag;
+            m_target = battleMng.EnemyFlag;
         }
         else
         {

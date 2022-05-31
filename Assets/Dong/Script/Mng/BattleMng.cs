@@ -11,20 +11,26 @@ public class BattleMng : MonoBehaviour
     bool[] spawnCheckPlayer;
 
     [SerializeField]
-    Transform[] spawnPointEnermy;
+    Transform[] spawnPointEnemy;
 
-    bool[] spawnCheckEnermy;
+    bool[] spawnCheckEnemy;
 
     int spawnIndex;
 
     public Unit playerFlag;
 
-    public Unit EnermyFlag;
+    public Unit EnemyFlag;
+
+    List<GameObject> battleUnit = new List<GameObject>();
+
+    public GameObject PlayerEffect;
+
+    public GameObject EnemyEffect;
 
     private void Start()
     {
         spawnCheckPlayer = new bool[spawnPointPlayer.Length];
-        spawnCheckEnermy = new bool[spawnPointEnermy.Length];
+        spawnCheckEnemy = new bool[spawnPointEnemy.Length];
         if (gameObject.scene.name == "Battle")
             AttackSet();
         else
@@ -33,6 +39,7 @@ public class BattleMng : MonoBehaviour
 
     void AttackSet()
     {
+        GameObject obj;
         foreach (var unit in TownMng.instance.atkUnit)
         {
             do
@@ -40,23 +47,28 @@ public class BattleMng : MonoBehaviour
                 spawnIndex = Random.Range(0, spawnPointPlayer.Length);
             }
             while (spawnCheckPlayer[spawnIndex]);
-            Instantiate(unit.prefab, spawnPointPlayer[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0)).transform.SetParent(transform);
+            obj = Instantiate(unit.prefab, spawnPointPlayer[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0));
+            obj.transform.SetParent(transform);
+            battleUnit.Add(obj);
             spawnCheckPlayer[spawnIndex] = true;
         }
-        foreach (var unit in EnermyMng.instance.defUnit)
+        foreach (var unit in EnemyMng.instance.defUnit)
         {
             do
             {
-                spawnIndex = Random.Range(0, spawnPointEnermy.Length);
+                spawnIndex = Random.Range(0, spawnPointEnemy.Length);
             }
-            while (spawnCheckEnermy[spawnIndex]);
-            Instantiate(unit.prefab, spawnPointEnermy[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0)).transform.SetParent(transform);
-            spawnCheckEnermy[spawnIndex] = true;
+            while (spawnCheckEnemy[spawnIndex]);
+            obj = Instantiate(unit.prefab, spawnPointEnemy[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0));
+            obj.transform.SetParent(transform);
+            battleUnit.Add(obj);
+            spawnCheckEnemy[spawnIndex] = true;
         }
     }
 
     void DefanceSet()
     {
+        GameObject obj;
         foreach (var unit in TownMng.instance.defUnit)
         {
             do
@@ -64,19 +76,29 @@ public class BattleMng : MonoBehaviour
                 spawnIndex = Random.Range(0, spawnPointPlayer.Length);
             }
             while (spawnCheckPlayer[spawnIndex]);
-            Instantiate(unit.prefab, spawnPointPlayer[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0)).transform.SetParent(transform);
+            obj = Instantiate(unit.prefab, spawnPointPlayer[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0));
+            obj.transform.SetParent(transform);
+            battleUnit.Add(obj);
             spawnCheckPlayer[spawnIndex] = true;
         }
-        foreach (var unit in EnermyMng.instance.atkUnit)
+        foreach (var unit in EnemyMng.instance.atkUnit)
         {
             do
             {
-                spawnIndex = Random.Range(0, spawnPointEnermy.Length);
+                spawnIndex = Random.Range(0, spawnPointEnemy.Length);
             }
-            while (spawnCheckEnermy[spawnIndex]);
-            Instantiate(unit.prefab, spawnPointEnermy[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0)).transform.SetParent(transform);
-            spawnCheckEnermy[spawnIndex] = true;
+            while (spawnCheckEnemy[spawnIndex]);
+            obj = Instantiate(unit.prefab, spawnPointEnemy[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0));
+            obj.transform.SetParent(transform);
+            battleUnit.Add(obj);
+            spawnCheckEnemy[spawnIndex] = true;
         }
+    }
+
+    public void EndBattle()
+    {
+        foreach (var obj in battleUnit)
+            Destroy(obj);
     }
 
 }

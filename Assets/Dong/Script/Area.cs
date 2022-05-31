@@ -14,6 +14,8 @@ public class Area : MonoBehaviour
 
     IsAngleRight isRight = new IsAngleRight();
 
+    TriangleCondition triangleCondition = new TriangleCondition();
+
     RaycastHit hit;
 
     Dictionary<Vector3[], GameObject> boxList = new Dictionary<Vector3[], GameObject>();
@@ -36,9 +38,9 @@ public class Area : MonoBehaviour
     {
         Debug.Log("점령 실패");
     }
-    public Vector3 UnitStartPoint()
+    public Vector3 UnitStartPoint(GameObject target)
     {
-        return query.NearestPoint(vlist, MapMng.instance.curSelectTown).transform.position;
+        return query.NearestPoint(vlist, target).transform.position;
     }
 
     public void RemoveVertexList(GameObject target)
@@ -182,7 +184,7 @@ public class Area : MonoBehaviour
                     dis = Vector3.Distance(vec.GetComponent<Town>().pos, target.GetComponent<Town>().pos);
                     vecDis = vec.GetComponent<Town>().pos - target.GetComponent<Town>().pos;
                     Physics.Raycast(target.GetComponent<Town>().pos + (Vector3.up * 0.1f) + (vecDis.normalized * 2), vecDis.normalized, out hit, dis - 2, LayerMask.GetMask("Hit"));
-                    Debug.DrawRay(target.GetComponent<Town>().pos + (Vector3.up * 0.1f) + (vecDis.normalized * 2), vecDis.normalized * (dis - 2), Color.red, 10f);
+                    //Debug.DrawRay(target.GetComponent<Town>().pos + (Vector3.up * 0.1f) + (vecDis.normalized * 2), vecDis.normalized * (dis - 2), Color.red, 10f);
                     if(hit.collider == null)
                     {
                         isTrue = false;
@@ -195,17 +197,6 @@ public class Area : MonoBehaviour
                         if (vec != target && !isTrue)
                             dislist.Add(vec);
                     }
-                    //else
-                    //{
-                    //    foreach (var box in Physics.OverlapBox(target.GetComponent<Town>().pos, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Hit")))
-                    //    {
-                    //        if (hit.collider == box)
-                    //        {
-                    //            if (vec != target)
-                    //                dislist.Add(vec);
-                    //        }
-                    //    }
-                    //}
                 }
                 if(0 == dislist.Count)
                     return false;
@@ -214,23 +205,6 @@ public class Area : MonoBehaviour
                 curVertex[0] = query.NearestPoint(dislist, target);
                 curVertex[1] = query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, target.GetComponent<Town>().nodeList);
 
-                //int count = 0;
-                //bool isTrue = true;
-                //while (isTrue)
-                //{
-                //    isTrue = false;
-                //    curVertex[1] = query.SmallestAngle(curVertex[0].GetComponent<Town>().nodeList, target, curVertex[0], count);
-                //    if (null == curVertex[1])
-                //    {
-                //        return false;
-                //    }
-                //    foreach(var curver in target.GetComponent<Town>().nodeList)
-                //    {
-                //        if (curver == curVertex[1])
-                //            isTrue = true;
-                //    }
-                //    ++count;
-                //}
 
                 if (null == curVertex[1])
                     return false;
@@ -246,31 +220,22 @@ public class Area : MonoBehaviour
                 switch (type)
                 {
                     case AwnerType.Player:
-                        exPos = GameMng.instance.GetEnermyTransform();
+                        exPos = GameMng.instance.GetEnemyTransform();
                         break;
-                    case AwnerType.Enermy:
+                    case AwnerType.Enemy:
                         exPos = GameMng.instance.GetPlayerTransform();
                         break;
                     default:
                         exPos = Vector3.zero;
                         break;
                 }
-                if (!(isRight.IsIntersects(vertices[0], vertices[1], exPos, vertices[2], 1))
-                       &&
-                      !(isRight.IsIntersects(vertices[0], vertices[2], exPos, vertices[1], 1))
-                       &&
-                      !(isRight.IsIntersects(vertices[1], vertices[2], exPos, vertices[0], 1))
-                       )
-                {
+                if (isRight.isPointInTriangle(vertices[0], vertices[1], vertices[2], exPos))
                     return false;
-                }
 
                 int[] indexes = SetVertexIndex(vertices, vlist.FindIndex(vertexIndext => vertexIndext == target),
                     vlist.FindIndex(vertexIndext => vertexIndext == curVertex[0]),
                     vlist.FindIndex(vertexIndext => vertexIndext == curVertex[1]));
 
-
-                //target.GetComponent<Town>().AddnodeList(curVertex[1]);
                 target.GetComponent<Town>().AddnodeList(curVertex[0]);
 
                 MakeTriangle(vertices, indexes, true);
@@ -327,40 +292,10 @@ public class Area : MonoBehaviour
         CreateLine(vertices[verticesIndex[2]], vertices[verticesIndex[0]]);
     }
 
-    // 플러드 필알고리즘
-    // 브레즌햄 알고리즘
-    // https://www.crocus.co.kr/1288
-    // https://ko.wikipedia.org/wiki/%EB%B3%B4%EB%A1%9C%EB%85%B8%EC%9D%B4_%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8
-
-    // https://minok-portfolio.tistory.com/17
     public void AddVertex(GameObject target)
     {
-        float dis;
-        Vector3 vecDis;
         List<GameObject> dislist = new List<GameObject>();
-        foreach (var vec in vlist)
-        {
-            dis = Vector3.Distance(vec.GetComponent<Town>().pos, target.GetComponent<Town>().pos);
-            vecDis = vec.GetComponent<Town>().pos - target.GetComponent<Town>().pos;
-            Physics.Raycast(target.GetComponent<Town>().pos + (Vector3.up * 0.1f), vecDis.normalized, out hit, dis, LayerMask.GetMask("Hit"));
-            if (hit.collider != null)// && hit.collider.gameObject.tag != tag)
-            {
-                
-                foreach (var box in Physics.OverlapBox(target.GetComponent<Town>().pos, new Vector3(1, 1, 1), Quaternion.identity, LayerMask.GetMask("Hit")))
-                {
-                    if (hit.collider == box)
-                    {
-                        if (vec != target)
-                            dislist.Add(vec);
-                    }
-                }
-            }
-            else
-            {
-                if (vec != target)
-                    dislist.Add(vec);
-            }
-        }
+        triangleCondition.MinimumConditions(vlist, target, ref dislist);
 
         if (vlist.Count < 3)
         {
@@ -395,7 +330,7 @@ public class Area : MonoBehaviour
                 // 시계방향으로 넣야하기 때문
                 GameMng.instance.playerNodePos = isRight.TriangleCenterPoint(vertices[indexes[0]], vertices[indexes[1]], vertices[indexes[2]]);
             else
-                GameMng.instance.enermyNodePos = isRight.TriangleCenterPoint(vertices[indexes[0]], vertices[indexes[1]], vertices[indexes[2]]);
+                GameMng.instance.EnemyNodePos = isRight.TriangleCenterPoint(vertices[indexes[0]], vertices[indexes[1]], vertices[indexes[2]]);
 
         }
         else
@@ -433,15 +368,13 @@ public class Area : MonoBehaviour
 
             curVertex[1] = query.SmallestAngle(curVectex2, target, curVertex[0]);
 
-            //curVertex[2] = query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, curVertex[1].GetComponent<Town>().nodeList);
-
             Vector3 exPos;
             switch (type)
             {
                 case AwnerType.Player:
-                    exPos = GameMng.instance.GetEnermyTransform();
+                    exPos = GameMng.instance.GetEnemyTransform();
                     break;
-                case AwnerType.Enermy:
+                case AwnerType.Enemy:
                     exPos = GameMng.instance.GetPlayerTransform();
                     break;
                 default:
@@ -449,12 +382,7 @@ public class Area : MonoBehaviour
                     break;
             }
 
-            if (!(isRight.IsIntersects(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, target.GetComponent<Town>().pos, 1))
-                &&
-                !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[1].GetComponent<Town>().pos, exPos, curVertex[0].GetComponent<Town>().pos, 1))
-                &&
-               !(isRight.IsIntersects(target.GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, exPos, curVertex[1].GetComponent<Town>().pos, 1))
-                )
+            if (isRight.isPointInTriangle(curVertex[1].GetComponent<Town>().pos, curVertex[0].GetComponent<Town>().pos, target.GetComponent<Town>().pos, exPos))
             {
                 NotOccupyabase();
                 return;
@@ -502,5 +430,6 @@ public class Area : MonoBehaviour
         }
         return indexes;
     }
+    
 
 }

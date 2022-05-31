@@ -35,14 +35,14 @@ public class GameMng : Singleton<GameMng>
     NavMeshAgent playerNavMesh;
 
     [SerializeField]
-    public GameObject enermy;
+    public GameObject Enemy;
 
-    public Vector3 enermyNodePos;
+    public Vector3 EnemyNodePos;
 
     [SerializeField]
-    public GameObject enermyObj;
+    public GameObject EnemyObj;
 
-    public NavMeshAgent enermyNavMesh;
+    public NavMeshAgent EnemyNavMesh;
 
     [SerializeField]
     GameObject targetTown;
@@ -66,7 +66,7 @@ public class GameMng : Singleton<GameMng>
         isGamePlaying = false;
         GameStart += OnSetDay;
         playerNavMesh = playerObj.GetComponent<NavMeshAgent>();
-        enermyNavMesh = enermyObj.GetComponent<NavMeshAgent>();
+        EnemyNavMesh = EnemyObj.GetComponent<NavMeshAgent>();
     }
 
     private void Start()
@@ -97,9 +97,9 @@ public class GameMng : Singleton<GameMng>
         return player;
     }
 
-    public GameObject GetEnermy()
+    public GameObject GetEnemy()
     {
-        return enermy;
+        return Enemy;
     }
 
     IEnumerator SetDay()
@@ -122,19 +122,19 @@ public class GameMng : Singleton<GameMng>
     void GameEnd()
     {
         int playerOccupied = 0;
-        int enermyOccupied = 0;
+        int EnemyOccupied = 0;
         foreach(Town town in occupiedTown)
         {
             if (town.type == AwnerType.Player)
                 ++playerOccupied;
             else
-                ++enermyOccupied;
+                ++EnemyOccupied;
         }
-        if(playerOccupied > enermyOccupied)
+        if(playerOccupied > EnemyOccupied)
         {
             Debug.Log("승리");
         }
-        else if (playerOccupied < enermyOccupied)
+        else if (playerOccupied < EnemyOccupied)
         {
             Debug.Log("패배");
         }
@@ -160,15 +160,15 @@ public class GameMng : Singleton<GameMng>
     {
         return playerNodePos;
     }
-    public Vector3 GetEnermyTransform()
+    public Vector3 GetEnemyTransform()
     {
-        return enermyNodePos;
+        return EnemyNodePos;
     }
 
     public void SetUser(GameObject obj , GameObject obj1)
     {
         player = obj;
-        enermy = obj1;
+        Enemy = obj1;
         cam.Fllowing(player);
     }
 
@@ -182,9 +182,9 @@ public class GameMng : Singleton<GameMng>
         if (MapMng.instance.curSelectTown.GetComponent<Town>().type != AwnerType.Neutrality)
             return;
 
-        playerObj.transform.position = MapMng.instance.PlayerStartPoint();
-        playerObj.SetActive(true);
         targetTown = MapMng.instance.curSelectTown;
+        playerObj.transform.position = MapMng.instance.PlayerStartPoint(targetTown);
+        playerObj.SetActive(true);
         playerNavMesh.destination = targetTown.transform.position;
         StartCoroutine("PlayerMove");
     }

@@ -33,7 +33,7 @@ public class UIMng : Singleton<UIMng>
         }
         uiList["플레이어이름"].transform.position = GameMng.instance.GetPlayerTransform() + new Vector3(0, 2, 0);
         uiList["플레이어이름"].SetActive(true);
-        uiList["적이름"].transform.position = GameMng.instance.GetEnermyTransform() + new Vector3(0, 2, 0);
+        uiList["적이름"].transform.position = GameMng.instance.GetEnemyTransform() + new Vector3(0, 2, 0);
         uiList["적이름"].SetActive(true);
         uiList["게임시작"].SetActive(false);
         uiList["미니맵"].SetActive(true);

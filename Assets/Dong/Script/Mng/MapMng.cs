@@ -18,9 +18,9 @@ public class MapMng : SingletonMini<MapMng>
     Area Area_Player;
 
     [SerializeField]
-    GameObject EnermyArea;
+    GameObject EnemyArea;
 
-    Area Area_Enermy;
+    Area Area_Enemy;
 
     [SerializeField]
     int range;
@@ -29,7 +29,7 @@ public class MapMng : SingletonMini<MapMng>
     int rangeExcept;
 
     [SerializeField]
-    List<GameObject> popList = new List<GameObject>();
+    public List<GameObject> popList = new List<GameObject>();
 
     ObjectPooing pooling = new ObjectPooing();
 
@@ -53,7 +53,7 @@ public class MapMng : SingletonMini<MapMng>
     private void Start()
     {
         Area_Player = playerArea.GetComponent<Area>();
-        Area_Enermy = EnermyArea.GetComponent<Area>();
+        Area_Enemy = EnemyArea.GetComponent<Area>();
         MapSetting();
     }
 
@@ -61,19 +61,19 @@ public class MapMng : SingletonMini<MapMng>
     {
         AddVertex(AwnerType.Player, target);
     }
-    public void EnermyQccupyabase(GameObject target)
+    public void EnemyQccupyabase(GameObject target)
     {
-        AddVertex(AwnerType.Enermy, target);
+        AddVertex(AwnerType.Enemy, target);
     }
 
-    public Vector3 EnermyStartPoint()
+    public Vector3 EnemyStartPoint(GameObject target)
     {
-        return Area_Enermy.UnitStartPoint();
+        return Area_Enemy.UnitStartPoint(target);
     }
 
-    public Vector3 PlayerStartPoint()
+    public Vector3 PlayerStartPoint(GameObject target)
     {
-        return Area_Player.UnitStartPoint();
+        return Area_Player.UnitStartPoint(target);
     }
     public void RemoveVertexList(string targetTag, GameObject target)
     {
@@ -83,7 +83,7 @@ public class MapMng : SingletonMini<MapMng>
                 Area_Player.RemoveVertexList(target);
                 break;
             case "Enermy":
-                Area_Enermy.RemoveVertexList(target);
+                Area_Enemy.RemoveVertexList(target);
                 break;
             default:
                 return;
@@ -95,9 +95,9 @@ public class MapMng : SingletonMini<MapMng>
         //switch (type)
         //{
         //    case AwnerType.Player:
-        //        Area_Enermy.RemoveVertex(target);
+        //        Area_Enemy.RemoveVertex(target);
         //        break;
-        //    case AwnerType.Enermy:
+        //    case AwnerType.Enemy:
         //        Area_Player.RemoveVertex(target);
         //        break;
         //    default:
@@ -111,8 +111,8 @@ public class MapMng : SingletonMini<MapMng>
             case AwnerType.Player:
                 Area_Player.AddVertex(target);
                 break;
-            case AwnerType.Enermy:
-                Area_Enermy.AddVertex(target);
+            case AwnerType.Enemy:
+                Area_Enemy.AddVertex(target);
                 break;
             default:
                 return;
@@ -181,21 +181,21 @@ public class MapMng : SingletonMini<MapMng>
 
             obj1 = CreateObj(creationPoint[index] + (Vector3.right * 4), 3 - direction);
             obj1.transform.GetChild(1).gameObject.SetActive(true);
-            obj1.GetComponent<Town>().SetType(AwnerType.Enermy);
+            obj1.GetComponent<Town>().SetType(AwnerType.Enemy);
             obj1.SetActive(true);
-            AddVertex(AwnerType.Enermy, obj1);
+            AddVertex(AwnerType.Enemy, obj1);
 
             obj1 = CreateObj(creationPoint[index] + (Vector3.back * 4), 3 - direction);
             obj1.transform.GetChild(1).gameObject.SetActive(true);
-            obj1.GetComponent<Town>().SetType(AwnerType.Enermy);
+            obj1.GetComponent<Town>().SetType(AwnerType.Enemy);
             obj1.SetActive(true);
-            AddVertex(AwnerType.Enermy, obj1);
+            AddVertex(AwnerType.Enemy, obj1);
 
             obj1 = CreateObj(creationPoint[index], 3 - direction);
             obj1.transform.GetChild(1).gameObject.SetActive(true);
-            obj1.GetComponent<Town>().SetType(AwnerType.Enermy);
+            obj1.GetComponent<Town>().SetType(AwnerType.Enemy);
             obj1.SetActive(true);
-            AddVertex(AwnerType.Enermy, obj1);
+            AddVertex(AwnerType.Enemy, obj1);
 
             removePos = creationPoint[index];
             if (creationPoint.Find(x => x == (removePos + (Vector3.back * 4))) != null)

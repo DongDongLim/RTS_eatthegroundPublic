@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public enum AwnerType
 {
     Player,
-    Enermy,
+    Enemy,
     Neutrality,
 }
 public class Town : MonoBehaviour
@@ -39,7 +39,7 @@ public class Town : MonoBehaviour
             case AwnerType.Player:
                 material.color = Color.blue;
                 break;
-            case AwnerType.Enermy:
+            case AwnerType.Enemy:
                 material.color = Color.red;
                 break;
             default:
@@ -80,7 +80,7 @@ public class Town : MonoBehaviour
                         case "Enermy":
                             if (type == AwnerType.Neutrality)
                                 GameMng.instance.occupiedTown.Add(this);
-                            SetType(AwnerType.Enermy);
+                            SetType(AwnerType.Enemy);
                             transform.GetChild(2).gameObject.SetActive(false);
                             transform.GetChild(0).gameObject.SetActive(false);
                             transform.GetChild(1).gameObject.SetActive(true);
@@ -94,7 +94,7 @@ public class Town : MonoBehaviour
                         case AwnerType.Player:
                             material.color = Color.blue;
                             break;
-                        case AwnerType.Enermy:
+                        case AwnerType.Enemy:
                             material.color = Color.red;
                             break;
                         default:

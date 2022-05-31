@@ -6,6 +6,9 @@ public class Hero : MonoBehaviour, Damaged
 {
     Unit Aowner;
 
+    [SerializeField]
+    BattleMng battleMng;
+
     int m_hp;
 
     float scaleZ;
@@ -23,31 +26,41 @@ public class Hero : MonoBehaviour, Damaged
             transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, z);
         else
         {
-            if (gameObject.layer == LayerMask.NameToLayer("BattleUnit"))
+            StartCoroutine(Lose());
+        }
+    }
+
+    IEnumerator Lose()
+    {
+        battleMng.EndBattle();
+        if (gameObject.layer == LayerMask.NameToLayer("BattleUnit"))
+        {
+            battleMng.EnemyEffect.SetActive(true);
+            yield return new WaitForSeconds(5f);
+            if (gameObject.scene.name == "Battle")
             {
-                if (gameObject.scene.name == "Battle")
-                {
-                    GameMng.instance.isAttackWin = true;
-                    SceneMng.instance.SceneUnStreaming("Battle");
-                }
-                else
-                {
-                    GameMng.instance.isDefanceWin = true;
-                    SceneMng.instance.SceneUnStreaming("BattleDefance");
-                }
+                GameMng.instance.isAttackWin = true;
+                SceneMng.instance.SceneUnStreaming("Battle");
             }
             else
             {
-                if (gameObject.scene.name == "Battle")
-                {
-                    GameMng.instance.isAttackWin = false;
-                    SceneMng.instance.SceneUnStreaming("Battle");
-                }
-                else
-                {
-                    GameMng.instance.isDefanceWin = false;
-                    SceneMng.instance.SceneUnStreaming("BattleDefance");
-                }
+                GameMng.instance.isDefanceWin = true;
+                SceneMng.instance.SceneUnStreaming("BattleDefance");
+            }
+        }
+        else
+        {
+            battleMng.PlayerEffect.SetActive(true);
+            yield return new WaitForSeconds(5f);
+            if (gameObject.scene.name == "Battle")
+            {
+                GameMng.instance.isAttackWin = false;
+                SceneMng.instance.SceneUnStreaming("Battle");
+            }
+            else
+            {
+                GameMng.instance.isDefanceWin = false;
+                SceneMng.instance.SceneUnStreaming("BattleDefance");
             }
         }
     }

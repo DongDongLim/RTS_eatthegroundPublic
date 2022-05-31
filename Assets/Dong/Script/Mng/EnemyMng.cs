@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnermyMng : Singleton<EnermyMng>
+public class EnemyMng : Singleton<EnemyMng>
 {
     #region 마을 변수
     public int caveLv = 0;
@@ -195,31 +195,31 @@ public class EnermyMng : Singleton<EnermyMng>
     #region 맵
 
 
-    public void SetTarget()
+    public void SetTarget(GameObject target)
     {
         if (null != targetTown)
         {
             return;
         }
 
-        if (MapMng.instance.curSelectTown.GetComponent<Town>().type != AwnerType.Neutrality)
+        if (target.GetComponent<Town>().type != AwnerType.Neutrality)
             return;
 
-        GameMng.instance.enermyObj.transform.position = MapMng.instance.EnermyStartPoint();
-        GameMng.instance.enermyObj.SetActive(true);
-        targetTown = MapMng.instance.curSelectTown;
-        GameMng.instance.enermyNavMesh.destination = targetTown.transform.position;
-        StartCoroutine("EnermyMove");
+        targetTown = target;
+        GameMng.instance.EnemyObj.transform.position = MapMng.instance.EnemyStartPoint(targetTown);
+        GameMng.instance.EnemyObj.SetActive(true);
+        GameMng.instance.EnemyNavMesh.destination = targetTown.transform.position;
+        StartCoroutine("EnemyMove");
     }
 
-    IEnumerator EnermyMove()
+    IEnumerator EnemyMove()
     {
-        while (GameMng.instance.enermyNavMesh.velocity == Vector3.zero)
+        while (GameMng.instance.EnemyNavMesh.velocity == Vector3.zero)
         {
             yield return null;
         }
 
-        while (GameMng.instance.enermyNavMesh.velocity != Vector3.zero)
+        while (GameMng.instance.EnemyNavMesh.velocity != Vector3.zero)
         {
             yield return new WaitForSeconds(0.1f);
         }
@@ -227,8 +227,8 @@ public class EnermyMng : Singleton<EnermyMng>
         yield return StartCoroutine(targetTown.GetComponent<Town>().Battle(false));
 
         if (!GameMng.instance.isDefanceWin)
-            MapMng.instance.EnermyQccupyabase(targetTown);
-        GameMng.instance.enermyObj.SetActive(false);
+            MapMng.instance.EnemyQccupyabase(targetTown);
+        GameMng.instance.EnemyObj.SetActive(false);
         targetTown = null;
     }
 
