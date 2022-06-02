@@ -6,15 +6,24 @@ using System.Linq;
 public class Query
 {
     // 가장 가까운 거리의 오브젝트
-    public GameObject NearestPoint(List<GameObject> list, GameObject target, int index = 0)
+    public GameObject NearestPoint(List<GameObject> list, GameObject target, int index = 0, bool isInverse = false)
     {
         //https://hijuworld.tistory.com/56
-        var vertexQuery = from vertex in list
+        var vertexQuery = isInverse ?
+            from vertex in list
+            where vertex != target
+            orderby Vector3.SqrMagnitude(
+                target.transform.position
+                - vertex.transform.position) descending
+            select vertex
+                          :
+                          from vertex in list
                           where vertex != target
                           orderby Vector3.SqrMagnitude(
                               target.transform.position
                               - vertex.transform.position)
                           select vertex;
+
         int count = 0;
         foreach (var vertex in vertexQuery)
         {
@@ -24,6 +33,32 @@ public class Query
         }
         return null;
     }
+    public GameObject NearestPoint(List<GameObject> list, Vector3 target, int index = 0, bool isInverse = false)
+    {
+        //https://hijuworld.tistory.com/56
+        var vertexQuery = isInverse ?
+            from vertex in list
+            orderby Vector3.SqrMagnitude(
+                target
+                - vertex.transform.position) descending
+            select vertex
+                          :
+                          from vertex in list
+                          orderby Vector3.SqrMagnitude(
+                              target
+                              - vertex.transform.position)
+                          select vertex;
+
+        int count = 0;
+        foreach (var vertex in vertexQuery)
+        {
+            if (count == index)
+                return vertex;
+            ++count;
+        }
+        return null;
+    }
+
 
     // 가장 작은 각도의 오브젝트
     public GameObject SmallestAngle(List<GameObject> list, GameObject target, GameObject comparison, int index = 0)

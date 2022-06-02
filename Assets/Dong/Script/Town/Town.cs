@@ -25,9 +25,12 @@ public class Town : MonoBehaviour
 
     public bool isOccupation;
 
+    bool isTarget;
+
     private void Awake()
     {
         material = transform.GetChild(3).GetComponent<MeshRenderer>().material;
+        isTarget = true;
     }
     private void OnEnable()
     {
@@ -59,9 +62,14 @@ public class Town : MonoBehaviour
         {
             if (!isOccupation)
             {
-                Physics.Raycast(pos + Vector3.up, Vector3.down, out hit, Mathf.Infinity, LayerMask.GetMask("Area"));
+                Physics.Raycast(pos + Vector3.up, Vector3.down, out hit, 2f, LayerMask.GetMask("Area"));
                 if (null != hit.collider)
                 {
+                    if(isTarget)
+                    {
+                        EnemyMng.instance.removeTargetCandidate.Add(gameObject);
+                        isTarget = false;
+                    }    
                     switch (hit.collider.tag)
                     {
                         case "Player":

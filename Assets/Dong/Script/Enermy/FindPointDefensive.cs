@@ -12,6 +12,7 @@ public class FindPointDefensive : FindPoint
                         where town.Value[0] > 0
                         orderby town.Value[1]
                         select town;
-        EnemyMng.instance.SetTarget(townQuery.First().Key);
+        if (townQuery.Count() != 0)
+            EnemyMng.instance.SetTarget(townQuery.First().Key);
     }
 }

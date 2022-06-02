@@ -30,7 +30,7 @@ public class IsAngleRight
             case 0:
                 return ((isThreeAngleRight(ccw1) == isThreeAngleRight(ccw3)) && (isThreeAngleRight(ccw2) == isThreeAngleRight(ccw4))) && (isThreeAngleRight(ccw1) != isThreeAngleRight(ccw2));
             default:
-                return ((isThreeAngleRight(ccw2) == isThreeAngleRight(ccw4))) && (isThreeAngleRight(ccw2) != isThreeAngleRight(ccw3));
+                return ((isThreeAngleRight(ccw1) == isThreeAngleRight(ccw3))) && (isThreeAngleRight(ccw3) != isThreeAngleRight(ccw4));
 
         }
     }
@@ -39,11 +39,11 @@ public class IsAngleRight
     // 삼각형 꼭지점 3개, 확인할 점
     public bool isPointInTriangle(Vector3 point1, Vector3 point2, Vector3 point3, Vector3 exPos)
     {
-        if (!(IsIntersects(point1, point2, exPos, point3, 1))
+        if ((IsIntersects(point1, point2, exPos, point3, 1))
                &&
-               !(IsIntersects(point3, point1, exPos, point2, 1))
+               (IsIntersects(point3, point1, exPos, point2, 1))
                &&
-              !(IsIntersects(point3, point2, exPos, point1, 1))
+              (IsIntersects(point3, point2, exPos, point1, 1))
                )
         {
             return true;
@@ -52,7 +52,7 @@ public class IsAngleRight
     }
 
 
-
+    // https://jwmath.tistory.com/105
     // 좌하, 상, 우하의 순서대로 들어오는 삼각형의 무게중심점
     public Vector3 TriangleCenterPoint(Vector3 a, Vector3 b, Vector3 c)
     {

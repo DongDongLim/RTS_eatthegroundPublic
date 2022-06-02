@@ -7,7 +7,7 @@ public class EnemyAI : MonoBehaviour
     public Area area;
 
     [SerializeField]
-    FindPoint findPoint;
+    public FindPoint findPoint;
 
     private void Start()
     {
@@ -22,16 +22,16 @@ public class EnemyAI : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
         findPoint.Setting();
-        yield return new WaitForSeconds(1f);
         while (true)
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(3f);
             while(findPoint.targetCandidateDic == null)
             {
                 yield return null;
             }
 
-            findPoint.SelectTarget();
+            yield return StartCoroutine(findPoint.FindTarget());
+            //findPoint.SelectTarget();
         }
 
     }

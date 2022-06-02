@@ -221,6 +221,7 @@ public class MapMng : SingletonMini<MapMng>
             obj2.GetComponent<Town>().SetType(AwnerType.Neutrality);
             creationPoint.RemoveAt(index);
             obj2.SetActive(true);
+            EnemyMng.instance.addTargetCandidate.Add(obj2);
         }
         for (int i = 0; i < creationPoint.Count; ++i)
         {

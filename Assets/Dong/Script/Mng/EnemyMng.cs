@@ -47,6 +47,16 @@ public class EnemyMng : Singleton<EnemyMng>
 
     #endregion
 
+    #region AI 변수
+
+    public List<GameObject> targetCandidate = new List<GameObject>();
+
+    public List<GameObject> removeTargetCandidate = new List<GameObject>();
+
+    public List<GameObject> addTargetCandidate = new List<GameObject>();
+
+    #endregion
+
     protected override void OnAwake()
     {
         mon1Lv = 0;
@@ -233,5 +243,17 @@ public class EnemyMng : Singleton<EnemyMng>
     }
 
 
+    #endregion
+
+    #region AI
+    public void ChangeCandidate()
+    {
+        foreach (var remove in addTargetCandidate)
+            targetCandidate.Add(remove);
+        addTargetCandidate.Clear();
+        foreach (var remove in removeTargetCandidate)
+            targetCandidate.Remove(remove);
+        removeTargetCandidate.Clear();
+    }
     #endregion
 }
