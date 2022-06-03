@@ -10,7 +10,7 @@ public class GameMng : Singleton<GameMng>
     int _Day = 0;
     public int Day { private set { _Day = value; } get { return _Day; } }
 
-    int _DayRealTime = 10;
+    int _DayRealTime = 5;
     public int DayRealTime { get { return _DayRealTime; } }
 
     bool _isGamePlaying;
@@ -189,10 +189,13 @@ public class GameMng : Singleton<GameMng>
         StartCoroutine("PlayerMove");
     }
 
+    float timeCnt;
     IEnumerator PlayerMove()
     {
-        while(playerNavMesh.velocity == Vector3.zero)
+        timeCnt = 0;
+        while (playerNavMesh.velocity == Vector3.zero && timeCnt < 0.2f)
         {
+            timeCnt += Time.deltaTime;
             yield return null;
         }
 

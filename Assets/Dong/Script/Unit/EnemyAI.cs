@@ -24,14 +24,21 @@ public class EnemyAI : MonoBehaviour
         findPoint.Setting();
         while (true)
         {
-            yield return new WaitForSeconds(3f);
             while(findPoint.targetCandidateDic == null)
             {
-                yield return null;
+                yield return new WaitForSeconds(0.5f);
             }
+
+            while(EnemyMng.instance.targetTown != null)
+            {
+                yield return new WaitForSeconds(0.5f);
+            }
+
 
             yield return StartCoroutine(findPoint.FindTarget());
             //findPoint.SelectTarget();
+
+            yield return new WaitForSeconds(1f);
         }
 
     }

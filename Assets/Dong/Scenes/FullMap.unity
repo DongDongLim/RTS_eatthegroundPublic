@@ -7005,7 +7005,7 @@ RectTransform:
   m_GameObject: {fileID: 557323204}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 10, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 2000782430}
   m_RootOrder: 1
@@ -15541,11 +15541,8 @@ MonoBehaviour:
   mon3Lv: 0
   targetTown: {fileID: 0}
   targetCandidate: []
-  pointCandidate: []
   removeTargetCandidate: []
-  removePointCandidate: []
   addTargetCandidate: []
-  addPointCandidate: []
 --- !u!114 &1907467057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16421,7 +16418,7 @@ MonoBehaviour:
   Map: {fileID: 1955232019}
   playerArea: {fileID: 1555497031}
   EnemyArea: {fileID: 88615585}
-  range: 60
+  range: 55
   rangeExcept: 2
   popList: []
   curSelectTown: {fileID: 0}

@@ -30,21 +30,36 @@ public abstract class FindPoint : MonoBehaviour
     Town vertex0;
     Town vertex1;
     Vector3 pointVec;
-    Collider[] results = new Collider[20];
+    Collider[] results = new Collider[1120];
     int count;
+    float sqrDis;
+    float imsiDis;
+    Vector3 exPos;
+    Vector3 playerPos;
+
+    int curIndexCnt;
+    int limmitIndexCnt;
+
+    float dis;
+    Vector3 vecDis;
+    bool isTrue;
 
     #endregion
 
     public void Setting()
     {
         area = Aowner.area;
+        playerPos = GameMng.instance.GetPlayerTransform();
     }
 
+    float Ctime;
     public IEnumerator FindTarget()
     {
         EnemyMng.instance.ChangeCandidate();
         targetCandidateDic.Clear();
-        float countTime = Time.time;
+        curIndexCnt = 0;
+        limmitIndexCnt = EnemyMng.instance.targetCandidate.Count;
+        Ctime = Time.time;
         foreach (var town in EnemyMng.instance.targetCandidate)
         {
             townScript = town.GetComponent<Town>();
@@ -54,13 +69,11 @@ public abstract class FindPoint : MonoBehaviour
                 if (dislist.Count < 2)
                     continue;
 
-                Vector3 exPos = GameMng.instance.GetPlayerTransform();
+                exPos = playerPos;
                 if (town.tag == "Enermy")
                 {
-                    float dis;
-                    Vector3 vecDis;
                     dislist.Clear();
-                    bool isTrue = false;
+                    isTrue = false;
                     foreach (var vec in area.vlist)
                     {
                         dis = Vector3.Distance(vec.GetComponent<Town>().pos, townScript.pos);
@@ -98,7 +111,7 @@ public abstract class FindPoint : MonoBehaviour
                     targetTown = townScript;
 
 
-                    int count = 0;
+                    count = 0;
                     while (true)
                     {
                         curVertex[0] = query.NearestPoint(dislist, town, count);
@@ -125,51 +138,53 @@ public abstract class FindPoint : MonoBehaviour
                 nodeCount = 0;
 
                 pointVec = isRight.TriangleCenterPoint(vertex1.pos, vertex0.pos, townScript.pos);
-                float sqrDis = 0; 
-                float sqrImsiDis = Vector3.SqrMagnitude(townScript.pos - pointVec);
-                if (sqrDis < sqrImsiDis)
-                sqrDis = sqrImsiDis;
-                sqrImsiDis = Vector3.SqrMagnitude(vertex0.pos - pointVec);
-                if (sqrDis < sqrImsiDis)
-                    sqrDis = sqrImsiDis;
-                sqrImsiDis = Vector3.SqrMagnitude(vertex1.pos - pointVec);
-                if (sqrDis < sqrImsiDis)
-                    sqrDis = sqrImsiDis;
-
-                count = Physics.OverlapSphereNonAlloc(pointVec, sqrDis, results, LayerMask.GetMask("MiniMap"));
+                sqrDis = 0; 
+                imsiDis = Vector3.Magnitude(townScript.pos - pointVec);
+                if (sqrDis < imsiDis)
+                sqrDis = imsiDis;
+                imsiDis = Vector3.Magnitude(vertex0.pos - pointVec);
+                if (sqrDis < imsiDis)
+                    sqrDis = imsiDis;
+                imsiDis = Vector3.Magnitude(vertex1.pos - pointVec);
+                if (sqrDis < imsiDis)
+                    sqrDis = imsiDis;
+                                
+                count = Physics.OverlapSphereNonAlloc(pointVec, sqrDis, results, LayerMask.GetMask("Point"));
 
                 for(int i = 0; i < count; ++i)
                 {
                     if (results[i].transform.parent.gameObject == town)
+                    {
+                        results[i] = null;
                         continue;
+                    }
                     if (results[i].transform.parent.GetComponent<Town>().tag != "Untagged")
+                    {
+                        results[i] = null;
                         continue;
+                    }
                     exPos = results[i].transform.parent.GetComponent<Town>().pos;
                     if (isRight.isPointInTriangle(vertex1.pos, vertex0.pos, townScript.pos, exPos))
                     {
                         ++nodeCount;
                     }
+                    results[i] = null;
                 }
-
-                //foreach (var town1 in EnemyMng.instance.pointCandidate)
-                //{
-                //    if (town1.gameObject == town)
-                //        continue;
-                //    if (town1.GetComponent<Town>().tag != "Untagged")
-                //        continue;
-                //    exPos = town1.GetComponent<Town>().pos;
-                //    if (isRight.isPointInTriangle(vertex1.pos, vertex0.pos, townScript.pos, exPos))
-                //    {
-                //        ++nodeCount;
-                //    }
-                //}
 
                 targetCandidateDic.Add(town, new float[] { nodeCount, Vector3.SqrMagnitude(town.transform.position - area.UnitStartPoint(town)) });
             }
+            if (curIndexCnt == 15)//(int)(limmitIndexCnt * 0.25f))
+            {
+                curIndexCnt = 0;
+                yield return null;
+            }
+            ++curIndexCnt;
         }
-        yield return null;
+        if((Time.time - Ctime) > 5f)
+            Debug.Log("실패");
+        while((Time.time - Ctime) < 5f)
+            yield return new WaitForFixedUpdate();
         SelectTarget();
-        Debug.Log(Time.time - countTime);
     }
 
     public abstract void SelectTarget();

@@ -42,7 +42,7 @@ public class EnemyMng : Singleton<EnemyMng>
     #region 맵 변수
 
     [SerializeField]
-    GameObject targetTown;
+    public GameObject targetTown;
 
 
     #endregion
@@ -222,10 +222,13 @@ public class EnemyMng : Singleton<EnemyMng>
         StartCoroutine("EnemyMove");
     }
 
+    float timeCnt;
     IEnumerator EnemyMove()
     {
-        while (GameMng.instance.EnemyNavMesh.velocity == Vector3.zero)
+        timeCnt = 0;
+        while (GameMng.instance.EnemyNavMesh.velocity == Vector3.zero && timeCnt < 0.2f)
         {
+            timeCnt += Time.deltaTime;
             yield return null;
         }
 
@@ -238,6 +241,7 @@ public class EnemyMng : Singleton<EnemyMng>
 
         if (!GameMng.instance.isDefanceWin)
             MapMng.instance.EnemyQccupyabase(targetTown);
+
         GameMng.instance.EnemyObj.SetActive(false);
         targetTown = null;
     }
@@ -248,8 +252,9 @@ public class EnemyMng : Singleton<EnemyMng>
     #region AI
     public void ChangeCandidate()
     {
-        foreach (var remove in addTargetCandidate)
-            targetCandidate.Add(remove);
+        //foreach (var remove in addTargetCandidate)
+        //    targetCandidate.Add(remove);
+        targetCandidate.AddRange(addTargetCandidate);
         addTargetCandidate.Clear();
         foreach (var remove in removeTargetCandidate)
             targetCandidate.Remove(remove);
