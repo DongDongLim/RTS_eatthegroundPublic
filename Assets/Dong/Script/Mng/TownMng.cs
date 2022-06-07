@@ -54,7 +54,7 @@ public class TownMng : SingletonMini<TownMng>
         grassLv = 0;
         foreach(UnitData unit in m_data)
         {
-            UnitMng.instance.UnitCnt.Add(unit, 0);
+            UnitMng.instance.UnitCnt.Add(unit, 20);
             UnitActivity.Add(unit, false);
             if(unit.battleMode == BattleMode.ATTACK)
                 atkUnit.Add(unit);

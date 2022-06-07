@@ -10,7 +10,8 @@ public class GameMng : Singleton<GameMng>
     int _Day = 0;
     public int Day { private set { _Day = value; } get { return _Day; } }
 
-    int _DayRealTime = 5;
+    [SerializeField]
+    int _DayRealTime;
     public int DayRealTime { get { return _DayRealTime; } }
 
     bool _isGamePlaying;
@@ -209,7 +210,14 @@ public class GameMng : Singleton<GameMng>
         yield return StartCoroutine(targetTown.GetComponent<Town>().Battle(true));
 
         if (isAttackWin)
+        {
+            EnemyMng.instance.ai.aiAtkWeight -= 2f;
             MapMng.instance.Occupyabase(targetTown);
+        }
+        else
+        {
+            EnemyMng.instance.ai.aiAtkWeight += 2f;
+        }
         playerObj.SetActive(false);
         targetTown = null;
         UIMng.instance.uiList["남은거리"].GetComponent<Text>().text = "0";

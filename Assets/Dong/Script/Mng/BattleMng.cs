@@ -25,7 +25,11 @@ public class BattleMng : MonoBehaviour
 
     public GameObject PlayerEffect;
 
+    public GameObject PlayerEffect1;
+
     public GameObject EnemyEffect;
+
+    public GameObject EnemyEffect1;
 
     private void Start()
     {
@@ -42,11 +46,14 @@ public class BattleMng : MonoBehaviour
         GameObject obj;
         foreach (var unit in TownMng.instance.atkUnit)
         {
+            if (UnitMng.instance.UnitCnt[unit] == 0)
+                continue;
             do
             {
                 spawnIndex = Random.Range(0, spawnPointPlayer.Length);
             }
             while (spawnCheckPlayer[spawnIndex]);
+
             obj = Instantiate(unit.prefab, spawnPointPlayer[spawnIndex].transform.position, Quaternion.Euler(0, 90, 0));
             obj.transform.SetParent(transform);
             battleUnit.Add(obj);
@@ -54,6 +61,8 @@ public class BattleMng : MonoBehaviour
         }
         foreach (var unit in EnemyMng.instance.defUnit)
         {
+            if (UnitMng.instance.UnitCnt[unit] == 0)
+                continue;
             do
             {
                 spawnIndex = Random.Range(0, spawnPointEnemy.Length);
@@ -71,6 +80,8 @@ public class BattleMng : MonoBehaviour
         GameObject obj;
         foreach (var unit in TownMng.instance.defUnit)
         {
+            if (UnitMng.instance.UnitCnt[unit] == 0)
+                continue;
             do
             {
                 spawnIndex = Random.Range(0, spawnPointPlayer.Length);
@@ -83,6 +94,8 @@ public class BattleMng : MonoBehaviour
         }
         foreach (var unit in EnemyMng.instance.atkUnit)
         {
+            if (UnitMng.instance.UnitCnt[unit] == 0)
+                continue;
             do
             {
                 spawnIndex = Random.Range(0, spawnPointEnemy.Length);

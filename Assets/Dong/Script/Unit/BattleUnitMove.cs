@@ -42,11 +42,15 @@ public class BattleUnitMove : UnitMove
         animator = Aowner.animator;
         rigid = Aowner.rigid;
         startPos = transform.position;
-        //int plus = TownMng.instance.UnitCnt[Aowner.m_Data];
-        m_apk = Aowner.m_Data.atk[2];// * plus + plus;
-        m_spd = Aowner.m_Data.spd[2];// * plus + plus;
-        rigid.mass = Aowner.m_Data.hp[2];// * plus + plus;
-        m_range = Aowner.m_Data.range[2];
+        int plus;
+        if (tag == "Untagged")
+            plus = 1;
+        else
+            plus = UnitMng.instance.UnitCnt[Aowner.m_Data];
+        m_apk = Aowner.m_Data.atk[0] * plus + plus;
+        m_spd = Aowner.m_Data.spd[0] * plus + plus;
+        rigid.mass = Aowner.m_Data.hp[0] * plus + plus;
+        m_range = Aowner.m_Data.range[0];
         SetTargetBagic();
         StartCoroutine(Fire());
         isSetting = true;
@@ -141,7 +145,7 @@ public class BattleUnitMove : UnitMove
                     {
                         if (m_target != Aowner)
                         {
-                            rigid.AddForce((m_target.transform.position - transform.position).normalized * 50, ForceMode.Impulse);
+                            rigid.AddForce((m_target.transform.position - transform.position).normalized * 100, ForceMode.Impulse);
                         }
                         else
                         {

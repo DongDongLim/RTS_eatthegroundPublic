@@ -15,12 +15,12 @@ public class MapMng : SingletonMini<MapMng>
     [SerializeField]
     GameObject playerArea;
 
-    Area Area_Player;
+    public Area Area_Player;
 
     [SerializeField]
     GameObject EnemyArea;
 
-    Area Area_Enemy;
+    public Area Area_Enemy;
 
     [SerializeField]
     int range;
@@ -88,22 +88,25 @@ public class MapMng : SingletonMini<MapMng>
             default:
                 return;
         }
+        target.tag = "Untagged";
     }
-    public void RemoveVertex(AwnerType type, GameObject target)
-    {
-        target.GetComponent<Town>().RemoveAllnodeList();
-        //switch (type)
-        //{
-        //    case AwnerType.Player:
-        //        Area_Enemy.RemoveVertex(target);
-        //        break;
-        //    case AwnerType.Enemy:
-        //        Area_Player.RemoveVertex(target);
-        //        break;
-        //    default:
-        //        return;
-        //}
-    }   
+
+    //public void RemoveVertex(AwnerType type, GameObject target)
+    //{
+    //    target.GetComponent<Town>().RemoveAllnodeList();
+    //    //switch (type)
+    //    //{
+    //    //    case AwnerType.Player:
+    //    //        Area_Enemy.RemoveVertex(target);
+    //    //        break;
+    //    //    case AwnerType.Enemy:
+    //    //        Area_Player.RemoveVertex(target);
+    //    //        break;
+    //    //    default:
+    //    //        return;
+    //    //}
+    //}   
+
     public void AddVertex(AwnerType type, GameObject target)
     {
         switch(type)

@@ -5,6 +5,9 @@ using UnityEngine;
 public class EnemyMng : Singleton<EnemyMng>
 {
     #region 마을 변수
+
+    public int m_resource = 500;
+
     public int caveLv = 0;
 
     public UnitData[] m_data;
@@ -49,6 +52,8 @@ public class EnemyMng : Singleton<EnemyMng>
 
     #region AI 변수
 
+    public EnemyAI ai;
+
     public List<GameObject> targetCandidate = new List<GameObject>();
 
     public List<GameObject> removeTargetCandidate = new List<GameObject>();
@@ -64,7 +69,7 @@ public class EnemyMng : Singleton<EnemyMng>
         mon3Lv = 0;
         foreach (UnitData unit in m_data)
         {
-            UnitMng.instance.UnitCnt.Add(unit, 0);
+            UnitMng.instance.UnitCnt.Add(unit, 20);
             UnitActivity.Add(unit, false);
             if (unit.battleMode == BattleMode.ATTACK)
                 atkUnit.Add(unit);
@@ -240,7 +245,14 @@ public class EnemyMng : Singleton<EnemyMng>
         yield return StartCoroutine(targetTown.GetComponent<Town>().Battle(false));
 
         if (!GameMng.instance.isDefanceWin)
+        {
+            ai.aiAtkWeight += 2f;
             MapMng.instance.EnemyQccupyabase(targetTown);
+        }
+        else
+        {
+            ai.aiAtkWeight -= 2f;
+        }
 
         GameMng.instance.EnemyObj.SetActive(false);
         targetTown = null;

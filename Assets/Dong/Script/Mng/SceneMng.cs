@@ -27,18 +27,28 @@ public class SceneMng : Singleton<SceneMng>
 
     public List<Scene> loadScene;
 
+    [SerializeField]
+    GameObject loadingCanvas;
+
     protected override void OnAwake()
     {
         curScene = SceneManager.GetActiveScene();
-        loadScene.Add(curScene);
-        SceneStreaming("Town");
+        SceneMove("FullMap");
 
+        SceneEnter += StartScnen;
         /* 사용 예시
         SceneEnter += SceneName;
         SceneEnter += Stage1Scene;
 
         SceneExit += SceneName;
         */
+    }
+
+    void StartScnen(string sceneName)
+    {
+        loadingCanvas.SetActive(false);
+        loadScene.Add(curScene);
+        SceneStreaming("Town");
     }
 
 
@@ -109,7 +119,7 @@ public class SceneMng : Singleton<SceneMng>
             yield break;
         SceneExit?.Invoke(sceneName);
         AsyncOperation asyncLoad = SceneManager.UnloadSceneAsync(sceneName);
-        while (!asyncLoad.isDone)
+        while (null != asyncLoad && !asyncLoad.isDone)
         {
             yield return null;
         }

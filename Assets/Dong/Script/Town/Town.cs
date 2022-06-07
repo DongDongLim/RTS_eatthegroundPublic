@@ -197,7 +197,8 @@ public class Town : MonoBehaviour
 
     public void RemoveAllnodeList()
     {
-        for(int i = 0; i < nodeList.Count;)
+        MapMng.instance.RemoveVertexList(tag, gameObject);
+        for (int i = 0; i < nodeList.Count;)
         { 
             RemovenodeList(nodeList[i]);
         }
@@ -227,6 +228,32 @@ public class Town : MonoBehaviour
                     MapMng.instance.RemoveVertexList(tag, gameObject);
                 }
                 break;
+            default:
+                break;
+        }
+    }
+    List<GameObject> findStartList = new List<GameObject>();
+
+    public void NodeCheck()
+    {
+        findStartList.Clear();
+        FindStartTown(gameObject);
+        if (findStartList.Find(x => x == MapMng.instance.Area_Player.vlist[0] || x == MapMng.instance.Area_Enemy.vlist[0]) == null)
+            RemoveAllnodeList();
+    }
+
+    public void FindStartTown(GameObject check)
+    {
+        List<GameObject> findStart = new List<GameObject>();
+        foreach (var node in check.GetComponent<Town>().nodeList)
+        {
+            if (findStartList.Find(x => x == node) == null)
+                findStart.Add(node);
+        }
+        foreach(var node in findStart)
+        {
+            findStartList.Add(node);
+            FindStartTown(node);
         }
     }
 

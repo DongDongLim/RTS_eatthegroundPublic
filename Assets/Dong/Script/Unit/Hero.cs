@@ -15,7 +15,7 @@ public class Hero : MonoBehaviour, Damaged
     private void Awake()
     {
         Aowner = GetComponent<Unit>();
-        m_hp = Aowner.m_Data.hp[2];
+        m_hp = Aowner.m_Data.hp[0];
         scaleZ = transform.localScale.z;
     }
 
@@ -35,7 +35,12 @@ public class Hero : MonoBehaviour, Damaged
         battleMng.EndBattle();
         if (gameObject.layer == LayerMask.NameToLayer("BattleUnit"))
         {
+            battleMng.EnemyEffect1.SetActive(true);
+            yield return new WaitForSeconds(0.7f);
+            transform.GetChild(0).gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.2f);
             battleMng.EnemyEffect.SetActive(true);
+            battleMng.EnemyEffect1.SetActive(false);
             yield return new WaitForSeconds(5f);
             if (gameObject.scene.name == "Battle")
             {
@@ -50,7 +55,12 @@ public class Hero : MonoBehaviour, Damaged
         }
         else
         {
+            battleMng.PlayerEffect1.SetActive(true);
+            yield return new WaitForSeconds(0.7f);
+            transform.GetChild(0).gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.2f);
             battleMng.PlayerEffect.SetActive(true);
+            battleMng.PlayerEffect1.SetActive(false);
             yield return new WaitForSeconds(5f);
             if (gameObject.scene.name == "Battle")
             {

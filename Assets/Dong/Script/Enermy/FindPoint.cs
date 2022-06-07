@@ -173,20 +173,19 @@ public abstract class FindPoint : MonoBehaviour
 
                 targetCandidateDic.Add(town, new float[] { nodeCount, Vector3.SqrMagnitude(town.transform.position - area.UnitStartPoint(town)) });
             }
-            if (curIndexCnt == 15)//(int)(limmitIndexCnt * 0.25f))
+            if (curIndexCnt == 5)//(int)(limmitIndexCnt * 0.25f))
             {
                 curIndexCnt = 0;
                 yield return null;
             }
             ++curIndexCnt;
         }
-        if((Time.time - Ctime) > 5f)
+        if((Time.time - Ctime) > 7f)
             Debug.Log("실패");
-        while((Time.time - Ctime) < 5f)
+        while((Time.time - Ctime) < 7f)
             yield return new WaitForFixedUpdate();
         SelectTarget();
     }
-
     public abstract void SelectTarget();
-    
+
 }

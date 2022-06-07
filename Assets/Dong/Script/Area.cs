@@ -22,6 +22,7 @@ public class Area : MonoBehaviour
 
     List<Vector3[]> keyList = new List<Vector3[]>();
 
+
     private void Awake()
     {
         mesh = new Mesh();
@@ -45,6 +46,8 @@ public class Area : MonoBehaviour
 
     public void RemoveVertexList(GameObject target)
     {
+        if (vlist.Find(x => x == target) == null)
+            return;
         vlist.Remove(target);
         RemoveVertex(target);
     }
@@ -127,6 +130,8 @@ public class Area : MonoBehaviour
 
         Vector2[] uvs = new Vector2[mesh.vertices.Length];
 
+
+
         for (int i = 0; i < uvs.Length; i++)
         {
             uvs[i] = new Vector2(mesh.vertices[i].x, mesh.vertices[i].z);
@@ -145,6 +150,10 @@ public class Area : MonoBehaviour
             Vector3[] adsf = mesh.vertices;
             Debug.Log("여기 나중에 지워라");
         }
+
+        foreach (var vec in vlist)
+            vec.GetComponent<Town>().NodeCheck();
+
     }
 
     public void CreateLine(Vector3 start, Vector3 end)
@@ -244,7 +253,8 @@ public class Area : MonoBehaviour
                     Destroy(GetComponent<MeshCollider>());
                 return false;
             }
-            MapMng.instance.RemoveVertex(type, target);
+            target.GetComponent<Town>().RemoveAllnodeList();
+            //MapMng.instance.RemoveVertex(type, target);
         }
         return true;
 

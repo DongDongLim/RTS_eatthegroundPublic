@@ -69,13 +69,13 @@ public class SelectUI : MonoBehaviour
         switch (m_data.areaType)
         {
             case UnitTypeArea.POND:
-                m_Lv = TownMng.instance.pondLv;
+                m_Lv = 0;//TownMng.instance.pondLv;
                 break;
             case UnitTypeArea.TREE:
-                m_Lv = TownMng.instance.treeLv;
+                m_Lv = 0;//TownMng.instance.treeLv;
                 break;
             case UnitTypeArea.GRASS:
-                m_Lv = TownMng.instance.grassLv;
+                m_Lv = 0;//TownMng.instance.grassLv;
                 break;
         }
     }
