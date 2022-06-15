@@ -88,6 +88,10 @@ public class Town : MonoBehaviour
                         case "Enermy":
                             if (type == AwnerType.Neutrality)
                                 GameMng.instance.occupiedTown.Add(this);
+                            if (type != AwnerType.Enemy)
+                            {
+                                EnemyMng.instance.m_resource += 100;
+                            }
                             SetType(AwnerType.Enemy);
                             transform.GetChild(2).gameObject.SetActive(false);
                             transform.GetChild(0).gameObject.SetActive(false);

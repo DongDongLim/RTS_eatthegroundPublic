@@ -23,8 +23,9 @@ public class SoundMng : Singleton<SoundMng>
     // 효과음 이름 여기에 추가해주시면 됩니다
     public enum SFX_CLIP
     {
-        SFX1,
-        SFX2
+        Atk,
+        Fire,
+        Ice
     }
     
     AudioSource[] m_audio;
@@ -54,10 +55,10 @@ public class SoundMng : Singleton<SoundMng>
         m_audio[(int)AUDIO_TYPE.SFX].playOnAwake = false;
 
         m_audio[(int)AUDIO_TYPE.SFX].loop = false;
-        SetVolumeTotal(1);
+        SetVolumeTotal(5f);
         // 첫 시작시 배경음 바꾸고 싶다면 여기서 바꿔주면 됩니다
-        PlayBGM(BGM_CLIP.BGM_Menu);
-        SceneMng.instance.SceneEnter += SceneBGMPlay;
+        //PlayBGM(BGM_CLIP.BGM_Menu);
+        //SceneMng.instance.SceneEnter += SceneBGMPlay;
 
     }
 
@@ -88,7 +89,6 @@ public class SoundMng : Singleton<SoundMng>
     public void PlaySFX(SFX_CLIP sfx)
     {
         m_audio[(int)AUDIO_TYPE.SFX].PlayOneShot(m_sfxClip[(int)sfx]);
-        m_audio[(int)AUDIO_TYPE.SFX].Play();
     }
 
     // 모든 소리 중지

@@ -97,8 +97,8 @@ public class BattleUnitMove : UnitMove
                 if (transform.position.y < 530)
                     transform.position = startPos;
                 yield return null;
-                Physics.SphereCast(transform.position, m_range, Vector3.zero, out hit, LayerMask.GetMask(targetLayer));
-                m_target = hit.collider?.GetComponent<Unit>();
+                //Physics.SphereCast(transform.position, m_range, Vector3.zero, out hit, LayerMask.GetMask(targetLayer));
+                //m_target = hit.collider?.GetComponent<Unit>();
                 if (m_target == null)
                     SetTargetBagic();
                 if (hitGround.collider == null)
@@ -111,14 +111,14 @@ public class BattleUnitMove : UnitMove
                     yield return null;
                 }
 
-                i = 0;
-                Vector3 dir = transform.position + transform.forward;
-                while (i <= 1)
-                {
-                    transform.LookAt(Vector3.Slerp(dir, m_target.transform.position, i));
-                    i += Time.deltaTime * 0.5f;
-                    yield return null;
-                }
+                //i = 0;
+                //Vector3 dir = transform.position + transform.forward;
+                //while (i <= 1)
+                //{
+                //    transform.LookAt(Vector3.Slerp(dir, m_target.transform.position, i));
+                //    i += Time.deltaTime * 0.5f;
+                //    yield return null;
+                //}
             }
         }
         else
@@ -163,6 +163,12 @@ public class BattleUnitMove : UnitMove
     }
 
     private void OnCollisionEnter(Collision collision)
+    {
+        if (tag == "Untagged")
+            SoundMng.instance.PlaySFX(SoundMng.SFX_CLIP.Atk);
+    }
+
+    private void OnCollisionStay(Collision collision)
     {
         if (isSetting)
         {

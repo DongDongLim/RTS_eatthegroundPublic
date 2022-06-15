@@ -69,7 +69,7 @@ public class EnemyMng : Singleton<EnemyMng>
         mon3Lv = 0;
         foreach (UnitData unit in m_data)
         {
-            UnitMng.instance.UnitCnt.Add(unit, 20);
+            UnitMng.instance.UnitCnt.Add(unit, 0);
             UnitActivity.Add(unit, false);
             if (unit.battleMode == BattleMode.ATTACK)
                 atkUnit.Add(unit);
@@ -203,6 +203,32 @@ public class EnemyMng : Singleton<EnemyMng>
     public void LevelUpmon3()
     {
         LevelUp(UnitTypeArea.Mon3);
+    }
+
+    public void UnitCreate(SelectEnemy build)
+    {
+        if (m_resource < build.m_data.resource)
+            return;
+        m_resource -= build.m_data.resource;
+        ++build.waitingCnt;
+        if (!build.isCreating)
+            StartCoroutine(UnitCreateCor(build));
+    }
+
+    public IEnumerator UnitCreateCor(SelectEnemy build)
+    {
+        build.isCreating = true;
+        for (float i = 0; i < build.m_data.createTime; i += Time.deltaTime)
+        {
+            yield return null;
+        }
+        --build.waitingCnt;
+        ++UnitMng.instance.UnitCnt[build.m_data];
+        if (build.waitingCnt > 0)
+            StartCoroutine(UnitCreateCor(build));
+        else
+            build.isCreating = false;
+
     }
 
     #endregion

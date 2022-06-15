@@ -19,6 +19,8 @@ public class TownMng : SingletonMini<TownMng>
     [SerializeField]
     GameObject tiger;
 
+    public Text caveTxt;
+
     [SerializeField]
     GameObject[] pondObj;
     [SerializeField]
@@ -26,7 +28,7 @@ public class TownMng : SingletonMini<TownMng>
     [SerializeField]
     GameObject pondParant;
     public int pondLv;
-
+    public Text pondTxt;
 
     [SerializeField]
     GameObject[] treeObj;
@@ -35,6 +37,7 @@ public class TownMng : SingletonMini<TownMng>
     [SerializeField]
     GameObject treeParant;
     public int treeLv;
+    public Text treeTxt;
 
     [SerializeField]
     GameObject[] grassObj;
@@ -43,6 +46,7 @@ public class TownMng : SingletonMini<TownMng>
     [SerializeField]
     GameObject grassParant;
     public int grassLv;
+    public Text grassTxt;
 
 
     List< ScriptableObject> dataKey = new List<ScriptableObject>();
@@ -54,7 +58,7 @@ public class TownMng : SingletonMini<TownMng>
         grassLv = 0;
         foreach(UnitData unit in m_data)
         {
-            UnitMng.instance.UnitCnt.Add(unit, 20);
+            UnitMng.instance.UnitCnt.Add(unit, 0);
             UnitActivity.Add(unit, false);
             if(unit.battleMode == BattleMode.ATTACK)
                 atkUnit.Add(unit);
@@ -86,6 +90,7 @@ public class TownMng : SingletonMini<TownMng>
         if (caveLv != 3)
         {
             ++caveLv;
+            caveTxt.text = caveLv.ToString();
             SetLevel();
         }
     }
@@ -96,6 +101,7 @@ public class TownMng : SingletonMini<TownMng>
         GameObject[] objArray;
         TownData townData;
         GameObject parent;
+        Text lvTxt;
         bool isActive;
 
         switch (type)
@@ -105,6 +111,7 @@ public class TownMng : SingletonMini<TownMng>
                 objArray = pondObj;
                 townData = pondData;
                 parent = pondParant;
+                lvTxt = pondTxt;
                 isActive = false;
                 break;
             case UnitTypeArea.TREE:
@@ -112,6 +119,7 @@ public class TownMng : SingletonMini<TownMng>
                 objArray = treeObj;
                 townData = treeData;
                 parent = treeParant;
+                lvTxt = treeTxt;
                 isActive = true;
                 break;
             case UnitTypeArea.GRASS:
@@ -119,6 +127,7 @@ public class TownMng : SingletonMini<TownMng>
                 objArray = grassObj;
                 townData = grassData;
                 parent = grassParant;
+                lvTxt = grassTxt;
                 isActive = true;
                 break;
             default:
@@ -181,6 +190,7 @@ public class TownMng : SingletonMini<TownMng>
                 Debug.Log("최대레벨입니다");
                 break;
         }
+        lvTxt.text = lv.ToString();
         switch (type)
         {
             case UnitTypeArea.POND:

@@ -16,7 +16,7 @@ MonoBehaviour:
   prefab: {fileID: 4143467042530170551, guid: 68111482ab52d0945a795af23cb05ecd, type: 3}
   areaType: 0
   battleMode: 0
-  hp: 1e000000
+  hp: 96000000
   atk: 64000000
   spd: 64000000
   range: 64000000

@@ -39,8 +39,10 @@ public class Hero : MonoBehaviour, Damaged
             yield return new WaitForSeconds(0.7f);
             transform.GetChild(0).gameObject.SetActive(false);
             yield return new WaitForSeconds(0.2f);
+
             battleMng.EnemyEffect.SetActive(true);
             battleMng.EnemyEffect1.SetActive(false);
+            SoundMng.instance.PlaySFX(SoundMng.SFX_CLIP.Ice);
             yield return new WaitForSeconds(5f);
             if (gameObject.scene.name == "Battle")
             {
@@ -61,6 +63,7 @@ public class Hero : MonoBehaviour, Damaged
             yield return new WaitForSeconds(0.2f);
             battleMng.PlayerEffect.SetActive(true);
             battleMng.PlayerEffect1.SetActive(false);
+            SoundMng.instance.PlaySFX(SoundMng.SFX_CLIP.Fire);
             yield return new WaitForSeconds(5f);
             if (gameObject.scene.name == "Battle")
             {

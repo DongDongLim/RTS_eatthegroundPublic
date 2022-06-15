@@ -9,6 +9,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     public FindPoint findPoint;
 
+    public SelectEnemy[] enemyUnit;
+
     float _aiAtkWeight;
     public float aiAtkWeight
     {
@@ -33,6 +35,11 @@ public class EnemyAI : MonoBehaviour
     {
         aiAtkWeight = 50;
         findPoint.Aowner = this;
+        enemyUnit = new SelectEnemy[EnemyMng.instance.m_data.Length];
+        for (int i = 0; i < EnemyMng.instance.m_data.Length; ++i)
+        {
+            enemyUnit[i].Setting(EnemyMng.instance.m_data[i]);
+        }
         StartCoroutine(SelectTarget());
     }
 
@@ -50,8 +57,14 @@ public class EnemyAI : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
             }
 
-
-            yield return StartCoroutine(findPoint.FindTarget());
+            if (EnemyMng.instance.m_resource >= 100)
+            {
+                int index = Random.Range(0, enemyUnit.Length);
+                enemyUnit[index].UnitCreateBtn();
+                yield return new WaitForSeconds(7f);
+            }
+            else
+                yield return StartCoroutine(findPoint.FindTarget());
 
             yield return new WaitForSeconds(1f);
         }
