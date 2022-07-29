@@ -69,7 +69,7 @@ public class EnemyMng : Singleton<EnemyMng>
         mon3Lv = 0;
         foreach (UnitData unit in m_data)
         {
-            UnitMng.instance.UnitCnt.Add(unit, 0);
+            UnitMng.instance.UnitCnt.Add(unit, 10);
             UnitActivity.Add(unit, false);
             if (unit.battleMode == BattleMode.ATTACK)
                 atkUnit.Add(unit);

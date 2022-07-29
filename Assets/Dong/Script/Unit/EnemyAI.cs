@@ -38,6 +38,7 @@ public class EnemyAI : MonoBehaviour
         enemyUnit = new SelectEnemy[EnemyMng.instance.m_data.Length];
         for (int i = 0; i < EnemyMng.instance.m_data.Length; ++i)
         {
+            enemyUnit[i] = new SelectEnemy();
             enemyUnit[i].Setting(EnemyMng.instance.m_data[i]);
         }
         StartCoroutine(SelectTarget());
@@ -59,9 +60,10 @@ public class EnemyAI : MonoBehaviour
 
             if (EnemyMng.instance.m_resource >= 100)
             {
+                EnemyMng.instance.m_resource -= 100;
                 int index = Random.Range(0, enemyUnit.Length);
                 enemyUnit[index].UnitCreateBtn();
-                yield return new WaitForSeconds(7f);
+                yield return new WaitForSeconds(2f);
             }
             else
                 yield return StartCoroutine(findPoint.FindTarget());
