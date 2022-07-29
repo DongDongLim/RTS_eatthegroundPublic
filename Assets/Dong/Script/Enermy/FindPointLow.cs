@@ -7,7 +7,7 @@ public class FindPointLow : FindPoint
 {
     public override void SelectTarget()
     {
-        int limit = (int)(Aowner.aiAtkWeight / 10);
+        int limit = (int)(Aowner.aiAtkWeight * 0.1f);
         
         var townQuery = from town in targetCandidateDic
                         where town.Value[0] > limit
