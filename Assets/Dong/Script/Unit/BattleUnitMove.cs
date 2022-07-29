@@ -176,7 +176,7 @@ public class BattleUnitMove : UnitMove
             {
                 if (collision.gameObject.layer == LayerMask.NameToLayer("BattleUnit"))
                 {
-                    collision.gameObject.GetComponent<Damaged>().Damaged(m_apk);
+                    collision.gameObject.GetComponent<IDamaged>().Damaged(m_apk);
                 }
                 if (collision.gameObject.tag == "Die")
                     transform.position = startPos;
@@ -185,7 +185,7 @@ public class BattleUnitMove : UnitMove
             {
                 if (collision.gameObject.layer == LayerMask.NameToLayer("Town_Unit"))
                 {
-                    collision.gameObject.GetComponent<Damaged>().Damaged(m_apk);
+                    collision.gameObject.GetComponent<IDamaged>().Damaged(m_apk);
                 }
                 if (collision.gameObject.tag == "Die")
                     transform.position = startPos;

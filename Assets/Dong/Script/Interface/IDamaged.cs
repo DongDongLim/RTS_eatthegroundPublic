@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface Damaged
+public interface IDamaged
 {
     void Damaged(int apk);
 }

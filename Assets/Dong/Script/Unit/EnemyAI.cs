@@ -5,6 +5,11 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour
 {
     public Area area;
+    OccupyNode _occupyNode;
+    LinkedList<Node> startNode;
+    IsAngleRight _isRight;
+    [SerializeField]
+    Material material;
 
     [SerializeField]
     public FindPoint findPoint;
@@ -31,6 +36,38 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
+    private void Awake()
+    {
+        area = GetComponent<Area>();
+        _occupyNode = GetComponent<OccupyNode>();
+        startNode = new LinkedList<Node>();
+        _isRight = new IsAngleRight();
+    }
+    public void AddBase(Node node)
+    {
+        if (startNode.Count > 2)
+            _occupyNode.Occupy(node, material);
+        else if (startNode.Count < 2)
+        {
+            startNode.AddLast(node);
+        }
+        else
+        {
+            startNode.AddLast(node);
+            GameMng.instance.EnemyNodePos = _isRight.TriangleCenterPoint
+                (startNode.First.Value.transform.position,
+                startNode.First.Next.Value.transform.position,
+                startNode.First.Next.Next.Value.transform.position);
+            _occupyNode.Init(GameMng.instance.EnemyNodePos);
+            _occupyNode.SetStartBase(startNode, material);
+        }
+
+    }
+
+    public Vector3 SetTaget(Node taget)
+    {
+        return _occupyNode.SetTarget(area, taget);
+    }
     private void Start()
     {
         aiAtkWeight = 50;
@@ -38,6 +75,7 @@ public class EnemyAI : MonoBehaviour
         enemyUnit = new SelectEnemy[EnemyMng.instance.m_data.Length];
         for (int i = 0; i < EnemyMng.instance.m_data.Length; ++i)
         {
+            enemyUnit[i] = new SelectEnemy();
             enemyUnit[i].Setting(EnemyMng.instance.m_data[i]);
         }
         StartCoroutine(SelectTarget());
@@ -52,7 +90,7 @@ public class EnemyAI : MonoBehaviour
         findPoint.Setting();
         while (true)
         {
-            while(EnemyMng.instance.targetTown != null)
+            while (EnemyMng.instance.targetNode != null)
             {
                 yield return new WaitForSeconds(0.5f);
             }

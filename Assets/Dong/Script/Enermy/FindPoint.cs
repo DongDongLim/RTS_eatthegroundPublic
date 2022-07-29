@@ -8,12 +8,13 @@ public abstract class FindPoint : MonoBehaviour
 
     Area area;
 
-
     Query query = new Query();
 
     IsAngleRight isRight = new IsAngleRight();
 
     TriangleCondition triangleCondition = new TriangleCondition();
+
+    Occupy _occupy;
 
     public Dictionary<GameObject, float[]> targetCandidateDic = new Dictionary<GameObject, float[]>();
 
@@ -23,12 +24,12 @@ public abstract class FindPoint : MonoBehaviour
 
     List<GameObject> dislist = new List<GameObject>();
     GameObject[] curVertex;
-    Town targetTown;
+    Node targetNode;
     List<GameObject> curVectex2 = new List<GameObject>();
     RaycastHit hit;
-    Town townScript;
-    Town vertex0;
-    Town vertex1;
+    Node NodeScript;
+    Node vertex0;
+    Node vertex1;
     Vector3 pointVec;
     Collider[] results = new Collider[1120];
     int count;
@@ -60,132 +61,151 @@ public abstract class FindPoint : MonoBehaviour
         curIndexCnt = 0;
         limmitIndexCnt = EnemyMng.instance.targetCandidate.Count;
         Ctime = Time.time;
-        foreach (var town in EnemyMng.instance.targetCandidate)
-        {
-            townScript = town.GetComponent<Town>();
-            if (townScript.type == AwnerType.Neutrality)
-            {
-                triangleCondition.MinimumConditions(area.vlist, town, ref dislist);
-                if (dislist.Count < 2)
-                    continue;
-
-                exPos = playerPos;
-                if (town.tag == "Enermy")
-                {
-                    dislist.Clear();
-                    isTrue = false;
-                    foreach (var vec in area.vlist)
-                    {
-                        dis = Vector3.Distance(vec.GetComponent<Town>().pos, townScript.pos);
-                        vecDis = vec.GetComponent<Town>().pos - townScript.pos;
-                        Physics.Raycast(townScript.pos + (Vector3.up * 0.1f) + (vecDis.normalized * 2), vecDis.normalized, out hit, dis - 2, LayerMask.GetMask("Hit"));
-
-                        if (hit.collider == null)
-                        {
-                            isTrue = false;
-                            foreach (var node in townScript.nodeList)
-                            {
-                                if (node == vec)
-                                    isTrue = true;
-                            }
-
-                            if (vec != town && !isTrue)
-                                dislist.Add(vec);
-                        }
-                    }
-                    if (0 == dislist.Count)
-                        continue;
-
-                    curVertex = new GameObject[2];
-                    curVertex[0] = query.NearestPoint(dislist, town);
-                    curVertex[1] = query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, townScript.nodeList);
+        _occupy = new OccupyNodeAllRay();
+        //foreach (var Node in EnemyMng.instance.targetCandidate)
+        //{
+        //    Test(Node.GetComponent<Node>(), Node.CompareTag(tag));
+        //}
 
 
-                    if (null == curVertex[1])
-                        continue;
-                }
-                else
-                {
+        //foreach (var Node in EnemyMng.instance.targetCandidate)
+        //{
+        //    NodeScript = Node.GetComponent<Node>();
+        //    if (NodeScript.type == AwnerType.Neutrality)
+        //    {
+        //        triangleCondition.MinimumConditions(area.vlist, Node, ref dislist);
+        //        if (dislist.Count < 2)
+        //            continue;
 
-                    curVertex = new GameObject[3];
-                    targetTown = townScript;
+        //        exPos = playerPos;
+        //        if (Node.tag == "Enermy")
+        //        {
+        //            dislist.Clear();
+        //            isTrue = false;
+        //            foreach (var vec in area.vlist)
+        //            {
+        //                dis = Vector3.Distance(vec.GetComponent<Node>().pos, NodeScript.pos);
+        //                vecDis = vec.GetComponent<Node>().pos - NodeScript.pos;
+        //                Physics.Raycast(NodeScript.pos + (Vector3.up * 0.1f) + (vecDis.normalized * 2), vecDis.normalized, out hit, dis - 2, LayerMask.GetMask("Hit"));
+
+        //                if (hit.collider == null)
+        //                {
+        //                    isTrue = false;
+        //                    foreach (var node in NodeScript.nodeList)
+        //                    {
+        //                        if (node == vec)
+        //                            isTrue = true;
+        //                    }
+
+        //                    if (vec != Node && !isTrue)
+        //                        dislist.Add(vec);
+        //                }
+        //            }
+        //            if (0 == dislist.Count)
+        //                continue;
+
+        //            curVertex = new GameObject[2];
+        //            curVertex[0] = query.NearestPoint(dislist, Node);
+        //            curVertex[1] = query.IntersectObj(curVertex[0].GetComponent<Node>().nodeList, NodeScript.nodeList);
 
 
-                    count = 0;
-                    while (true)
-                    {
-                        curVertex[0] = query.NearestPoint(dislist, town, count);
-                        if (null == curVertex[0])
-                        {
-                            break;
-                        }
-                        query.IntersectObj(curVertex[0].GetComponent<Town>().nodeList, dislist, out curVectex2);
-                        if (0 != curVectex2.Count)
-                            break;
-                        ++count;
-                    }
-                    if (null == curVertex[0])
-                    {
-                        continue;
-                    }
+        //            if (null == curVertex[1])
+        //                continue;
+        //        }
+        //        else
+        //        {
 
-                    curVertex[1] = query.SmallestAngle(curVectex2, town, curVertex[0]);
-                }
-                vertex0 = curVertex[0].GetComponent<Town>();
-                vertex1 = curVertex[1].GetComponent<Town>();
-                if (isRight.isPointInTriangle(vertex1.pos, vertex0.pos, townScript.pos, exPos))
-                    continue;
-                nodeCount = 0;
+        //            curVertex = new GameObject[3];
+        //            targetNode = NodeScript;
 
-                pointVec = isRight.TriangleCenterPoint(vertex1.pos, vertex0.pos, townScript.pos);
-                sqrDis = 0; 
-                imsiDis = Vector3.Magnitude(townScript.pos - pointVec);
-                if (sqrDis < imsiDis)
-                sqrDis = imsiDis;
-                imsiDis = Vector3.Magnitude(vertex0.pos - pointVec);
-                if (sqrDis < imsiDis)
-                    sqrDis = imsiDis;
-                imsiDis = Vector3.Magnitude(vertex1.pos - pointVec);
-                if (sqrDis < imsiDis)
-                    sqrDis = imsiDis;
-                                
-                count = Physics.OverlapSphereNonAlloc(pointVec, sqrDis, results, LayerMask.GetMask("Point"));
 
-                for(int i = 0; i < count; ++i)
-                {
-                    if (results[i].transform.parent.gameObject == town)
-                    {
-                        results[i] = null;
-                        continue;
-                    }
-                    if (results[i].transform.parent.GetComponent<Town>().tag != "Untagged")
-                    {
-                        results[i] = null;
-                        continue;
-                    }
-                    exPos = results[i].transform.parent.GetComponent<Town>().pos;
-                    if (isRight.isPointInTriangle(vertex1.pos, vertex0.pos, townScript.pos, exPos))
-                    {
-                        ++nodeCount;
-                    }
-                    results[i] = null;
-                }
+        //            count = 0;
+        //            while (true)
+        //            {
+        //                curVertex[0] = query.NearestPoint(dislist, Node, count);
+        //                if (null == curVertex[0])
+        //                {
+        //                    break;
+        //                }
+        //                query.IntersectObj(curVertex[0].GetComponent<Node>().nodeList, dislist, out curVectex2);
+        //                if (0 != curVectex2.Count)
+        //                    break;
+        //                ++count;
+        //            }
+        //            if (null == curVertex[0])
+        //            {
+        //                continue;
+        //            }
 
-                targetCandidateDic.Add(town, new float[] { nodeCount, Vector3.SqrMagnitude(town.transform.position - area.UnitStartPoint(town)) });
-            }
-            if (curIndexCnt == 5)//(int)(limmitIndexCnt * 0.25f))
-            {
-                curIndexCnt = 0;
-                yield return null;
-            }
-            ++curIndexCnt;
-        }
-        if((Time.time - Ctime) > 7f)
+        //            curVertex[1] = query.SmallestAngle(curVectex2, Node, curVertex[0]);
+        //        }
+        //        vertex0 = curVertex[0].GetComponent<Node>();
+        //        vertex1 = curVertex[1].GetComponent<Node>();
+        //        if (isRight.isPointInTriangle(vertex1.pos, vertex0.pos, NodeScript.pos, exPos))
+        //            continue;
+        //        nodeCount = 0;
+
+        //        pointVec = isRight.TriangleCenterPoint(vertex1.pos, vertex0.pos, NodeScript.pos);
+        //        sqrDis = 0; 
+        //        imsiDis = Vector3.Magnitude(NodeScript.pos - pointVec);
+        //        if (sqrDis < imsiDis)
+        //        sqrDis = imsiDis;
+        //        imsiDis = Vector3.Magnitude(vertex0.pos - pointVec);
+        //        if (sqrDis < imsiDis)
+        //            sqrDis = imsiDis;
+        //        imsiDis = Vector3.Magnitude(vertex1.pos - pointVec);
+        //        if (sqrDis < imsiDis)
+        //            sqrDis = imsiDis;
+
+        //        count = Physics.OverlapSphereNonAlloc(pointVec, sqrDis, results, LayerMask.GetMask("Point"));
+
+        //        for(int i = 0; i < count; ++i)
+        //        {
+        //            if (results[i].transform.parent.gameObject == Node)
+        //            {
+        //                results[i] = null;
+        //                continue;
+        //            }
+        //            if (results[i].transform.parent.GetComponent<Node>().tag != "Untagged")
+        //            {
+        //                results[i] = null;
+        //                continue;
+        //            }
+        //            exPos = results[i].transform.parent.GetComponent<Node>().pos;
+        //            if (isRight.isPointInTriangle(vertex1.pos, vertex0.pos, NodeScript.pos, exPos))
+        //            {
+        //                ++nodeCount;
+        //            }
+        //            results[i] = null;
+        //        }
+
+        //        targetCandidateDic.Add(Node, new float[] { nodeCount, Vector3.SqrMagnitude(Node.transform.position - area.UnitStartPoint(Node)) });
+        //    }
+        //    if (curIndexCnt == 5)//(int)(limmitIndexCnt * 0.25f))
+        //    {
+        //        curIndexCnt = 0;
+        //        yield return null;
+        //    }
+        //    ++curIndexCnt;
+        //}
+        if ((Time.time - Ctime) > 7f)
             Debug.Log("실패");
         while((Time.time - Ctime) < 7f)
             yield return new WaitForFixedUpdate();
         SelectTarget();
     }
+
+    // ToDo : Test
+    bool Test(Node node, bool isTag)
+    {
+        foreach (var isTrue in _occupy.IsAttackPossible(node, isTag))
+        {
+            if (!isTrue)
+                return false;
+        }
+        return true;
+    }
+
     public abstract void SelectTarget();
 
 }

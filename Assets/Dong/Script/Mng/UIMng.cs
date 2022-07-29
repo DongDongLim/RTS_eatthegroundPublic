@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UIMng : Singleton<UIMng>
+public class UIMng : DontDestroySingleton<UIMng>
 {
     [SerializeField]
     public StringObj uiList;

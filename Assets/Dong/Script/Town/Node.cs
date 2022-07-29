@@ -8,12 +8,14 @@ public enum AwnerType
     Enemy,
     Neutrality,
 }
-public class Town : MonoBehaviour
+public class Node : MonoBehaviour
 {
     [SerializeField]
     public Vector3 pos;
 
-    public List<GameObject> nodeList = new List<GameObject> ();
+    public int registrationNumber;
+
+    public LinkedList<Node> nodeList = new LinkedList<Node>();
 
     public Vector3 verticePos;
 
@@ -186,17 +188,17 @@ public class Town : MonoBehaviour
         }
     }
 
-    public void AddnodeList(GameObject obj)
+    public void AddnodeList(Node obj)
     {
-        if (null == obj.GetComponent<Town>())
+        if (null == obj)
             return;
-        nodeList.Add(obj);
-        foreach (GameObject obj2 in obj.GetComponent<Town>().nodeList)
+        nodeList.AddLast(obj);
+        foreach (Node obj2 in obj.GetComponent<Node>().nodeList)
         {
-            if (obj2 == gameObject)
+            if (obj2 == this)
                 return;
         }
-        obj.GetComponent<Town>().AddnodeList(gameObject);
+        obj.AddnodeList(this);
     }
 
     public void RemoveAllnodeList()
@@ -204,31 +206,31 @@ public class Town : MonoBehaviour
         MapMng.instance.RemoveVertexList(tag, gameObject);
         for (int i = 0; i < nodeList.Count;)
         { 
-            RemovenodeList(nodeList[i]);
+            RemovenodeList(nodeList.First.Value);
         }
     }
 
-    public void RemovenodeList(GameObject obj)
+    public void RemovenodeList(Node obj)
     {
-        if (nodeList.Find(x => x == obj) == null)
+        if (!nodeList.Contains(obj))
             return;
 
         nodeList.Remove(obj);
-        obj.GetComponent<Town>().RemovenodeList(gameObject);
+        obj.RemovenodeList(this);
         switch (nodeList.Count)
         {
             case 0:
                 MapMng.instance.RemoveVertexList(tag, gameObject);
                 break;
             case 1:
-                nodeList[0].GetComponent<Town>().RemovenodeList(gameObject);
+                nodeList.First.Value.RemovenodeList(this);
                 MapMng.instance.RemoveVertexList(tag, gameObject);
 
                 break;
             case 2:
-                if (nodeList[0].GetComponent<Town>().nodeList.Find(x => x == nodeList[1]) == null)
+                if (nodeList.First.Value.nodeList.Contains(nodeList.First.Next.Value))
                 {
-                    nodeList[0].GetComponent<Town>().RemovenodeList(gameObject);
+                    nodeList.First.Value.RemovenodeList(this);
                     MapMng.instance.RemoveVertexList(tag, gameObject);
                 }
                 break;
@@ -249,10 +251,10 @@ public class Town : MonoBehaviour
     public void FindStartTown(GameObject check)
     {
         List<GameObject> findStart = new List<GameObject>();
-        foreach (var node in check.GetComponent<Town>().nodeList)
+        foreach (var node in check.GetComponent<Node>().nodeList)
         {
             if (findStartList.Find(x => x == node) == null)
-                findStart.Add(node);
+                findStart.Add(node.gameObject);
         }
         foreach(var node in findStart)
         {
@@ -274,7 +276,7 @@ public class Town : MonoBehaviour
             GameObject ui = UIMng.instance.GetInfoUI((int)type);
             ui.transform.position = Camera.main.WorldToScreenPoint(transform.position);
             ui.SetActive(true);
-            MapMng.instance.curSelectTown = gameObject;
+            PlayMng.instance.curSelectTown = gameObject;
         }
     }
 

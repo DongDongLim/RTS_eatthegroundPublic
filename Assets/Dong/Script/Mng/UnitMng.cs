@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitMng : SingletonMini<UnitMng>
+public class UnitMng : Singleton<UnitMng>
 {
     public DataInt UnitCnt = new DataInt();
     protected override void OnAwake()

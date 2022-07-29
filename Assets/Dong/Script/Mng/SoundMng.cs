@@ -4,7 +4,7 @@ using UnityEngine;
 
 // 사운드 매니저는 싱글턴입니다
 // 타 스크립트에서 참조시 SoundMng.instance.로 사용하시면 됩니다
-public class SoundMng : Singleton<SoundMng>
+public class SoundMng : DontDestroySingleton<SoundMng>
 {
     enum AUDIO_TYPE
     {

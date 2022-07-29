@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class TownMng : SingletonMini<TownMng>
+public class TownMng : Singleton<TownMng>
 {
     public int caveLv = 0;
 
@@ -89,6 +89,8 @@ public class TownMng : SingletonMini<TownMng>
     {
         if (caveLv != 3)
         {
+            GameMng.instance.m_resource -= 100;
+            UIMng.instance.SetResource();
             ++caveLv;
             caveTxt.text = caveLv.ToString();
             SetLevel();
@@ -139,6 +141,8 @@ public class TownMng : SingletonMini<TownMng>
             Debug.Log("건물의 레벨은 동굴의 레벨을 초과할 수 없습니다");
             return;
         }
+        GameMng.instance.m_resource -= 100;
+        UIMng.instance.SetResource();
         switch (lv)
         {
             case 0:

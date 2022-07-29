@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Soldier : MonoBehaviour, Damaged
+public class Soldier : MonoBehaviour, IDamaged
 {
     Rigidbody rigid;
 

@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 // 싱글톤입니다 씬을 전환할 때 사용하시면 됩니다
-public class SceneMng : Singleton<SceneMng>
+public class SceneMng : DontDestroySingleton<SceneMng>
 {
     IEnumerator iter;
 

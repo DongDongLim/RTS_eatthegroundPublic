@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
   prefab: {fileID: 3922284533608197333, guid: 141eebeb4aef22a43bd65e29cb822395, type: 3}
-  areaType: 0
+  areaType: 4
   battleMode: 1
   hp: 01000000
   atk: 64000000

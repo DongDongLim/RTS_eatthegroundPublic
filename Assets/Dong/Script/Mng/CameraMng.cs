@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMng : SingletonMini<CameraMng>
+public class CameraMng : Singleton<CameraMng>
 {
     [SerializeField]
     CinemachineScript moveCam;
@@ -49,11 +49,6 @@ public class CameraMng : SingletonMini<CameraMng>
 
     public void CamSetting(string not)
     {
-        //foreach (var cam in camList)
-        //{
-        //    if (cam != null)
-        //        cam.gameObject.SetActive(false);
-        //}
         if (curCam != camList[0] && curCam != camList[2])
         {
             curCam = camList[0];

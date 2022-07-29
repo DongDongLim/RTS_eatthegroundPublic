@@ -8,7 +8,7 @@ using UnityEngine;
 // OnAwake()는 반드시 정의해야하며 여기에 사용된 내용이 Awake라고 보시면 됩니다
 // protected override void OnAwake() { 안의 내용은 비워도셔도 됩니다 }
 // 상속받은 자식만 접근이 가능하도록 protected로 만들었습니다
-public abstract class Singleton<T> : MonoBehaviour
+public abstract class Singleton<T> : MonoBehaviour where T : Component
 {
     private static T _instance;
     public static T instance
@@ -24,11 +24,15 @@ public abstract class Singleton<T> : MonoBehaviour
         if (null == _instance)
         {
             _instance = GetComponent<T>();
-            DontDestroyOnLoad(this);
             OnAwake();
         }
     }
 
     protected abstract void OnAwake();
+
+    private void OnDestroy()
+    {
+        _instance = null;
+    }
 
 }

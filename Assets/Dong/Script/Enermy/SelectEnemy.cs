@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SelectEnemy : MonoBehaviour
+public class SelectEnemy
 {
     public UnitData m_data;
 

@@ -5,14 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class GameMng : Singleton<GameMng>
+public class GameMng : DontDestroySingleton<GameMng>
 {
-    int _Day = 0;
-    public int Day { private set { _Day = value; } get { return _Day; } }
-
-    [SerializeField]
-    int _DayRealTime;
-    public int DayRealTime { get { return _DayRealTime; } }
 
     bool _isGamePlaying;
     public bool isGamePlaying { private set { _isGamePlaying = value; } get { return _isGamePlaying; } }
@@ -27,6 +21,9 @@ public class GameMng : Singleton<GameMng>
 
     [SerializeField]
     GameObject player;
+
+    [SerializeField]
+    public User user;
 
     public Vector3 playerNodePos;
 
@@ -48,15 +45,12 @@ public class GameMng : Singleton<GameMng>
     [SerializeField]
     GameObject targetTown;
 
+    DayRepeat _dayRepeat;
 
-    public List<Town> occupiedTown = new List<Town>();
+
+    public List<Node> occupiedTown = new List<Node>();
 
     public int m_resource = 500;
-
-    Text DayTxt;
-    Image DayFilledImg;
-
-    public float rotateSpd;
 
     public bool isAttackWin;
 
@@ -64,33 +58,31 @@ public class GameMng : Singleton<GameMng>
 
     protected override void OnAwake()
     {
+        _dayRepeat = new DayRepeat();
         isGamePlaying = false;
         GameStart += OnSetDay;
         playerNavMesh = playerObj.GetComponent<NavMeshAgent>();
         EnemyNavMesh = EnemyObj.GetComponent<NavMeshAgent>();
     }
 
-    private void Start()
-    {
-        DayTxt = UIMng.instance.uiList["날짜"].transform.GetChild(0).GetComponent<Text>();
-        DayFilledImg = UIMng.instance.uiList["날짜"].transform.GetChild(1).GetComponent<Image>();
-    }
-
-    private void Update()
-    {
-        if (isGamePlaying)
-        {
-            rotateSpd += Time.deltaTime / GameMng.instance.DayRealTime;
-            if (rotateSpd >= 1)
-                rotateSpd = 0;
-            DayFilledImg.fillAmount = rotateSpd;
-        }
-    }
-
-
     public void OnSetDay()
     {
-        StartCoroutine("SetDay");
+        StartCoroutine(_dayRepeat.SetDay());
+    }
+
+    public int GetDay()
+    {
+        return _dayRepeat.Day;
+    }
+
+    public int GetDayActionStopDate()
+    {
+        return _dayRepeat.GetDayActionStopDate();
+    }
+
+    public float GetDayProgress()
+    {
+        return _dayRepeat.DayProgress;
     }
 
     public GameObject GetPlayer()
@@ -103,28 +95,11 @@ public class GameMng : Singleton<GameMng>
         return Enemy;
     }
 
-    IEnumerator SetDay()
-    {
-        while (isGamePlaying)
-        {
-            yield return new WaitForSeconds(DayRealTime);
-            if (Day <= 20)
-                DayAction?.Invoke();
-            else
-            {
-                if (Day == 30)
-                    GameEnd();
-            }
-            ++Day;
-            DayTxt.text = Day.ToString();
-        }
-    }
-
-    void GameEnd()
+    public void GameEnd()
     {
         int playerOccupied = 0;
         int EnemyOccupied = 0;
-        foreach(Town town in occupiedTown)
+        foreach(Node town in occupiedTown)
         {
             if (town.type == AwnerType.Player)
                 ++playerOccupied;
@@ -133,14 +108,23 @@ public class GameMng : Singleton<GameMng>
         }
         if(playerOccupied > EnemyOccupied)
         {
+            GameObject obj = UIMng.instance.uiList["결과"];
+            obj.SetActive(true);
+            obj.transform.GetChild(0).GetComponent<Text>().text = "승리";
             Debug.Log("승리");
         }
         else if (playerOccupied < EnemyOccupied)
         {
+            GameObject obj = UIMng.instance.uiList["결과"];
+            obj.SetActive(true);
+            obj.transform.GetChild(0).GetComponent<Text>().text = "패배";
             Debug.Log("패배");
         }
         else
         {
+            GameObject obj = UIMng.instance.uiList["결과"];
+            obj.SetActive(true);
+            obj.transform.GetChild(0).GetComponent<Text>().text = "무승부";
             Debug.Log("무승부");
         }
         isGamePlaying = false;
@@ -166,10 +150,10 @@ public class GameMng : Singleton<GameMng>
         return EnemyNodePos;
     }
 
-    public void SetUser(GameObject obj , GameObject obj1)
+    public void SetUser(GameObject playerObj, GameObject EnemyObj)
     {
-        player = obj;
-        Enemy = obj1;
+        player = playerObj;
+        Enemy = EnemyObj;
         cam.Fllowing(player);
     }
 
@@ -180,14 +164,14 @@ public class GameMng : Singleton<GameMng>
             return;
         }
 
-        if (MapMng.instance.curSelectTown.GetComponent<Town>().type != AwnerType.Neutrality)
+        if (PlayMng.instance.curSelectTown.GetComponent<Node>().type != AwnerType.Neutrality)
             return;
 
-        targetTown = MapMng.instance.curSelectTown;
-        playerObj.transform.position = MapMng.instance.PlayerStartPoint(targetTown);
+        targetTown = PlayMng.instance.curSelectTown;
+        playerObj.transform.position = user.SetTaget(targetTown.GetComponent<Node>());
         playerObj.SetActive(true);
         playerNavMesh.destination = targetTown.transform.position;
-        StartCoroutine("PlayerMove");
+        StartCoroutine(PlayerMove());
     }
 
     float timeCnt;
@@ -207,12 +191,12 @@ public class GameMng : Singleton<GameMng>
             yield return new WaitForSeconds(0.1f);
         }
 
-        yield return StartCoroutine(targetTown.GetComponent<Town>().Battle(true));
+        yield return StartCoroutine(targetTown.GetComponent<Node>().Battle(true));
 
         if (isAttackWin)
         {
             EnemyMng.instance.ai.aiAtkWeight -= 2f;
-            MapMng.instance.Occupyabase(targetTown);
+            user.AddBase(targetTown.GetComponent<Node>());
         }
         else
         {

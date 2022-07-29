@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMng : Singleton<EnemyMng>
+public class EnemyMng : DontDestroySingleton<EnemyMng>
 {
     #region 마을 변수
 
@@ -45,7 +45,7 @@ public class EnemyMng : Singleton<EnemyMng>
     #region 맵 변수
 
     [SerializeField]
-    public GameObject targetTown;
+    public GameObject targetNode;
 
 
     #endregion
@@ -104,6 +104,7 @@ public class EnemyMng : Singleton<EnemyMng>
 
     public void LevelUp(UnitTypeArea type)
     {
+        m_resource -= 100;
         int lv;
         TownData townData;
 
@@ -127,6 +128,8 @@ public class EnemyMng : Singleton<EnemyMng>
 
         if (lv == caveLv)
         {
+            if (caveLv != 3)
+                ++caveLv;
             return;
         }
         switch (lv)
@@ -238,18 +241,18 @@ public class EnemyMng : Singleton<EnemyMng>
 
     public void SetTarget(GameObject target)
     {
-        if (null != targetTown)
+        if (null != targetNode)
         {
             return;
         }
 
-        if (target.GetComponent<Town>().type != AwnerType.Neutrality)
+        if (target.GetComponent<Node>().type != AwnerType.Neutrality)
             return;
 
-        targetTown = target;
-        GameMng.instance.EnemyObj.transform.position = MapMng.instance.EnemyStartPoint(targetTown);
+        targetNode = target;
+        GameMng.instance.EnemyObj.transform.position = EnemyMng.instance.ai.SetTaget(targetNode.GetComponent<Node>());
         GameMng.instance.EnemyObj.SetActive(true);
-        GameMng.instance.EnemyNavMesh.destination = targetTown.transform.position;
+        GameMng.instance.EnemyNavMesh.destination = targetNode.transform.position;
         StartCoroutine("EnemyMove");
     }
 
@@ -268,12 +271,12 @@ public class EnemyMng : Singleton<EnemyMng>
             yield return new WaitForSeconds(0.1f);
         }
 
-        yield return StartCoroutine(targetTown.GetComponent<Town>().Battle(false));
+        yield return StartCoroutine(targetNode.GetComponent<Node>().Battle(false));
 
         if (!GameMng.instance.isDefanceWin)
         {
             ai.aiAtkWeight += 2f;
-            MapMng.instance.EnemyQccupyabase(targetTown);
+            MapMng.instance.EnemyQccupyabase(targetNode);
         }
         else
         {
@@ -281,7 +284,7 @@ public class EnemyMng : Singleton<EnemyMng>
         }
 
         GameMng.instance.EnemyObj.SetActive(false);
-        targetTown = null;
+        targetNode = null;
     }
 
 

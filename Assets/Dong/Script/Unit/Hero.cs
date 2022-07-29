@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hero : MonoBehaviour, Damaged
+public class Hero : MonoBehaviour, IDamaged
 {
     Unit Aowner;
 
