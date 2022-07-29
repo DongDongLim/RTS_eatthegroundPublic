@@ -16,7 +16,7 @@ public class OccupyNode : MonoBehaviour
         _isRight = new IsAngleRight();
         _nodeList = new LinkedList<Node>();
         _meshMaker = new MeshMaker();
-        _occupy = new OccupyNodeAllRay();
+        _occupy = new OccupyWayAllRay();
     }
 
     public void Init(Vector3 expos)

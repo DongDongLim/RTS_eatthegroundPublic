@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OccupyNodeAllRay : Occupy
+public class OccupyWayAllRay : Occupy
 {
     int count;
     public override IEnumerable<bool> IsAttackPossible(Node taget, bool tagetIsMine)

@@ -10,6 +10,7 @@ public class User : MonoBehaviour
     IsAngleRight _isRight;
     [SerializeField]
     Material material;
+    Node _selectNode;
 
     private void Awake()
     {

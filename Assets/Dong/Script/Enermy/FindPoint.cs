@@ -61,7 +61,7 @@ public abstract class FindPoint : MonoBehaviour
         curIndexCnt = 0;
         limmitIndexCnt = EnemyMng.instance.targetCandidate.Count;
         Ctime = Time.time;
-        _occupy = new OccupyNodeAllRay();
+        _occupy = new OccupyWayAllRay();
         //foreach (var Node in EnemyMng.instance.targetCandidate)
         //{
         //    Test(Node.GetComponent<Node>(), Node.CompareTag(tag));

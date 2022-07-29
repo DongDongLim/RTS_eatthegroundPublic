@@ -8,9 +8,9 @@ public class Area : MonoBehaviour
 
     Mesh mesh;
 
-    public AwnerType type;
+    AwnerType type;
 
-    public Query<Node> query;
+    Query<Node> query;
 
     //IsAngleRight isRight = new IsAngleRight();
 
