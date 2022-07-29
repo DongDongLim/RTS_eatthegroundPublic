@@ -36,7 +36,7 @@ public class MapCreater : MonoBehaviour
         idCnt = 0;
         pooling.OnRePooing += PooingObj;
         pooling.OnRePooing?.Invoke();
-        popList = new Dictionary<int, GameObject>[GameMng.instance.GetDayActionStopDate()];
+        popList = new Dictionary<int, GameObject>[GameMng.instance.GetDayActionStopDate() + 1];
         for (int i = 0; i < popList.Length; ++i)
             popList[i] = new Dictionary<int, GameObject>();
         GameMng.instance.DayAction += idInit;
