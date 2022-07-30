@@ -94,7 +94,7 @@ public class BattleUnitMove : UnitMove
 
             while (true)
             {
-                if (transform.position.y < 530)
+                if (transform.position.y < 530 || transform.position.y > 600)
                     transform.position = startPos;
                 yield return null;
                 //Physics.SphereCast(transform.position, m_range, Vector3.zero, out hit, LayerMask.GetMask(targetLayer));
@@ -106,9 +106,10 @@ public class BattleUnitMove : UnitMove
                 float i = 0;
                 while (i <= 1)
                 {
-                    rigid.AddForce((m_target.transform.position - transform.position).normalized * m_spd * 500 * Time.deltaTime, ForceMode.Force);
+                    rigid.MovePosition((m_target.transform.position - transform.position).normalized * m_spd * Time.fixedDeltaTime);
+                    //rigid.AddForce((m_target.transform.position - transform.position).normalized * m_spd * 500 * Time.deltaTime, ForceMode.Force);
                     i += Time.deltaTime * 2;
-                    yield return null;
+                    yield return new WaitForFixedUpdate();
                 }
 
                 //i = 0;

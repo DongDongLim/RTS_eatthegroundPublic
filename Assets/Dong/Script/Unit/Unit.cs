@@ -28,6 +28,7 @@ public class Unit : MonoBehaviour
             animator = new Animator[] { transform.GetChild(0).GetComponent<Animator>() };
         agent = GetComponent<NavMeshAgent>();
         rigid = GetComponent<Rigidbody>();
+        rigid.drag = 0;
         Setting(gameObject.scene.name);
     }
 
