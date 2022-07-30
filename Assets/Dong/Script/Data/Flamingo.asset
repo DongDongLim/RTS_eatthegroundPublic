@@ -18,7 +18,7 @@ MonoBehaviour:
   battleMode: 1
   hp: 01000000
   atk: 64000000
-  spd: 64000000
+  spd: 0a000000
   range: 64000000
   resource: 50
   createTime: 10

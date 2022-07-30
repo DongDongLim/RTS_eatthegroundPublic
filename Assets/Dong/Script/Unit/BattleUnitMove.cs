@@ -106,8 +106,8 @@ public class BattleUnitMove : UnitMove
                 float i = 0;
                 while (i <= 1)
                 {
-                    rigid.MovePosition((m_target.transform.position - transform.position).normalized * m_spd * Time.fixedDeltaTime);
-                    //rigid.AddForce((m_target.transform.position - transform.position).normalized * m_spd * 500 * Time.deltaTime, ForceMode.Force);
+                    //rigid.MovePosition((m_target.transform.position - transform.position).normalized * m_spd * Time.fixedDeltaTime);
+                    rigid.AddForce((m_target.transform.position - transform.position).normalized * m_spd * 500 * Time.deltaTime, ForceMode.Force);
                     i += Time.deltaTime * 2;
                     yield return new WaitForFixedUpdate();
                 }
