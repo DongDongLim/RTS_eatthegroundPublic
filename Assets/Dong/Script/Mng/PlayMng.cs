@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayMng : Singleton<PlayMng>
 {
+    public User user;
+
     public GameObject curSelectTown;
 
     protected override void OnAwake()
@@ -11,5 +13,8 @@ public class PlayMng : Singleton<PlayMng>
 
     }
 
+    public void SetTaget(Node taget)
+    {
 
+    }
 }
