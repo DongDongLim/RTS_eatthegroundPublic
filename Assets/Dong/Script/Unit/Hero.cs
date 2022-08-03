@@ -46,7 +46,7 @@ public class Hero : MonoBehaviour, IDamaged
             yield return new WaitForSeconds(5f);
             if (gameObject.scene.name == "Battle")
             {
-                GameMng.instance.isAttackWin = true;
+                PlayMng.instance.isAttackWin = true;
                 SceneMng.instance.SceneUnStreaming("Battle");
             }
             else
@@ -67,7 +67,7 @@ public class Hero : MonoBehaviour, IDamaged
             yield return new WaitForSeconds(5f);
             if (gameObject.scene.name == "Battle")
             {
-                GameMng.instance.isAttackWin = false;
+                PlayMng.instance.isAttackWin = false;
                 SceneMng.instance.SceneUnStreaming("Battle");
             }
             else

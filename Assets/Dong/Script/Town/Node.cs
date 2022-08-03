@@ -127,7 +127,7 @@ public class Node : MonoBehaviour
         {
             if(tag != "Enermy")
             {
-                GameMng.instance.isAttackWin = true;
+                PlayMng.instance.isAttackWin = true;
                 yield break;
             }
             SceneMng.instance.SceneStreaming("Battle");
