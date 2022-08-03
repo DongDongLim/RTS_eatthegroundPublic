@@ -21,6 +21,7 @@ public class OccupyNode : MonoBehaviour
 
     public void Init(Vector3 expos)
     {
+        Debug.Log(expos);
         _curVertex = new Node[2];
         _occupy.Init(expos, ref _nodeList, ref _curVertex);
     }
