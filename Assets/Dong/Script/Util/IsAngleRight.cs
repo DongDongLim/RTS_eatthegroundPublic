@@ -40,7 +40,10 @@ public class IsAngleRight
         Vector3[] point1to2 = new Vector3[] { point1, point2, exPos };
         Vector3[] point2to3 = new Vector3[] { point2, point3, exPos };
         Vector3[] point3to1 = new Vector3[] { point3, point1, exPos };
-        return (isThreeAngleRight(point1to2) && isThreeAngleRight(point2to3) && isThreeAngleRight(point3to1));
+        if (isThreeAngleRight(new Vector3[] { point1, point2, point3 }))
+            return (isThreeAngleRight(point1to2) && isThreeAngleRight(point2to3) && isThreeAngleRight(point3to1));
+        else
+            return !(isThreeAngleRight(point1to2) && isThreeAngleRight(point2to3) && isThreeAngleRight(point3to1));
     }
 
     // 삼각형 꼭지점 3개, 확인할 점
