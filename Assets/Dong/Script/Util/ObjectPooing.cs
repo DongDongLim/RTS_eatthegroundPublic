@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+
 /*
 // 프리팹화된 오브젝트를 생성할 오브젝트에 들어갈 코드
 public class Example : MonoBehaviour
@@ -114,17 +115,51 @@ public class ExampleObj : MonoBehaviour
 */
 public class ObjectPooing
 {
+    int poolingCnt;
+
     Queue<GameObject> poolingObj = new Queue<GameObject>();
+    Stack<Queue<GameObject>> poolingStack = new Stack<Queue<GameObject>>();
+    
 
     // 풀링 안에 남아있지 않을 때, 빼려하면 나타나는 액션
     public UnityAction OnRePooing;
 
-    // 풀링에 추가하는 용도
-    public void Push(GameObject obj)
+    // 추가 풀링 시 오브젝트 해제하는 방법을 사용할 경우
+    public IEnumerator Pooling(GameObject poolObj, GameObject parenatObj, int cnt)
     {
-        obj.SetActive(false);
-        poolingObj.Enqueue(obj);
-        
+        int coolDown = 0;
+        poolingCnt = cnt;
+        Queue<GameObject> poolingQueue = new Queue<GameObject>();
+        for (int i = 0; i < poolingCnt; ++i)
+        {
+            Push(poolingQueue, MonoBehaviour.Instantiate(poolObj, parenatObj.transform, false));
+            ++coolDown;
+            if (coolDown == 100)
+            {
+                coolDown = 0;
+                yield return null;
+            }
+        }
+        poolingStack.Push(poolingQueue);
+    }
+
+    
+
+
+
+    // 추가 풀링 시 오브젝트 해제하는 방법을 사용할 경우 풀링에 추가하는 용도
+    public void Push(Queue<GameObject> poolingQueue, GameObject pushObj)
+    {
+        pushObj.SetActive(false);
+        poolingQueue.Enqueue(pushObj);        
+    }
+
+
+    // 풀링에 추가하는 용도
+    public void Push(GameObject pushObj)
+    {
+        pushObj.SetActive(false);
+        poolingObj.Enqueue(pushObj);        
     }
 
     // 풀링에서 빼는 용도
