@@ -35,7 +35,7 @@ public class OccupyWayAllRay : Occupy
 
         _curVertex[1] = _query.SmallestAngle(curVectex2, _targetNode, _curVertex[0]);
 
-        if (_isRight.isPointInTriangle(_curVertex[1].pos, _curVertex[0].pos, _targetNode.pos, _exPos))
+        if (!_isRight.isPointInTriangleVer2(_curVertex[1].pos, _curVertex[0].pos, _targetNode.pos, _exPos))
         {
             //NotOccupyabase();
             yield return false;
