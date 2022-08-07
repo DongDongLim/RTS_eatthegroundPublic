@@ -155,6 +155,7 @@ public class ObjectPooling
         }
     }
 
+    // 풀링 생성
     public void PoolingObj(GameObject poolObj, Transform parantsTransform, int poolCnt)
     {
         poolList.AddLast(new Pooling(this));
@@ -165,6 +166,7 @@ public class ObjectPooling
         }
     }
 
+    // 풀링 집어넣기
     public void PushObj(GameObject obj)
     {
          for(int i = 0; i < poolList.Count; ++i)
@@ -177,6 +179,8 @@ public class ObjectPooling
             poolList.RemoveFirst();
         }
     }
+
+    // 풀링 꺼내기
     public GameObject PopObj(Vector3 pos = new Vector3(), Vector3 rotate = new Vector3())
     {
         GameObject obj = poolList.Last.Value.Pop(pos, rotate);
@@ -188,5 +192,10 @@ public class ObjectPooling
         return obj;
     }
 
+    // 지우기
+    public void DestroyPooling()
+    {
+        poolList.Clear();
+    }
 
 }
