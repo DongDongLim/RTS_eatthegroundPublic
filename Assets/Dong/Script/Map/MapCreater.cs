@@ -17,7 +17,7 @@ public class MapCreater : MonoBehaviour
 
     Dictionary<int, GameObject>[] popList;
 
-    ObjectPooing pooling = new ObjectPooing();
+    ObjectPooling pooling = new ObjectPooling();
 
 
     [SerializeField]
@@ -49,22 +49,7 @@ public class MapCreater : MonoBehaviour
 
     void PooingObj()
     {
-        StartCoroutine(PooingCor());
-    }
-
-    IEnumerator PooingCor()
-    {
-        int coolDown = 0;
-        for (int i = 0; i < poolingCount; ++i)
-        {
-            pooling.Push(Instantiate(Town, Map.transform, false));
-            ++coolDown;
-            if (coolDown == 100)
-            {
-                coolDown = 0;
-                yield return null;
-            }
-        }
+        pooling.PoolingObj(Town, Map.transform, poolingCount);
     }
 
     public GameObject CreateObj(Vector3 pos, int direction, AwnerType type)
@@ -73,16 +58,16 @@ public class MapCreater : MonoBehaviour
         switch (direction)
         {
             case 0:
-                obj = pooling.Pop(pos);
+                obj = pooling.PopObj(pos);
                 break;
             case 1:
-                obj = pooling.Pop(new Vector3(pos.x, 0, -pos.z));
+                obj = pooling.PopObj(new Vector3(pos.x, 0, -pos.z));
                 break;
             case 2:
-                obj = pooling.Pop(-pos);
+                obj = pooling.PopObj(-pos);
                 break;
             case 3:
-                obj = pooling.Pop(new Vector3(-pos.x, 0, pos.z));
+                obj = pooling.PopObj(new Vector3(-pos.x, 0, pos.z));
                 break;
             default:
                 return null;

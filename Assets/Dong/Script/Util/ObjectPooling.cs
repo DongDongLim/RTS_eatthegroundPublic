@@ -15,7 +15,7 @@ public class Example : MonoBehaviour
     List<GameObject> popList = new List<GameObject>();
 
     // 풀링을 시켜줄 스크립트
-    ObjectPooing pooling = new ObjectPooing();
+    ObjectPooling pooling = new ObjectPooling();
 
     // 첫 풀링시 소환할 개수
     int poolingCount = 10;
@@ -113,68 +113,80 @@ public class ExampleObj : MonoBehaviour
     }
 }
 */
-public class ObjectPooing
+
+public class ObjectPooling
 {
-    int poolingCnt;
-
-    Queue<GameObject> poolingObj = new Queue<GameObject>();
-    Stack<Queue<GameObject>> poolingStack = new Stack<Queue<GameObject>>();
-    
-
     // 풀링 안에 남아있지 않을 때, 빼려하면 나타나는 액션
     public UnityAction OnRePooing;
 
-    // 추가 풀링 시 오브젝트 해제하는 방법을 사용할 경우
-    public IEnumerator Pooling(GameObject poolObj, GameObject parenatObj, int cnt)
+    LinkedList<Pooling> poolList = new LinkedList<Pooling>();
+    int poolCount;
+
+    class Pooling
     {
-        int coolDown = 0;
-        poolingCnt = cnt;
-        Queue<GameObject> poolingQueue = new Queue<GameObject>();
-        for (int i = 0; i < poolingCnt; ++i)
+        ObjectPooling pooling;
+        public Queue<GameObject> poolingObj = new Queue<GameObject>();
+
+        public Pooling(ObjectPooling pooling)
         {
-            Push(poolingQueue, MonoBehaviour.Instantiate(poolObj, parenatObj.transform, false));
-            ++coolDown;
-            if (coolDown == 100)
-            {
-                coolDown = 0;
-                yield return null;
-            }
+            this.pooling = pooling;
         }
-        poolingStack.Push(poolingQueue);
+        // 풀링에 추가하는 용도
+        public void Push(GameObject pushObj)
+        {
+            pushObj.SetActive(false);
+            poolingObj.Enqueue(pushObj);
+        }
+
+        // 풀링에서 빼는 용도
+        public GameObject Pop(Vector3 pos, Vector3 rotate)
+        {
+            if (0 == poolingObj.Count)
+            {
+                return null;
+            }
+
+            GameObject obj = poolingObj.Dequeue();
+            if (Vector3.zero == pos)
+                pos = obj.transform.position;
+            obj.transform.position = pos;
+            obj.transform.rotation = Quaternion.Euler(rotate);
+            return obj;
+        }
     }
 
-    
-
-
-
-    // 추가 풀링 시 오브젝트 해제하는 방법을 사용할 경우 풀링에 추가하는 용도
-    public void Push(Queue<GameObject> poolingQueue, GameObject pushObj)
+    public void PoolingObj(GameObject poolObj, Transform parantsTransform, int poolCnt)
     {
-        pushObj.SetActive(false);
-        poolingQueue.Enqueue(pushObj);        
+        poolList.AddLast(new Pooling(this));
+        poolCount = poolCnt;
+        for (int i = 0; i < poolCount; ++i)
+        {
+            poolList.Last.Value.Push(Object.Instantiate(poolObj, parantsTransform, false));
+        }
     }
 
-
-    // 풀링에 추가하는 용도
-    public void Push(GameObject pushObj)
+    public void PushObj(GameObject obj)
     {
-        pushObj.SetActive(false);
-        poolingObj.Enqueue(pushObj);        
+         for(int i = 0; i < poolList.Count; ++i)
+        {
+            if (poolList.First.Value.poolingObj.Count < poolCount)
+            {
+                poolList.First.Value.Push(obj);
+                break;
+            }
+            poolList.RemoveFirst();
+        }
     }
-
-    // 풀링에서 빼는 용도
-    public GameObject Pop(Vector3 pos = new Vector3(), Vector3 rotate = new Vector3())
+    public GameObject PopObj(Vector3 pos = new Vector3(), Vector3 rotate = new Vector3())
     {
-        if(0 == poolingObj.Count)
+        GameObject obj = poolList.Last.Value.Pop(pos, rotate);
+        if (obj == null)
         {
             OnRePooing?.Invoke();
+            return PopObj(pos, rotate);
         }
-        GameObject obj = poolingObj.Dequeue();
-        if (Vector3.zero == pos)
-            pos = obj.transform.position;
-        obj.transform.position = pos;
-        obj.transform.rotation = Quaternion.Euler(rotate);
         return obj;
     }
+
 
 }
