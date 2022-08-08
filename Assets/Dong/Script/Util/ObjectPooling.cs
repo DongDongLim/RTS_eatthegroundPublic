@@ -124,13 +124,8 @@ public class ObjectPooling
 
     class Pooling
     {
-        ObjectPooling pooling;
-        public Queue<GameObject> poolingObj = new Queue<GameObject>();
+        Queue<GameObject> poolingObj = new Queue<GameObject>();
 
-        public Pooling(ObjectPooling pooling)
-        {
-            this.pooling = pooling;
-        }
         // 풀링에 추가하는 용도
         public void Push(GameObject pushObj)
         {
@@ -153,12 +148,18 @@ public class ObjectPooling
             obj.transform.rotation = Quaternion.Euler(rotate);
             return obj;
         }
+
+        // 풀링이 가득 찼는지 체크(남는 메모리)
+        public bool IsPoolingFull(int max)
+        {
+            return poolingObj.Count < max;
+        }
     }
 
     // 풀링 생성
     public void PoolingObj(GameObject poolObj, Transform parantsTransform, int poolCnt)
     {
-        poolList.AddLast(new Pooling(this));
+        poolList.AddLast(new Pooling());
         poolCount = poolCnt;
         for (int i = 0; i < poolCount; ++i)
         {
@@ -171,7 +172,7 @@ public class ObjectPooling
     {
          for(int i = 0; i < poolList.Count; ++i)
         {
-            if (poolList.First.Value.poolingObj.Count < poolCount)
+            if (poolList.First.Value.IsPoolingFull(poolCount))
             {
                 poolList.First.Value.Push(obj);
                 break;
