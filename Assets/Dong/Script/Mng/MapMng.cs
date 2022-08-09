@@ -260,7 +260,7 @@ public class MapMng : SingletonMini<MapMng>
     {
         for (int i = 0; i < poolingCount; ++i)
         {
-            pooling.Push(Instantiate(Town, Map.transform, false));
+            pooling.PushObj(Instantiate(Town, Map.transform, false));
         }
     }        
     public GameObject CreateObj(Vector3 pos, int direction)
@@ -269,16 +269,16 @@ public class MapMng : SingletonMini<MapMng>
         switch (direction)
         {
             case 0:
-                obj = pooling.Pop(pos);
+                obj = pooling.PopObj(pos);
                 break;
             case 1:
-                obj = pooling.Pop(new Vector3(pos.x, 0, -pos.z));
+                obj = pooling.PopObj(new Vector3(pos.x, 0, -pos.z));
                 break;
             case 2:
-                obj = pooling.Pop(new Vector3(-pos.x, 0, pos.z));
+                obj = pooling.PopObj(new Vector3(-pos.x, 0, pos.z));
                 break;
             case 3:
-                obj = pooling.Pop(-pos);
+                obj = pooling.PopObj(-pos);
                 break;
             default:
                 return null;
@@ -289,7 +289,7 @@ public class MapMng : SingletonMini<MapMng>
 
     public void RemoveObj(GameObject obj)
     {
-        pooling.Push(obj);
+        pooling.PushObj(obj);
         popList.Remove(obj);
     }
 

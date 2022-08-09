@@ -114,32 +114,95 @@ public class ExampleObj : MonoBehaviour
 */
 public class ObjectPooing
 {
-    Queue<GameObject> poolingObj = new Queue<GameObject>();
-
     // 풀링 안에 남아있지 않을 때, 빼려하면 나타나는 액션
     public UnityAction OnRePooing;
 
-    // 풀링에 추가하는 용도
-    public void Push(GameObject obj)
+    LinkedList<Pooling> poolList = new LinkedList<Pooling>();
+    int poolCount;
+
+    class Pooling
     {
-        obj.SetActive(false);
-        poolingObj.Enqueue(obj);
-        
+        Queue<GameObject> poolingObj = new Queue<GameObject>();
+
+        // 풀링에 추가하는 용도
+        public void Push(GameObject pushObj)
+        {
+            pushObj.SetActive(false);
+            poolingObj.Enqueue(pushObj);
+        }
+
+        // 풀링에서 빼는 용도
+        public GameObject Pop(Vector3 pos, Vector3 rotate)
+        {
+            if (0 == poolingObj.Count)
+            {
+                return null;
+            }
+
+            GameObject obj = poolingObj.Dequeue();
+            if (Vector3.zero == pos)
+                pos = obj.transform.position;
+            obj.transform.position = pos;
+            obj.transform.rotation = Quaternion.Euler(rotate);
+            return obj;
+        }
+
+        // 풀링이 가득 찼는지 체크(남는 메모리)
+        public bool IsPoolingFull(int max)
+        {
+            return poolingObj.Count < max;
+        }
+
+        public void DestroyPool()
+        {
+            for (int i = 0; i < poolingObj.Count;)
+            {
+                Object.Destroy(poolingObj.Dequeue());
+            }
+        }
     }
 
-    // 풀링에서 빼는 용도
-    public GameObject Pop(Vector3 pos = new Vector3(), Vector3 rotate = new Vector3())
+    // 풀링 생성
+    public void PoolingObj(GameObject poolObj, Transform parantsTransform, int poolCnt)
     {
-        if(0 == poolingObj.Count)
+        poolList.AddLast(new Pooling());
+        poolCount = poolCnt;
+        for (int i = 0; i < poolCount; ++i)
+        {
+            poolList.Last.Value.Push(Object.Instantiate(poolObj, parantsTransform, false));
+        }
+    }
+
+    // 풀링 집어넣기
+    public void PushObj(GameObject obj)
+    {
+        for (int i = 0; i < poolList.Count;)
+        {
+            if (poolList.First.Value.IsPoolingFull(poolCount) || (i == poolList.Count - 1))
+            {
+                poolList.First.Value.Push(obj);
+                break;
+            }
+            poolList.First.Value.DestroyPool();
+            poolList.RemoveFirst();
+        }
+    }
+
+    // 풀링 꺼내기
+    public GameObject PopObj(Vector3 pos = new Vector3(), Vector3 rotate = new Vector3())
+    {
+        GameObject obj = poolList.Last.Value.Pop(pos, rotate);
+        if (obj == null)
         {
             OnRePooing?.Invoke();
+            return PopObj(pos, rotate);
         }
-        GameObject obj = poolingObj.Dequeue();
-        if (Vector3.zero == pos)
-            pos = obj.transform.position;
-        obj.transform.position = pos;
-        obj.transform.rotation = Quaternion.Euler(rotate);
         return obj;
     }
 
+    // 지우기
+    public void DestroyPooling()
+    {
+        poolList.Clear();
+    }
 }
