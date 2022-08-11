@@ -118,6 +118,7 @@ public class ObjectPooing
     public UnityAction OnRePooing;
 
     LinkedList<Pooling> poolList = new LinkedList<Pooling>();
+    Stack<Pooling> poolTempStack = new Stack<Pooling>();
     int poolCount;
 
     class Pooling
@@ -165,26 +166,35 @@ public class ObjectPooing
     // 풀링 생성
     public void PoolingObj(GameObject poolObj, Transform parantsTransform, int poolCnt)
     {
-        poolList.AddLast(new Pooling());
+        //poolList.AddLast(new Pooling());
+        poolTempStack.Push(new Pooling());
         poolCount = poolCnt;
         for (int i = 0; i < poolCount; ++i)
         {
-            poolList.Last.Value.Push(Object.Instantiate(poolObj, parantsTransform, false));
+            poolTempStack.Peek().Push(Object.Instantiate(poolObj, parantsTransform, false));
+            //poolList.Last.Value.Push(Object.Instantiate(poolObj, parantsTransform, false));
         }
     }
 
     // 풀링 집어넣기
     public void PushObj(GameObject obj)
     {
-        for (int i = 0; i < poolList.Count;)
+        poolList.First.Value.Push(obj);
+        if(poolList.First.Value.IsPoolingFull(poolCount))
+
+            for (int i = 0; i < poolList.Count;)
         {
             if (poolList.First.Value.IsPoolingFull(poolCount) || (i == poolList.Count - 1))
             {
                 poolList.First.Value.Push(obj);
                 break;
             }
-            poolList.First.Value.DestroyPool();
+            poolTempStack.Push(poolList.First.Value);
             poolList.RemoveFirst();
+        }
+        if(poolTempStack.Count == 2)
+        {
+            poolTempStack.Pop().DestroyPool();
         }
     }
 
@@ -203,6 +213,10 @@ public class ObjectPooing
     // 지우기
     public void DestroyPooling()
     {
-        poolList.Clear();
+        for (int i = 0; i < poolList.Count;)
+        {
+            poolList.First.Value.DestroyPool();
+            poolList.RemoveFirst();
+        }
     }
 }
